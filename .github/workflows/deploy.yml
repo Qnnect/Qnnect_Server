@@ -58,7 +58,7 @@ jobs:
         aws s3 cp \
         --region ap-northeast-2 \
         --acl private \
-        ./qnnect-build.zip s3://dev-qnnect-api-build/
+        ./qnnect-build.zip s3://prod-qnnect-api-build/
         
         
     # Deploy
@@ -69,7 +69,7 @@ jobs:
       run: |
         aws deploy create-deployment \
         --application-name qnnect-service \
-        --deployment-group-name dev-qnnect-service \
+        --deployment-group-name prod-deploy-group \
         --file-exists-behavior OVERWRITE \
-        --s3-location bucket=dev-qnnect-api-build,bundleType=zip,key=qnnect-build.zip \
+        --s3-location bucket=prod-qnnect-api-build,bundleType=zip,key=qnnect-build.zip \
         --region ap-northeast-2
