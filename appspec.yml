@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ec2-user/app/deploy
+    destination: /home/ec2-user/app/step3/zip
 
 permissions:
   - object: /
@@ -12,6 +12,18 @@ permissions:
 
 hooks:
   AfterInstall:
-    - location: deploy.sh
+    - location: stop.sh
       timeout: 60
       runas: ec2-user
+ 
+  ApplicationStart:
+    - location: start.sh
+    
+      timeout: 60
+      runas: ec2-user
+      
+  ValidateService:
+    - location: health.sh
+      timeout: 60
+      runas: ec2-user
+ 
