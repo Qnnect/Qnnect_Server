@@ -1,5 +1,6 @@
 package com.qnnect.diary.domain;
 
+import com.qnnect.drink.domain.Drinks;
 import com.qnnect.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,6 @@ public class DiaryUser {
     private Diary diary;
 
     @ManyToOne
-    @JoinColumn(name = "drink_id")
-    private Drink drink;
+    @JoinColumn(name = "drinks_id")
+    private Drinks drink;
 }
