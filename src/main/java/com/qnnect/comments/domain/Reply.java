@@ -10,10 +10,9 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Comments {
-
+public class Reply {
     @Id
-    @Column(name = "comment_id")
+    @Column(name = "reply_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -22,7 +21,6 @@ public class Comments {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="diary_question")
-    private DiaryQuestion diaryQuestion;
-
+    @JoinColumn(name="reply_question")
+    private Comments comment;
 }
