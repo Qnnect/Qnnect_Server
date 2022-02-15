@@ -1,7 +1,5 @@
 package com.qnnect.drink.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.qnnect.ingredients.domain.Ingredients;
 import com.qnnect.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,10 +9,10 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class UserDrinkIngredientsFilled {
+public class UserDrinkSelected {
 
     @Id
-    @Column(name = "userdrink_id")
+    @Column(name = "user_drink_selected_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -25,8 +23,4 @@ public class UserDrinkIngredientsFilled {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "ingredient_id")
-    private Ingredients ingredients;
 }
