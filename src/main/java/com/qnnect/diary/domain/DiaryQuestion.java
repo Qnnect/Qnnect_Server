@@ -1,11 +1,14 @@
 package com.qnnect.diary.domain;
 
+import com.qnnect.comments.domain.Comments;
 import com.qnnect.questions.domain.Questions;
 import com.qnnect.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -24,4 +27,7 @@ public class DiaryQuestion {
     @ManyToOne
     @JoinColumn(name="question_id")
     private Questions questions;
+
+    @OneToMany(mappedBy = "diaryQuestion")
+    private List<Comments> comments = new ArrayList<>();
 }
