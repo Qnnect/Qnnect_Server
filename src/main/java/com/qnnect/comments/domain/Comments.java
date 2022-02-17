@@ -28,5 +28,5 @@ public class Comments {
     private DiaryQuestion diaryQuestion;
 
     @OneToMany(mappedBy = "comment")
-    private List<Comments> commentsList = new ArrayList<>();
+    private List<Reply> replies = new ArrayList<>();
 }
