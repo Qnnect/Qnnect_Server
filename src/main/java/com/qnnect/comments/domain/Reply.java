@@ -16,6 +16,9 @@ public class Reply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
+    private String content;
+
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;

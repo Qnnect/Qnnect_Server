@@ -26,7 +26,7 @@ public class DiaryUser {
     @JoinColumn(name = "diary_id")
     private Diary diary;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_drink_selected_id")
     private UserDrinkSelected userDrinkSelected;
 }
