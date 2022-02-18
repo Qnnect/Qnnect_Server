@@ -1,4 +1,4 @@
-package com.qnnect.scrap;
+package com.qnnect.scrap.domain;
 
 import com.qnnect.questions.domain.EQuestionerType;
 import com.qnnect.questions.domain.Questions;
@@ -16,8 +16,6 @@ public class Scraps {
     @Column(name = "scrap_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String folderName;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
