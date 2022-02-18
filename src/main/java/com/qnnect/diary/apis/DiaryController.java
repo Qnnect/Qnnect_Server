@@ -3,18 +3,21 @@ package com.qnnect.diary.apis;
 import com.qnnect.diary.domain.EQuestionCycle;
 import com.qnnect.diary.dtos.DiaryCreateRequest;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
+
 
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
+@Api(tags = {"다이어리 관련 API"})
 public class DiaryController {
 
     @PostMapping("/diaries")
+    @ApiOperation(value = "다이어리 생성 api")
     public ResponseEntity<Void> createDiary(@RequestBody DiaryCreateRequest diaryCreateRequest){
         return ResponseEntity.ok().build();
     }
