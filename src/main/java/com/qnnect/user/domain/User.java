@@ -3,7 +3,6 @@ package com.qnnect.user.domain;
 import com.qnnect.drink.domain.UserDrinkSelected;
 import com.qnnect.ingredients.domain.UserIngredients;
 import com.qnnect.questions.domain.QuestionUserMade;
-import com.qnnect.scrap.Scraps;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -50,7 +49,4 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<QuestionUserMade> questionUserMadeList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<Scraps> scrapsList = new ArrayList<>();
 }

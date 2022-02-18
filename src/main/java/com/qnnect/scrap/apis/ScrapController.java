@@ -38,8 +38,4 @@ public class ScrapController {
         return ResponseEntity.ok(scrapResponseList);
     }
 
-
-
-
-
 }
