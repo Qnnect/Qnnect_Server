@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -23,4 +25,9 @@ public class UserDrinkSelected {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "userDrinkSelected")
+    private List<DrinkIngredientsFilled> drinkIngredientsFilled = new ArrayList<>();
+
+
 }

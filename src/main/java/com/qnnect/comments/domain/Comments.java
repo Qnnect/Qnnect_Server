@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -25,4 +27,6 @@ public class Comments {
     @JoinColumn(name="diary_question")
     private DiaryQuestion diaryQuestion;
 
+    @OneToMany(mappedBy = "comment")
+    private List<Reply> replies = new ArrayList<>();
 }

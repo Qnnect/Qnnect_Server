@@ -1,5 +1,9 @@
 package com.qnnect.user.domain;
 
+import com.qnnect.drink.domain.UserDrinkSelected;
+import com.qnnect.ingredients.domain.UserIngredients;
+import com.qnnect.questions.domain.QuestionUserMade;
+import com.qnnect.scrap.Scraps;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +12,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -36,4 +41,16 @@ public class User {
 
     @Column()
     private ERole role;
+
+    @OneToMany(mappedBy="user")
+    private List<UserDrinkSelected> userDrinkSelectedList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<UserIngredients> userIngredientsList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<QuestionUserMade> questionUserMadeList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Scraps> scrapsList = new ArrayList<>();
 }

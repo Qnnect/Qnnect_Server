@@ -5,8 +5,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 
-@Getter
-@NoArgsConstructor
-@Entity
-public class UserRefreshToken {
-}
+//@Getter
+//@NoArgsConstructor
+//@Entity
+//public class UserRefreshToken {
+//}
