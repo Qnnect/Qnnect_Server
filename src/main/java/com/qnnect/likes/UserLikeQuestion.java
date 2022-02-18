@@ -1,5 +1,6 @@
-package com.qnnect.comments.domain;
+package com.qnnect.likes;
 
+import com.qnnect.questions.domain.Questions;
 import com.qnnect.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,20 +10,18 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Reply {
+public class UserLikeQuestion {
+
     @Id
-    @Column(name = "reply_id")
+    @Column(name = "like_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String content;
-
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="reply_question")
-    private Comments comment;
+    @JoinColumn(name = "question_id")
+    private Questions questions;
 }
