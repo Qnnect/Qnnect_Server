@@ -52,24 +52,24 @@ jobs:
     # S3 Bucket으로 copy
     - name: Deliver to AWS S3
       env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.DEV_AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
       run: |
         aws s3 cp \
         --region ap-northeast-2 \
         --acl private \
-        ./qnnect-build.zip s3://prod-qnnect-api-build/
+        ./qnnect-build.zip s3://dev-qnnect-build/
         
         
     # Deploy
     - name: Deploy
       env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.DEV_AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
       run: |
         aws deploy create-deployment \
         --application-name qnnect-service \
-        --deployment-group-name prod-deploy-group \
+        --deployment-group-name dev-qnnect-service \
         --file-exists-behavior OVERWRITE \
-        --s3-location bucket=prod-qnnect-api-build,bundleType=zip,key=qnnect-build.zip \
+        --s3-location bucket=dev-qnnect-build,bundleType=zip,key=qnnect-build.zip \
         --region ap-northeast-2
