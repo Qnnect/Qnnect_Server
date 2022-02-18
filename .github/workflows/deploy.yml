@@ -68,8 +68,8 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
       run: |
         aws deploy create-deployment \
-        --application-name qnnect-service \
-        --deployment-group-name dev-qnnect-service \
+        --application-name dev-qnnect-service \
+        --deployment-group-name dev-qnnect-service-group \
         --file-exists-behavior OVERWRITE \
         --s3-location bucket=dev-qnnect-build,bundleType=zip,key=qnnect-build.zip \
         --region ap-northeast-2
