@@ -21,21 +21,22 @@ public class DiaryController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/diaries/{diaryId}/drinks")
-    public ResponseEntity<Void> addDrink(@RequestParam String Drink, @PathVariable Long diaryId){
-        return ResponseEntity.ok().build();
-    }
 
+
+    @ApiOperation(value = "제목 업데이트 api")
     @PatchMapping("/diaries/{diaryId}/title")
     public ResponseEntity<Void> updateTitle(@RequestParam String title){
         return ResponseEntity.ok().build();
     }
 
+
+    @ApiOperation(value = "질문 주기 api")
     @PatchMapping("/diaries/{diaryId}/question-cycle")
     public ResponseEntity<Void> updateQuestionCycle(@RequestParam EQuestionCycle questionCycle){
         return ResponseEntity.ok().build();
     }
 
+    @ApiOperation(value = "다이어리 삭제 api")
     @DeleteMapping("/diaries/{diaryId}")
     public ResponseEntity<Void> deleteDiary(@PathVariable Long diaryId){
         return ResponseEntity.noContent().build();
