@@ -25,7 +25,7 @@ public class DiaryDrinkController {
     }
 
     @ApiOperation(value = "다이어리 음료 보기 api")
-    @PostMapping("/diaries/{diaryId}/drinks")
+    @GetMapping("/diaries/{diaryId}/drinks")
     public ResponseEntity<List<DiaryMemberDrinks>> getDrink(@PathVariable Long diaryId){
         List<DiaryMemberDrinks> diaryMemberDrinksList = new ArrayList<>();
         return ResponseEntity.ok(diaryMemberDrinksList);
