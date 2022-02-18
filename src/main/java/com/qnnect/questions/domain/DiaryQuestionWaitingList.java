@@ -1,7 +1,6 @@
 package com.qnnect.questions.domain;
 
 import com.qnnect.diary.domain.Diary;
-import com.qnnect.questions.domain.Questions;
 import com.qnnect.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

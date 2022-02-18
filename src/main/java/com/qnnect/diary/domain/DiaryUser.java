@@ -1,6 +1,5 @@
 package com.qnnect.diary.domain;
 
-import com.qnnect.drink.domain.DrinkIngredientsFilled;
 import com.qnnect.drink.domain.UserDrinkSelected;
 import com.qnnect.user.domain.User;
 import lombok.Getter;

@@ -1,6 +1,5 @@
 package com.qnnect.comments.dtos;
 
-import com.qnnect.comments.domain.Reply;
 import com.qnnect.user.domain.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

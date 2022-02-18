@@ -1,6 +1,5 @@
 package com.qnnect.scrap.domain;
 
-import com.qnnect.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

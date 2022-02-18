@@ -1,6 +1,5 @@
 package com.qnnect.scrap.domain;
 
-import com.qnnect.questions.domain.EQuestionerType;
 import com.qnnect.questions.domain.Questions;
 import com.qnnect.user.domain.User;
 import lombok.Getter;

@@ -1,6 +1,5 @@
 package com.qnnect.questions.domain;
 
-import com.qnnect.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
