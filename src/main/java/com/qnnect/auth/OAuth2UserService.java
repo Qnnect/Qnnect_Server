@@ -23,18 +23,18 @@ public class OAuth2UserService {
     private final RefreshTokenRepository refreshTokenRepository;
     private RefreshToken refreshToken;
 
-    public AuthResponse signUpOrLogIn(String oauthToken, ELoginType loginType){
+    public AuthResponse signUpOrLogIn(String oauthToken, ELoginType loginType) {
         System.out.println("signing up ");
         User user;
-        if(loginType == ELoginType.kakao){
+        if (loginType == ELoginType.kakao) {
             user = getKakaoProfile(oauthToken);
-        }else{
+        } else {
             user = getKakaoProfile(oauthToken);
         }
         Token token = tokenService.generateToken(user.getSocialId(), "USER");
         boolean isNewMember = false;
 
-        if(userRepository.findBySocialId(user.getSocialId()).equals(Optional.empty())){
+        if (userRepository.findBySocialId(user.getSocialId()).equals(Optional.empty())) {
             log.debug("saving user");
             userRepository.save(user);
             refreshToken = RefreshToken.builder()
@@ -43,12 +43,12 @@ public class OAuth2UserService {
                     .build();
             refreshTokenRepository.save(refreshToken);
             isNewMember = true;
-        }else{
+        } else {
             log.debug("user exists");
             Optional<RefreshToken> oldRefreshToken = refreshTokenRepository.findByKey(user.getSocialId());
-            if(!oldRefreshToken.equals(Optional.empty())){
+            if (!oldRefreshToken.equals(Optional.empty())) {
                 refreshToken.updateValue(token.getRefreshToken());
-            }else{
+            } else {
                 refreshToken = RefreshToken.builder()
                         .key(user.getSocialId())
                         .value(token.getRefreshToken())
@@ -57,7 +57,7 @@ public class OAuth2UserService {
             }
 
         }
-        
+
         //token return 시키기
         return AuthResponse.builder()
                 .isNewMember(isNewMember)

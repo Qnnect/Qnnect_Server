@@ -1,12 +1,16 @@
 package com.qnnect.user.api;
 
+import com.qnnect.common.CurrentUser;
+import com.qnnect.user.domain.User;
 import com.qnnect.user.dtos.ProfileUpdateRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 
 
 @RestController
@@ -15,17 +19,27 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = {"사용자 API 정보를 제공"})
 public class UserController {
 
-//    @ApiOperation(value = "사용자 생성")
-//    @PostMapping("/user/{accessToken}")
-//    public ResponseEntity<TokenResponse> createUser(@PathVariable String accessToken, ELoginType loginType){
-//        TokenResponse tokenResponse = new TokenResponse();
-//        return ResponseEntity.ok(tokenResponse);
+    @ApiOperation(value = "프로필 설정")
+    @PatchMapping("/user/profile")
+    public ResponseEntity<Void> updateProfile(@RequestParam String nickName){
+
+        return ResponseEntity.ok().build();
+    }
+
+//    @RequestMapping(path = "/files", method = RequestMethod.POST,
+//            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+//    public @ResponseBody ResponseEntity<String> add(
+//            @RequestParam("file") MultipartFile file,
+//            @RequestParam("name") String name, @RequestParam("brand") String brand) {
+//        System.out.println(file.getOriginalFilename() + "\n" + name + "\n" + brand);
+//        return new ResponseEntity<>("Created", HttpStatus.OK);
 //    }
 
-    @ApiOperation(value = "프로필 닉네임 설정")
-    @PatchMapping("/user/nickname")
-    public ResponseEntity<Void> updateNickname(@RequestParam String nickName){
-        return ResponseEntity.ok().build();
+    @ApiOperation(value = "Test")
+    @GetMapping("/user")
+    public ResponseEntity<String> getUser(@CurrentUser User user){
+        String name = user.getSocialId();
+        return ResponseEntity.ok(name);
     }
 
     @ApiOperation(value = "알림 설정")
