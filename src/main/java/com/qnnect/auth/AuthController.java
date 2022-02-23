@@ -1,5 +1,6 @@
 package com.qnnect.auth;
 
+import com.qnnect.auth.dto.AuthRequest;
 import com.qnnect.auth.dto.AuthResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,10 +20,9 @@ public class AuthController {
 
     @ApiOperation(value = "로그인 및 회원가입 api")
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> getTokens(@RequestParam String accessToken, @RequestParam ELoginType loginType){
-        System.out.println("pleases");
-        log.debug("getToken called");
-        AuthResponse authResponse = oAuth2UserService.signUpOrLogIn(accessToken, loginType);
+    public ResponseEntity<AuthResponse> getTokens(@RequestBody AuthRequest authRequest){
+        AuthResponse authResponse = oAuth2UserService.
+                signUpOrLogIn(authRequest);
         return ResponseEntity.ok(authResponse);
     }
 

@@ -1,6 +1,7 @@
 package com.qnnect.auth;
 
 import com.qnnect.auth.client.ClientKakao;
+import com.qnnect.auth.dto.AuthRequest;
 import com.qnnect.auth.token.*;
 import com.qnnect.auth.dto.AuthResponse;
 import com.qnnect.user.domain.User;
@@ -23,13 +24,13 @@ public class OAuth2UserService {
     private final RefreshTokenRepository refreshTokenRepository;
     private RefreshToken refreshToken;
 
-    public AuthResponse signUpOrLogIn(String oauthToken, ELoginType loginType) {
+    public AuthResponse signUpOrLogIn(AuthRequest authRequest) {
         System.out.println("signing up ");
         User user;
-        if (loginType == ELoginType.kakao) {
-            user = getKakaoProfile(oauthToken);
+        if (authRequest.getLoginType() == ELoginType.kakao) {
+            user = getKakaoProfile(authRequest.getAccessToken());
         } else {
-            user = getKakaoProfile(oauthToken);
+            user = getKakaoProfile(authRequest.getAccessToken());
         }
         Token token = tokenService.generateToken(user.getSocialId(), "USER");
         boolean isNewMember = false;
@@ -63,6 +64,7 @@ public class OAuth2UserService {
                 .isNewMember(isNewMember)
                 .accessToken(token.getAccessToken())
                 .refreshToken(token.getRefreshToken())
+                .userSettingDone(false)
                 .build();
     }
 
