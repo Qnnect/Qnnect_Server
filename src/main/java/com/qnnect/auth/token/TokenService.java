@@ -4,18 +4,12 @@ import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.Arrays;
 import java.util.Base64;
-import java.util.Collection;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -51,6 +45,34 @@ public class TokenService {
                         .compact());
     }
 
+    public String generateAccessToken(String uid, String role) {
+        long tokenPeriod = 1000L * 60L * 10L;
+
+        Claims claims = Jwts.claims().setSubject(uid);
+        claims.put("role", role);
+
+        Date now = new Date();
+
+        return Jwts.builder()
+                        .setClaims(claims)
+                        .setIssuedAt(now)
+                        .setExpiration(new Date(now.getTime() + tokenPeriod))
+                        .signWith(SignatureAlgorithm.HS256, secretKey)
+                        .compact();
+    }
+
+    public long verifyRefreshToken(String token){
+        try{
+            Jws<Claims> claims = Jwts.parser()
+                    .setSigningKey(secretKey)
+                    .parseClaimsJws(token);
+            return claims.getBody()
+                    .getExpiration().getTime();
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
     public boolean verifyToken(String token) {
         try {
             Jws<Claims> claims = Jwts.parser()
@@ -74,22 +96,26 @@ public class TokenService {
         if (claims.get(AUTHORITIES_KEY) == null) {
             throw new RuntimeException("권한 정보가 없는 토큰입니다.");
         }
-
-//        Collection<? extends GrantedAuthority> authorities =
-//                Arrays.stream(new String[]{claims.get(AUTHORITIES_KEY).toString()})
-//                        .map(SimpleGrantedAuthority::new)
-//                        .collect(Collectors.toList());
-
         final String socialId = claims.getSubject();
         final CurrentUserDetails currentUserDetails = (CurrentUserDetails) userDetailsService.loadUserByUsername(socialId);
 
-//        User principal = new User(claims.getSubject(), "", authorities);
         return new UsernamePasswordAuthenticationToken(currentUserDetails, "", currentUserDetails.getAuthorities());
+    }
+
+    public String getSocialId(String accessToken) {
+        Claims claims = parseClaims(accessToken);
+
+        if (claims.get(AUTHORITIES_KEY) == null) {
+            throw new RuntimeException("권한 정보가 없는 토큰입니다.");
+        }
+        final String socialId = claims.getSubject();
+        final CurrentUserDetails currentUserDetails = (CurrentUserDetails) userDetailsService.loadUserByUsername(socialId);
+
+        return socialId;
     }
 
     private Claims parseClaims(String accessToken) {
         try {
-            System.out.println(accessToken);
             return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(accessToken).getBody();
         } catch (ExpiredJwtException e) {
             return e.getClaims();
