@@ -1,6 +1,7 @@
 package com.qnnect.user.api;
 
 import com.qnnect.common.CurrentUser;
+import com.qnnect.user.Service.UserService;
 import com.qnnect.user.domain.User;
 import com.qnnect.user.dtos.ProfileUpdateRequest;
 import io.swagger.annotations.Api;
@@ -18,6 +19,7 @@ import java.security.Principal;
 @RequiredArgsConstructor
 @Api(tags = {"사용자 API 정보를 제공"})
 public class UserController {
+    private final UserService userService;
 
     @ApiOperation(value = "프로필 설정")
     @PatchMapping("/user/profile")
@@ -44,7 +46,8 @@ public class UserController {
 
     @ApiOperation(value = "알림 설정")
     @PatchMapping("/user/enablenotification")
-    public ResponseEntity<Void> enableNotification (@RequestParam String nickName){
+    public ResponseEntity<Void> enableNotification (@CurrentUser User user, boolean enableNotification){
+        userService.enableNotification(user, enableNotification);
         return ResponseEntity.ok().build();
     }
 

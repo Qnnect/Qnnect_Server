@@ -6,6 +6,7 @@ import com.qnnect.questions.domain.QuestionUserMade;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @Entity
 public class User {
