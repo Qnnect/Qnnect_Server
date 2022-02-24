@@ -54,11 +54,16 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<QuestionUserMade> questionUserMadeList = new ArrayList<>();
 
+
     @Builder
     public User(String socialId, String profilePicture) {
         this.socialId = socialId;
         this.profilePicture = profilePicture;
+    }
 
+    @Builder
+    public User(String socialId) {
+        this.socialId = socialId;
     }
 
 }

@@ -24,6 +24,7 @@ public class KakaoResponse {
     public static class Profile {
         private String profileImageUrl;
     }
+
     @ToString
     @Getter
     @NoArgsConstructor

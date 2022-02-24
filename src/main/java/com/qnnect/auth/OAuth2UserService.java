@@ -1,5 +1,6 @@
 package com.qnnect.auth;
 
+import com.qnnect.auth.client.ClientApple;
 import com.qnnect.auth.client.ClientKakao;
 import com.qnnect.auth.dto.AuthRequest;
 import com.qnnect.auth.token.*;
@@ -21,23 +22,25 @@ public class OAuth2UserService {
     private final UserRepository userRepository;
     private final TokenService tokenService;
     private final ClientKakao clientKakao;
+    private final ClientApple clientApple;
     private final RefreshTokenRepository refreshTokenRepository;
     private RefreshToken refreshToken;
 
     public AuthResponse signUpOrLogIn(AuthRequest authRequest) {
-        System.out.println("signing up ");
         User user;
         if (authRequest.getLoginType() == ELoginType.kakao) {
             user = getKakaoProfile(authRequest.getAccessToken());
         } else {
-            user = getKakaoProfile(authRequest.getAccessToken());
+            user = getAppleProfile(authRequest.getAccessToken());
         }
+
         Token token = tokenService.generateToken(user.getSocialId(), "USER");
         boolean isNewMember = false;
 
         if (userRepository.findBySocialId(user.getSocialId()).equals(Optional.empty())) {
-            log.debug("saving user");
+            System.out.println("saving user");
             userRepository.save(user);
+            System.out.println(user.getSocialId());
             refreshToken = RefreshToken.builder()
                     .key(user.getSocialId())
                     .value(token.getRefreshToken())
@@ -72,5 +75,11 @@ public class OAuth2UserService {
         User kakaoUser = clientKakao.getUserData(oauthToken);
         System.out.println("getKakao");
         return kakaoUser;
+    }
+
+    public User getAppleProfile(String oauthToken){
+        User appleUser = clientApple.getUserData(oauthToken);
+        System.out.println("getApple");
+        return appleUser;
     }
 }

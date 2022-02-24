@@ -21,8 +21,7 @@ public class AuthController {
     @ApiOperation(value = "로그인 및 회원가입 api")
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> getTokens(@RequestBody AuthRequest authRequest){
-        AuthResponse authResponse = oAuth2UserService.
-                signUpOrLogIn(authRequest);
+        AuthResponse authResponse = oAuth2UserService.signUpOrLogIn(authRequest);
         return ResponseEntity.ok(authResponse);
     }
 
