@@ -1,4 +1,4 @@
-package com.qnnect.scrap.domain;
+package com.qnnect.ingredients.domain;
 
 import com.qnnect.user.domain.User;
 import lombok.Getter;
@@ -9,18 +9,15 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Folders {
+public class UserIngredient {
+
     @Id
-    @Column(name = "folder_id")
+    @Column(name = "USER_INGREDIENT_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String folderName;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "USER_ID")
     private User user;
-
-
 }

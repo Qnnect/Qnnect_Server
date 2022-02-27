@@ -1,7 +1,8 @@
 package com.qnnect.user.domain;
 
+import com.qnnect.auth.ELoginType;
 import com.qnnect.drink.domain.UserDrinkSelected;
-import com.qnnect.ingredients.domain.UserIngredients;
+import com.qnnect.ingredients.domain.UserIngredient;
 import com.qnnect.questions.domain.QuestionUserMade;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +12,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -25,8 +25,8 @@ public class User {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "USER_ID")
     @Type(type = "uuid-char")
-    @Column(name= "user_id")
     private UUID id;
 
     @Column()
@@ -42,24 +42,23 @@ public class User {
     private boolean pushEnabled;
 
     @Column()
-    private EProviderType providerType;
-
-    @Column()
-    private ERole role;
+    @Enumerated(EnumType.STRING)
+    private ELoginType loginType;
 
     @OneToMany(mappedBy="user")
     private List<UserDrinkSelected> userDrinkSelectedList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    private List<UserIngredients> userIngredientsList = new ArrayList<>();
+    private List<UserIngredient> userIngredientsList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     private List<QuestionUserMade> questionUserMadeList = new ArrayList<>();
 
 
     @Builder
-    public User(String socialId, String profilePicture) {
+    public User(String socialId, String profilePicture, ELoginType loginType) {
         this.socialId = socialId;
+        this.loginType = loginType;
         this.profilePicture = profilePicture;
     }
 

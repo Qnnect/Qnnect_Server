@@ -1,6 +1,6 @@
 package com.qnnect.drink.domain;
 
-import com.qnnect.ingredients.domain.Ingredients;
+import com.qnnect.ingredients.domain.Ingredient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,15 +12,14 @@ import javax.persistence.*;
 public class DrinkIngredientsFilled {
 
     @Id
-    @Column(name = "drink_ingredients_filled_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="user_drink_selected_id")
+    @JoinColumn(name="USER_DRINK_SELECTED_ID")
     private UserDrinkSelected userDrinkSelected;
 
     @ManyToOne
-    @JoinColumn(name = "ingredient_id")
-    private Ingredients ingredients;
+    @JoinColumn(name = "USER_INGREDIENTS_ID")
+    private Ingredient ingredients;
 }

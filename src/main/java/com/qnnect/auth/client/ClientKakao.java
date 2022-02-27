@@ -1,5 +1,6 @@
 package com.qnnect.auth.client;
 
+import com.qnnect.auth.ELoginType;
 import com.qnnect.auth.dto.KakaoResponse;
 import com.qnnect.auth.token.TokenValidFailedException;
 import com.qnnect.user.domain.User;
@@ -34,6 +35,7 @@ public class ClientKakao implements ClientProxy {
 
         return User.builder()
                 .socialId(String.valueOf(kakaoUserResponse.getId()))
+                .loginType(ELoginType.kakao)
                 .profilePicture(kakaoUserResponse.getKakaoAccount().
                         getProfile().getProfileImageUrl() != null ? kakaoUserResponse.getKakaoAccount().
                         getProfile().getProfileImageUrl() : "")

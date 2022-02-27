@@ -12,15 +12,15 @@ import javax.persistence.*;
 public class QuestionUserMade {
 
     @Id
-    @Column(name = "question_user_made_id")
+    @Column(name = "QUESTION_USER_MADE_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
-    @JoinColumn(name="question_id")
-    private Questions questions;
+    @JoinColumn(name="QUESTION_ID")
+    private Question questions;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="USER_ID")
     private User user;
 }

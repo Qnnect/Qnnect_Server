@@ -14,16 +14,16 @@ import java.util.List;
 public class UserDrinkSelected {
 
     @Id
-    @Column(name = "user_drink_selected_id")
+    @Column(name = "USER_DRINK_SELECTED_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "drink_id")
-    private Drinks drink;
+    @JoinColumn(name = "DRINK_ID")
+    private Drink drink;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     @OneToMany(mappedBy = "userDrinkSelected")

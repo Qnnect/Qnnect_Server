@@ -1,4 +1,4 @@
-package com.qnnect.questions.domain;
+package com.qnnect.ingredients.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,15 +8,17 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Questions {
+public class Ingredient {
 
     @Id
-    @Column(name = "question_id")
+    @Column(name = "INGREDIENT_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String content;
+    @Column
+    private String name;
 
-    private EQuestionerType questionerType;
+    @Column
+    private EIngredientType ingredientType;
 
 }

@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 public class Reply {
     @Id
-    @Column(name = "reply_id")
+    @Column(name = "REPLY_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -19,10 +19,10 @@ public class Reply {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="USER_ID")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="reply_question")
-    private Comments comment;
+    @JoinColumn(name="COMENT_ID")
+    private Comment comment;
 }

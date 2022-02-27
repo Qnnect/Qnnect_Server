@@ -1,7 +1,7 @@
 package com.qnnect.diary.dtos;
 
 
-import com.qnnect.drink.domain.Drinks;
+import com.qnnect.drink.domain.Drink;
 import com.qnnect.user.domain.User;
 import io.swagger.annotations.ApiModel;
 import lombok.Getter;
@@ -12,5 +12,5 @@ public class DiaryMemberDrinks {
 
     private Long id;
     private User user;
-    private Drinks drink;
+    private Drink drink;
 }

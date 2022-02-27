@@ -12,19 +12,19 @@ import javax.persistence.*;
 @Entity
 public class DiaryQuestionWaitingList {
     @Id
-    @Column(name = "diary_question_list_id")
+    @Column(name="DIARY_QUESTION_WAITING_LIST_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="diary_id")
+    @JoinColumn(name="DIARY_ID")
     private Diary diary;
 
     @ManyToOne
-    @JoinColumn(name="question_id")
-    private Questions questions;
+    @JoinColumn(name="QUESTION_ID")
+    private Question questions;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="USER_ID")
     private User user;
 }

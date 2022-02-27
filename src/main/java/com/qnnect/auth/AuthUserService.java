@@ -40,24 +40,23 @@ public class AuthUserService {
         boolean isNewMember = false;
 
         if (userRepository.findBySocialId(user.getSocialId()).equals(Optional.empty())) {
-            System.out.println("saving user");
             userRepository.save(user);
             System.out.println(user.getSocialId());
             refreshToken = RefreshToken.builder()
-                    .key(user.getSocialId())
-                    .value(token.getRefreshToken())
+                    .id(user.getSocialId())
+                    .refreshToken(token.getRefreshToken())
                     .build();
             refreshTokenRepository.save(refreshToken);
             isNewMember = true;
         } else {
             log.debug("user exists");
-            Optional<RefreshToken> oldRefreshToken = refreshTokenRepository.findByKey(user.getSocialId());
+            Optional<RefreshToken> oldRefreshToken = refreshTokenRepository.findById(user.getSocialId());
             if (!oldRefreshToken.equals(Optional.empty())) {
                 refreshToken = refreshToken.updateValue(token.getRefreshToken());
             } else {
                 refreshToken = RefreshToken.builder()
-                        .key(user.getSocialId())
-                        .value(token.getRefreshToken())
+                        .id(user.getSocialId())
+                        .refreshToken(token.getRefreshToken())
                         .build();
             } refreshTokenRepository.save(refreshToken);
 
@@ -90,11 +89,13 @@ public class AuthUserService {
             throw new RuntimeException("Refresh Token 이 유효하지 않습니다.");
         }
         String currentSocialId = tokenService.getSocialId(tokenReissueRequest.getAccessToken());
+        System.out.println("refreshToken:" + tokenReissueRequest.getRefreshToken());
+        System.out.println("refreshToken " + refreshToken.getToken());
 
-        RefreshToken refreshToken = refreshTokenRepository.findByKey(currentSocialId)
+        RefreshToken refreshToken = refreshTokenRepository.findById(currentSocialId)
                 .orElseThrow(() -> new RuntimeException("로그아웃 된 사용자입니다."));
 
-        if (!refreshToken.getValue().equals(tokenReissueRequest.getRefreshToken())) {
+        if (!refreshToken.getToken().equals(tokenReissueRequest.getRefreshToken())) {
             throw new RuntimeException("토큰의 유저 정보가 일치하지 않습니다.");
         }
 

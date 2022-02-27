@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.qnnect.auth.ELoginType;
 import com.qnnect.auth.dto.ApplePublicKeyResponse;
 import com.qnnect.user.domain.User;
 import io.jsonwebtoken.*;
@@ -16,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -49,12 +49,11 @@ public class ClientApple implements ClientProxy {
 
         Map<String, String> header = null;
         try {
-            header = new ObjectMapper().readValue(new String(Base64.getDecoder().decode(headerOfIdentityToken), "UTF-8"), Map.class);
+            header = new ObjectMapper().readValue(new String(Base64.getDecoder().decode(headerOfIdentityToken)), Map.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
         }
+
         System.out.println("kid" + header.get("kid"));
 
         ApplePublicKeyResponse.Key key = applePublicKeyResponse.getMatchedKeyBy(header.get("kid"), header.get("alg"))
@@ -95,6 +94,7 @@ public class ClientApple implements ClientProxy {
 
         return User.builder()
                 .socialId(String.valueOf(appleSocialId))
+                .loginType(ELoginType.apple)
                 .build();
 
     }

@@ -7,6 +7,7 @@ import com.qnnect.user.dtos.ProfileUpdateRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +23,9 @@ public class UserController {
     private final UserService userService;
 
     @ApiOperation(value = "프로필 설정")
-    @PatchMapping("/user/profile")
-    public ResponseEntity<Void> updateProfile(@RequestParam String nickName){
-
+    @PatchMapping(path= "/user/profile", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<Void> updateProfile(@RequestBody ProfileUpdateRequest profileUpdateRequest){
+//        userService.save
         return ResponseEntity.ok().build();
     }
 

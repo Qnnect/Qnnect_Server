@@ -1,4 +1,4 @@
-package com.qnnect.ingredients.domain;
+package com.qnnect.drink.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,17 +8,15 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Ingredients {
-
+public class Drink {
     @Id
-    @Column(name = "ingredients_id")
+    @Column(name = "DRINK_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column()
     private String name;
 
-    @Column
-    private EIngredientType ingredientType;
-
+    @Column()
+    private String recipe;
 }

@@ -12,19 +12,25 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Comments {
+public class Comment {
 
     @Id
-    @Column(name = "comment_id")
+    @Column(name = "COMMENT_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column()
+    private String content;
+
+    @Column()
+    private String imageUrl;
+
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="USER_ID")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="diary_question")
+    @JoinColumn(name="DIARY_QUESTION_ID")
     private DiaryQuestion diaryQuestion;
 
     @OneToMany(mappedBy = "comment")

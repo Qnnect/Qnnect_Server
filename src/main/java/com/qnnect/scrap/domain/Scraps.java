@@ -1,6 +1,6 @@
 package com.qnnect.scrap.domain;
 
-import com.qnnect.questions.domain.Questions;
+import com.qnnect.questions.domain.Question;
 import com.qnnect.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,15 +12,15 @@ import javax.persistence.*;
 @Entity
 public class Scraps {
     @Id
-    @Column(name = "scrap_id")
+    @Column(name = "SCRAP_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "question_id")
-    private Questions questions;
+    @JoinColumn(name = "QUESTION_ID")
+    private Question questions;
 }

@@ -1,6 +1,6 @@
 package com.qnnect.questions.domain;
 
-import com.qnnect.comments.domain.Comments;
+import com.qnnect.comments.domain.Comment;
 import com.qnnect.diary.domain.Diary;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,18 +15,18 @@ import java.util.List;
 public class DiaryQuestion {
 
     @Id
-    @Column(name = "diary_question_id")
+    @Column(name = "DIARY_QUESTION_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="diary_id")
+    @JoinColumn(name="DIARY_ID")
     private Diary diary;
 
     @ManyToOne
-    @JoinColumn(name="question_id")
-    private Questions questions;
+    @JoinColumn(name="QUESTION_ID")
+    private Question questions;
 
     @OneToMany(mappedBy = "diaryQuestion")
-    private List<Comments> comments = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 }

@@ -11,7 +11,6 @@ import javax.persistence.*;
 public class Diary {
 
     @Id
-    @Column(name = "diary_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

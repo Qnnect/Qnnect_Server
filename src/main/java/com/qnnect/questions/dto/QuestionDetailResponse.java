@@ -1,6 +1,6 @@
 package com.qnnect.questions.dto;
 
-import com.qnnect.comments.domain.Comments;
+import com.qnnect.comments.domain.Comment;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -18,5 +18,5 @@ public class QuestionDetailResponse {
     private String content;
 
     @ApiModelProperty(value = "댓글", example = "친구와 함께 가장 가고 싶은 외국 여행지는 어딘가요?")
-    private List<Comments> comments = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 }
