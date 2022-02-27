@@ -52,6 +52,7 @@ public class AuthUserService {
             log.debug("user exists");
             Optional<RefreshToken> oldRefreshToken = refreshTokenRepository.findById(user.getSocialId());
             if (!oldRefreshToken.equals(Optional.empty())) {
+                refreshToken = refreshTokenRepository.getById(user.getSocialId());
                 refreshToken = refreshToken.updateValue(token.getRefreshToken());
             } else {
                 refreshToken = RefreshToken.builder()
@@ -89,8 +90,8 @@ public class AuthUserService {
             throw new RuntimeException("Refresh Token 이 유효하지 않습니다.");
         }
         String currentSocialId = tokenService.getSocialId(tokenReissueRequest.getAccessToken());
-        System.out.println("refreshToken:" + tokenReissueRequest.getRefreshToken());
-        System.out.println("refreshToken " + refreshToken.getToken());
+//        System.out.println("refreshToken:" + tokenReissueRequest.getRefreshToken());
+//        System.out.println("refreshToken " + refreshToken.getToken());
 
         RefreshToken refreshToken = refreshTokenRepository.findById(currentSocialId)
                 .orElseThrow(() -> new RuntimeException("로그아웃 된 사용자입니다."));
