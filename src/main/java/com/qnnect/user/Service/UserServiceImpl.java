@@ -5,6 +5,7 @@ import com.qnnect.user.domain.User;
 import com.qnnect.user.dtos.ProfileResponse;
 import com.qnnect.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
@@ -28,6 +30,7 @@ public class UserServiceImpl implements UserService{
     public ProfileResponse updateUserProfile(User user, String nickName, MultipartFile profileImage){
         if(!StringUtils.isEmpty(nickName)){
             user.setNickName(nickName);
+            log.info("updated user nickname");
         }
 
         if(profileImage != null){
@@ -40,8 +43,10 @@ public class UserServiceImpl implements UserService{
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            log.info("updated profile image");
         }
-        userRepository.save(user);
+        User currUser = userRepository.save(user);
+        System.out.println(currUser.getCreatedAt());
         return ProfileResponse.from(user);
     }
 

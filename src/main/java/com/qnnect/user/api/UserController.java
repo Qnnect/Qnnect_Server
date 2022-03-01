@@ -21,9 +21,9 @@ public class UserController {
 
     @ApiOperation(value = "프로필 설정")
     @PatchMapping(path = "/user/profile")
-    public ResponseEntity<ProfileResponse> updateProfile(@CurrentUser User user, @RequestPart(value = "profile Pricture") MultipartFile multipartFile,
-                                                         @RequestPart(value = "nick name") String nickName) {
-        ProfileResponse profileResponse = userService.updateUserProfile(user, nickName, multipartFile);
+    public ResponseEntity<ProfileResponse> updateProfile(@CurrentUser User user, @RequestPart(required = false) MultipartFile profilePicture,
+                                                         @RequestPart(required = false) String nickName) {
+        ProfileResponse profileResponse = userService.updateUserProfile(user, nickName, profilePicture);
         return ResponseEntity.ok(profileResponse);
     }
 

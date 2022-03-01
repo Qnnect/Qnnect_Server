@@ -1,6 +1,7 @@
 package com.qnnect.user.domain;
 
 import com.qnnect.auth.ELoginType;
+import com.qnnect.common.domain.BaseTimeEntity;
 import com.qnnect.drink.domain.UserDrinkSelected;
 import com.qnnect.ingredients.domain.UserIngredient;
 import com.qnnect.questions.domain.QuestionUserMade;
@@ -20,7 +21,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Entity
-public class User {
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(generator = "uuid2")
