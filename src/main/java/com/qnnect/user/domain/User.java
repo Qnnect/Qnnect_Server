@@ -42,6 +42,9 @@ public class User {
     private boolean pushEnabled;
 
     @Column()
+    private int point;
+
+    @Column()
     @Enumerated(EnumType.STRING)
     private ELoginType loginType;
 

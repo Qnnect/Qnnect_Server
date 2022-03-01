@@ -10,11 +10,11 @@ import com.qnnect.user.domain.User;
 import com.qnnect.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +37,9 @@ public class AuthUserService {
         }
 
         Token token = tokenService.generateToken(user.getSocialId(), "USER");
+
         boolean isNewMember = false;
+        boolean isUserSettingDone = false;
 
         if (userRepository.findBySocialId(user.getSocialId()).equals(Optional.empty())) {
             userRepository.save(user);
@@ -49,6 +51,7 @@ public class AuthUserService {
             refreshTokenRepository.save(refreshToken);
             isNewMember = true;
         } else {
+            Optional<User> currentUser = userRepository.findBySocialId(user.getSocialId());
             Optional<RefreshToken> oldRefreshToken = refreshTokenRepository.findById(user.getSocialId());
             if (!oldRefreshToken.equals(Optional.empty())) {
                 refreshToken = refreshTokenRepository.getById(user.getSocialId());
@@ -58,16 +61,20 @@ public class AuthUserService {
                         .id(user.getSocialId())
                         .refreshToken(token.getRefreshToken())
                         .build();
-            } refreshTokenRepository.save(refreshToken);
+            }
+            refreshTokenRepository.save(refreshToken);
 
+            User thisUser = currentUser.get();
+            if(thisUser.getNickName() != null){
+                isUserSettingDone = true;
+            }
         }
 
-        //token return 시키기
         return AuthResponse.builder()
                 .isNewMember(isNewMember)
                 .accessToken(token.getAccessToken())
                 .refreshToken(token.getRefreshToken())
-                .userSettingDone(false)
+                .userSettingDone(isUserSettingDone)
                 .build();
     }
 
@@ -77,20 +84,18 @@ public class AuthUserService {
         return kakaoUser;
     }
 
-    public User getAppleProfile(String oauthToken){
+    public User getAppleProfile(String oauthToken) {
         User appleUser = clientApple.getUserData(oauthToken);
         System.out.println("getApple");
         return appleUser;
     }
 
     public TokenReissue reissue(TokenReissue tokenReissueRequest) {
-        Long timeLeft  = tokenService.verifyRefreshToken(tokenReissueRequest.getRefreshToken());
-        if ( timeLeft == 0) {
+        Long timeLeft = tokenService.verifyRefreshToken(tokenReissueRequest.getRefreshToken());
+        if (timeLeft == 0) {
             throw new RuntimeException("Refresh Token 이 유효하지 않습니다.");
         }
         String currentSocialId = tokenService.getSocialId(tokenReissueRequest.getAccessToken());
-//        System.out.println("refreshToken:" + tokenReissueRequest.getRefreshToken());
-//        System.out.println("refreshToken " + refreshToken.getToken());
 
         RefreshToken refreshToken = refreshTokenRepository.findById(currentSocialId)
                 .orElseThrow(() -> new RuntimeException("로그아웃 된 사용자입니다."));
@@ -101,7 +106,7 @@ public class AuthUserService {
 
         Token token = tokenService.generateToken(currentSocialId, "USER");
         TokenReissue tokenReissueResponse;
-        if(timeLeft < 1000L * 60L * 60L * 24L * 3L){
+        if (timeLeft < 1000L * 60L * 60L * 24L * 3L) {
 
             refreshToken = refreshToken.updateValue(token.getRefreshToken());
             refreshTokenRepository.save(refreshToken);
@@ -110,7 +115,7 @@ public class AuthUserService {
                     .accessToken(token.getAccessToken())
                     .refreshToken(token.getRefreshToken())
                     .build();
-        }else{
+        } else {
             String accessToken = tokenService.generateAccessToken(currentSocialId, "USER");
             tokenReissueResponse = TokenReissue.builder()
                     .accessToken(token.getAccessToken())

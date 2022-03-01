@@ -41,11 +41,10 @@ public class UserController {
 //        return new ResponseEntity<>("Created", HttpStatus.OK);
 //    }
 
-    @ApiOperation(value = "Test")
+    @ApiOperation(value = "사용자 정보")
     @GetMapping("/user")
-    public ResponseEntity<String> getUser(@CurrentUser User user){
-        String name = user.getSocialId();
-        return ResponseEntity.ok(name);
+    public ResponseEntity<ProfileResponse> getUser(@CurrentUser User user){
+        return ResponseEntity.ok(ProfileResponse.from(user));
     }
 
     @ApiOperation(value = "알림 설정")

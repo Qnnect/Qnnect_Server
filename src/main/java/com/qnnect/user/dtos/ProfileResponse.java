@@ -9,13 +9,13 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ProfileResponse {
 
-    @ApiModelProperty(value = "이미지")
-    private String image;
+    private String profileImage;
 
-    @ApiModelProperty(value = "닉네임", example = "orange")
     private String nickName;
 
+    private int point;
+
     public static ProfileResponse from(User user){
-        return new ProfileResponse(user.getProfilePicture(),user.getNickName());
+        return new ProfileResponse(user.getProfilePicture(),user.getNickName(), user.getPoint());
     }
 }
