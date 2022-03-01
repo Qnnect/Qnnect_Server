@@ -1,18 +1,25 @@
 package com.qnnect.user.Service;
 
+import com.qnnect.common.S3Uploader;
 import com.qnnect.user.domain.User;
 import com.qnnect.user.dtos.ProfileRequest;
+import com.qnnect.user.dtos.ProfileResponse;
 import com.qnnect.user.dtos.ProfileUpdateRequest;
 import com.qnnect.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.security.SecurityUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
+    private final S3Uploader s3Uploader;
 
     @Override
     public void enableNotification(User user, boolean enabledNotification) {
@@ -22,15 +29,21 @@ public class UserServiceImpl implements UserService{
         userRepository.save(user);
     }
 
-    public ProfileRequest updateUserProfile(User user, ProfileUpdateRequest profileUpdateRequest){
-        if(profileUpdateRequest.getNickName() != null){
-            user.setNickName(profileUpdateRequest.getNickName());
+    public ProfileResponse updateUserProfile(User user, String nickName, MultipartFile profileImage){
+        if(!StringUtils.isEmpty(nickName)){
+            user.setNickName(nickName);
         }
-        if(profileUpdateRequest.getImage() != null){
-            //여기서 파일 s3로 보내는 서비스 호출
+
+        if(profileImage != null){
+            try {
+                String imageUrl = s3Uploader.upload(profileImage);
+                user.setProfilePicture(imageUrl);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        ProfileRequest profileRequest = new ProfileRequest();
-        return profileRequest;
+        userRepository.save(user);
+        return ProfileResponse.from(user);
     }
 
 //

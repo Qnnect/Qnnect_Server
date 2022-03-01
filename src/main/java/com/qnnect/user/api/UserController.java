@@ -3,6 +3,7 @@ package com.qnnect.user.api;
 import com.qnnect.common.CurrentUser;
 import com.qnnect.user.Service.UserService;
 import com.qnnect.user.domain.User;
+import com.qnnect.user.dtos.ProfileResponse;
 import com.qnnect.user.dtos.ProfileUpdateRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -11,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 
@@ -23,10 +25,11 @@ public class UserController {
     private final UserService userService;
 
     @ApiOperation(value = "프로필 설정")
-    @PatchMapping(path= "/user/profile", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<Void> updateProfile(@RequestBody ProfileUpdateRequest profileUpdateRequest){
-//        userService.save
-        return ResponseEntity.ok().build();
+    @PatchMapping(path= "/user/profile")
+    public ResponseEntity<ProfileResponse> updateProfile(@CurrentUser User user, @RequestPart(value="profile Pricture")MultipartFile multipartFile,
+                                              @RequestPart(value="nick name")String nickName){
+        ProfileResponse profileResponse = userService.updateUserProfile(user, nickName, multipartFile);
+        return ResponseEntity.ok(profileResponse);
     }
 
 //    @RequestMapping(path = "/files", method = RequestMethod.POST,
