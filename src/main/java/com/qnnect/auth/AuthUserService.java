@@ -49,7 +49,6 @@ public class AuthUserService {
             refreshTokenRepository.save(refreshToken);
             isNewMember = true;
         } else {
-            log.debug("user exists");
             Optional<RefreshToken> oldRefreshToken = refreshTokenRepository.findById(user.getSocialId());
             if (!oldRefreshToken.equals(Optional.empty())) {
                 refreshToken = refreshTokenRepository.getById(user.getSocialId());
