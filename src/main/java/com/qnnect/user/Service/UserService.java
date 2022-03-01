@@ -1,7 +1,6 @@
 package com.qnnect.user.Service;
 
 import com.qnnect.user.domain.User;
-import com.qnnect.user.dtos.ProfileRequest;
 import com.qnnect.user.dtos.ProfileResponse;
 import org.springframework.web.multipart.MultipartFile;
 

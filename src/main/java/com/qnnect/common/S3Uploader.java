@@ -1,11 +1,13 @@
 package com.qnnect.common;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +39,9 @@ public class S3Uploader {
 
     @Value("${cloud.aws.region.static}")
     private String region;
+
+    @Value("${cloud.aws.s3.profileImagePath}")
+    private String defaultPath;
 
     @PostConstruct
     public void setS3Client() {
@@ -86,5 +91,14 @@ public class S3Uploader {
             removeNewFile(convertFile);
         }
         return Optional.empty();
+    }
+
+    public void deleteS3(String imageUrl){
+        try{
+            amazonS3Client.deleteObject(bucket, imageUrl.replace(defaultPath,""));
+        }catch(AmazonServiceException e) {
+            System.err.println(e.getErrorMessage());
+        }
+           log.info("file deleted");
     }
 }

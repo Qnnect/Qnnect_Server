@@ -1,7 +1,6 @@
 package com.qnnect.user.dtos;
 
 import com.qnnect.user.domain.User;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
