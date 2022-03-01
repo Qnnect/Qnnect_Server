@@ -82,6 +82,8 @@ public class S3Uploader {
                 fos.write(file.getBytes());
             }
             return Optional.of(convertFile);
+        }else{
+            removeNewFile(convertFile);
         }
         return Optional.empty();
     }
