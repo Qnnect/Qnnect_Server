@@ -1,13 +1,11 @@
 package com.qnnect.questions.apis;
 
 
-import com.qnnect.diary.dtos.DiaryCreateRequest;
 import com.qnnect.questions.dto.QuestionDetailResponse;
 import com.qnnect.questions.dto.QuestionResponse;
 import com.qnnect.questions.dto.TodayQuestionResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

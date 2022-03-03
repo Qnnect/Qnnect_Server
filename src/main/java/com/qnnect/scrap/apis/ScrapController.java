@@ -1,6 +1,5 @@
 package com.qnnect.scrap.apis;
 
-import com.qnnect.diary.dtos.DiaryCreateRequest;
 import com.qnnect.scrap.dtos.ScrapResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,10 +1,8 @@
-package com.qnnect.diary.apis;
+package com.qnnect.cafe.api;
 
-import com.qnnect.diary.dtos.DiaryMemberDrinks;
+import com.qnnect.cafe.dto.DiaryMemberDrinks;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

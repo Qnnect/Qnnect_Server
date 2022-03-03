@@ -1,4 +1,4 @@
-package com.qnnect.user.Service;
+package com.qnnect.user.service;
 
 import com.qnnect.user.domain.User;
 import com.qnnect.user.dtos.ProfileResponse;

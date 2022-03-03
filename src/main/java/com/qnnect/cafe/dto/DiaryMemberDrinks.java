@@ -1,4 +1,4 @@
-package com.qnnect.diary.dtos;
+package com.qnnect.cafe.dto;
 
 
 import com.qnnect.drink.domain.Drink;

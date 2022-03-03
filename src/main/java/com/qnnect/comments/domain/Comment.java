@@ -1,6 +1,6 @@
 package com.qnnect.comments.domain;
 
-import com.qnnect.questions.domain.DiaryQuestion;
+import com.qnnect.questions.domain.CafeQuestion;
 import com.qnnect.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,8 +30,8 @@ public class Comment {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="DIARY_QUESTION_ID")
-    private DiaryQuestion diaryQuestion;
+    @JoinColumn(name="CAFE_QUESTION_ID")
+    private CafeQuestion cafeQuestion;
 
     @OneToMany(mappedBy = "comment")
     private List<Reply> replies = new ArrayList<>();

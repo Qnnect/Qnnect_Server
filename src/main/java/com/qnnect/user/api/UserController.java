@@ -1,7 +1,7 @@
 package com.qnnect.user.api;
 
 import com.qnnect.common.CurrentUser;
-import com.qnnect.user.Service.UserService;
+import com.qnnect.user.service.UserService;
 import com.qnnect.user.domain.User;
 import com.qnnect.user.dtos.ProfileResponse;
 import io.swagger.annotations.Api;

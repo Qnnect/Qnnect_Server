@@ -1,4 +1,4 @@
-package com.qnnect.user.Service;
+package com.qnnect.user.service;
 
 import com.qnnect.common.S3Uploader;
 import com.qnnect.user.domain.User;
