@@ -14,8 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
-@Api(tags ="다이어리 사용자의 음료 관련 API")
-public class DiaryDrinkController {
+@Api(tags ="카페 사용자의 음료 관련 API")
+public class CafeDrinkController {
     @ApiOperation(value = "다이어리 음료 선택 api")
     @PostMapping("/diaries/{diaryId}/drinks")
     public ResponseEntity<Void> addDrink(@RequestParam String Drink, @PathVariable Long diaryId){

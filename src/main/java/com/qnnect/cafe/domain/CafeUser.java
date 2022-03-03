@@ -15,7 +15,6 @@ import java.util.Objects;
 public class CafeUser {
 
     @Id
-    @Column(name = "CAFE_USER_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

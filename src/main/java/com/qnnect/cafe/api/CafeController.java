@@ -31,7 +31,7 @@ public class CafeController {
     }
 
     @PostMapping("/diaries/{cafeId}")
-    @ApiOperation(value = "다이어리 참여 api")
+    @ApiOperation(value = "카페 참여 api")
     public ResponseEntity<CafeResponse> joinCafe(@RequestParam String cafeCode,
                                                  @PathVariable long cafeId,
                                                  @ApiParam(hidden = true) @CurrentUser User user){

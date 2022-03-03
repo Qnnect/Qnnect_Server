@@ -6,6 +6,8 @@ import com.qnnect.cafe.dto.CafeCreateRequest;
 import com.qnnect.cafe.dto.CafeResponse;
 import com.qnnect.cafe.repository.CafeRepository;
 import com.qnnect.cafe.repository.CafeUserRepository;
+import com.qnnect.common.exception.cafe.CafeMemberExceededExeption;
+import com.qnnect.common.exception.cafe.IncorrectCafeCodeException;
 import com.qnnect.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,14 +29,18 @@ public class CafeServiceImpl implements CafeService {
         return new CafeResponse(cafe);
     }
 
-    public CafeResponse joinCafe(String code, User user, Long cafeId){
-        long memberNum = cafeUserRepository.countByCafe(cafeId);
+    public CafeResponse joinCafe(String code, User user, long cafeId){
         Cafe cafe = cafeRepository.getById(cafeId);
+        long memberNum = cafeUserRepository.countByCafe_Id(cafeId);
+
+        System.out.println(memberNum);
         if(memberNum >= 5){
-            //throw exception
+            throw new CafeMemberExceededExeption();
         }
+        System.out.println("member not exceeded");
+        System.out.println(cafe.getCode());
         if(!cafe.getCode().equals(code)){
-            //throw exception
+            throw new IncorrectCafeCodeException();
         }
         cafeUserRepository.save(CafeUser.builder().cafe(cafe).user(user).build());
         return new CafeResponse(cafe);

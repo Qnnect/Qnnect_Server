@@ -60,10 +60,12 @@ public class User extends BaseTimeEntity {
 
 
     @Builder
-    public User(String socialId, String profilePicture, ELoginType loginType) {
+    public User(String socialId, String profilePicture, ELoginType loginType,UUID id, String nickName) {
         this.socialId = socialId;
         this.loginType = loginType;
         this.profilePicture = profilePicture;
+        this.id = id;
+        this.nickName = nickName;
     }
 
     @Builder
