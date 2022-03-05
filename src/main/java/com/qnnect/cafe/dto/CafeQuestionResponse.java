@@ -1,9 +1,7 @@
 package com.qnnect.cafe.dto;
 
 import com.qnnect.questions.domain.CafeQuestion;
-import com.qnnect.questions.domain.EQuestionType;
 import com.qnnect.questions.domain.EQuestionerType;
-import com.qnnect.questions.domain.Question;
 import com.qnnect.user.domain.User;
 import io.swagger.annotations.ApiModel;
 import lombok.Builder;
@@ -22,14 +20,14 @@ public class CafeQuestionResponse {
     private LocalDateTime createdAt;
     private long daysLeft;
     private String questioner;
-    private Question question;
+    private String question;
 
     public static CafeQuestionResponse from(CafeQuestion cafeQuestion) {
 
         return CafeQuestionResponse.builder()
                 .createdAt(cafeQuestion.getCreatedAt())
                 .daysLeft(calculateDaysLeft(cafeQuestion))
-                .question(cafeQuestion.getQuestions())
+                .question(cafeQuestion.getQuestions().getContent())
                 .questioner(findQuestioner(cafeQuestion))
                 .build();
     }
@@ -46,7 +44,7 @@ public class CafeQuestionResponse {
     public static long calculateDaysLeft(CafeQuestion cafeQuestion){
         LocalDateTime now = LocalDateTime.now();
         Duration duration = Duration.between(now, cafeQuestion.getCreatedAt());
-        Long daysLeft = 7-duration.toDays();
+        Long daysLeft = 7 - duration.toDays();
         return daysLeft;
     }
 

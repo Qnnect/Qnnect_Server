@@ -15,14 +15,12 @@ import java.util.stream.Collectors;
 @Getter
 @ApiModel
 public class DrinkIngredientsFilledResponse {
-    private UserDrinkSelected drinkSelected;
-    private Ingredient ingredient;
+    private String ingredientName;
 
 
     public static DrinkIngredientsFilledResponse from(DrinkIngredientsFilled drinkIngredientsFilled) {
         return DrinkIngredientsFilledResponse.builder()
-                .drinkSelected(drinkIngredientsFilled.getUserDrinkSelected())
-                .ingredient(drinkIngredientsFilled.getIngredient())
+                .ingredientName(drinkIngredientsFilled.getIngredient().getName())
                 .build();
     }
 
