@@ -20,4 +20,8 @@ public class ScrapServiceImpl implements ScrapService{
         scrapRepository.save(Scrap.builder()
                 .user(user).cafeQuestion(cafeQuestion).build());
     }
+
+//    public void getAllScrapQuestion(User user){
+//        scrapRepository.findByUser_Id(user.getId());
+//    }
 }

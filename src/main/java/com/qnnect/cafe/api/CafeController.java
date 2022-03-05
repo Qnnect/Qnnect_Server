@@ -26,8 +26,8 @@ public class CafeController {
     @ApiOperation(value = "카페 생성 api")
     public ResponseEntity<CafeDetailResponse> createCafe(@RequestBody CafeCreateRequest cafeCreateRequest,
                                                          @ApiIgnore @CurrentUser User user){
-        CafeDetailResponse cafeResponse = cafeService.createCafe(cafeCreateRequest, user);
-        return ResponseEntity.ok(cafeResponse);
+        cafeService.createCafe(cafeCreateRequest, user);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/cafes/{cafeId}")

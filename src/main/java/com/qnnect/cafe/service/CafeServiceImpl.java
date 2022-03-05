@@ -24,15 +24,13 @@ public class CafeServiceImpl implements CafeService {
     private final CafeUserRepository cafeUserRepository;
 
     @Transactional
-    public CafeDetailResponse createCafe(CafeCreateRequest cafeCreateRequest, User user){
+    public void createCafe(CafeCreateRequest cafeCreateRequest, User user){
         Cafe cafe = cafeRepository.save(cafeCreateRequest.toEntity(user));
         log.info("created cafe");
         CafeUser cafeUser = cafeUserRepository.save(CafeUser.builder().cafe(cafe).user(user).build());
         log.info("added user to cafe user");
+
         Cafe newCafe = cafeRepository.getNowById(cafe.getId());
-        System.out.println(newCafe.getCafeUsers());
-        System.out.println(newCafe.getTitle());
-        return new CafeDetailResponse(newCafe);
     }
 
     @Transactional
