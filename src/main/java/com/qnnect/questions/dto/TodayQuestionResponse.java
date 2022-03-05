@@ -12,10 +12,9 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-@ApiModel(value="오늘의 질문")
 public class TodayQuestionResponse {
 
-    private CafeQuestionServiceImpl cafeQuestionService;
+    private final CafeQuestionService cafeQuestionService;
 
     @ApiModelProperty(value = "오늘의 질문 id", example = "1")
     private Long id;

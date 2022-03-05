@@ -36,11 +36,11 @@ public class ScrapController {
         return ResponseEntity.noContent().build();
     }
 
-//    @GetMapping("/users/scrap/")
-//    @ApiOperation(value = "스크랩 리스트 가져오기 api")
-//    public ResponseEntity<List<ScrapResponse>> getAllScrapQuestion(@ApiIgnore @CurrentUser User user){
-//        List<ScrapResponse> scrapResponseList = scrapService.getAllScraps(user);
-//        return ResponseEntity.ok(scrapResponseList);
-//    }
+    @GetMapping("/users/scrap/")
+    @ApiOperation(value = "스크랩 리스트 가져오기 api")
+    public ResponseEntity<List<ScrapResponse>> getAllScrapQuestion(@ApiIgnore @CurrentUser User user){
+        List<ScrapResponse> scrapResponseList = scrapService.getAllScraps(user);
+        return ResponseEntity.ok(scrapResponseList);
+    }
 
 }
