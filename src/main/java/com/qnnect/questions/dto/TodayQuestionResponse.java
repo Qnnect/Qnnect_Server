@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TodayQuestionResponse {
 
-    private final CafeQuestionService cafeQuestionService;
+    private CafeQuestionService cafeQuestionService;
 
     @ApiModelProperty(value = "오늘의 질문 id", example = "1")
     private Long id;
