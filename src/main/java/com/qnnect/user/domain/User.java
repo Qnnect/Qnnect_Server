@@ -73,4 +73,6 @@ public class User extends BaseTimeEntity {
         this.socialId = socialId;
     }
 
+
+
 }

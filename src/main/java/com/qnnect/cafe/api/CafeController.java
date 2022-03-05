@@ -2,40 +2,48 @@ package com.qnnect.cafe.api;
 
 import com.qnnect.cafe.domain.EQuestionCycle;
 import com.qnnect.cafe.dto.CafeCreateRequest;
-import com.qnnect.cafe.dto.CafeResponse;
-import com.qnnect.cafe.service.CafeServiceImpl;
+import com.qnnect.cafe.dto.CafeDetailResponse;
+import com.qnnect.cafe.service.CafeService;
 import com.qnnect.common.CurrentUser;
 import com.qnnect.user.domain.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
-@Api(tags = {"다이어리 관련 API"})
+@Api(tags = {"카페 API"})
 public class CafeController {
 
-    private final CafeServiceImpl cafeService;
+    private final CafeService cafeService;
 
-    @PostMapping("/diaries")
-    @ApiOperation(value = "다이어리 생성 api")
-    public ResponseEntity<CafeResponse> createCafe(@RequestBody CafeCreateRequest cafeCreateRequest,
-                                                   @ApiParam(hidden = true) @CurrentUser User user){
-        CafeResponse cafeResponse = cafeService.createCafe(cafeCreateRequest, user);
+    @PostMapping("/cafes")
+    @ApiOperation(value = "카페 생성 api")
+    public ResponseEntity<CafeDetailResponse> createCafe(@RequestBody CafeCreateRequest cafeCreateRequest,
+                                                         @ApiIgnore @CurrentUser User user){
+        CafeDetailResponse cafeResponse = cafeService.createCafe(cafeCreateRequest, user);
         return ResponseEntity.ok(cafeResponse);
     }
 
-    @PostMapping("/diaries/{cafeId}")
+    @PostMapping("/cafes/{cafeId}")
     @ApiOperation(value = "카페 참여 api")
-    public ResponseEntity<CafeResponse> joinCafe(@RequestParam String cafeCode,
-                                                 @PathVariable long cafeId,
-                                                 @ApiParam(hidden = true) @CurrentUser User user){
-        CafeResponse cafeResponse = cafeService.joinCafe(cafeCode, user, cafeId);
+    public ResponseEntity<CafeDetailResponse> joinCafe(@RequestParam String cafeCode,
+                                                       @PathVariable long cafeId,
+                                                       @ApiIgnore @CurrentUser User user){
+        CafeDetailResponse cafeResponse = cafeService.joinCafe(cafeCode, user, cafeId);
+        return ResponseEntity.ok(cafeResponse);
+    }
+
+    @GetMapping("/cafes/{cafeId}")
+    @ApiOperation(value = "카페 홈 api")
+    public ResponseEntity<CafeDetailResponse> showCafe(@PathVariable long cafeId,
+                                                       @ApiIgnore @CurrentUser User user){
+        CafeDetailResponse cafeResponse = cafeService.getCafe(cafeId);
         return ResponseEntity.ok(cafeResponse);
     }
 

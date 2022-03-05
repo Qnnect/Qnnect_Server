@@ -12,7 +12,6 @@ import javax.persistence.*;
 public class QuestionUserMade {
 
     @Id
-    @Column(name = "QUESTION_USER_MADE_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

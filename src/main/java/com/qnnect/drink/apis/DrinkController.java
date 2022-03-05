@@ -1,6 +1,7 @@
 package com.qnnect.drink.apis;
 
 import com.qnnect.drink.dtos.DrinkResponse;
+import com.qnnect.drink.service.DrinkService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +17,14 @@ import java.util.List;
 @Api(tags = {"음료 관련 API"})
 public class DrinkController {
 
-    @ApiOperation(value = "음료 보기 api")
+    private final DrinkService drinkService;
+
+    @ApiOperation(value = "전체 음료리스트 보기 api")
     @GetMapping("/drinks")
     public ResponseEntity<List<DrinkResponse>> getDrinkList(){
-        List <DrinkResponse> drinkResponses = new ArrayList<>();
+        List <DrinkResponse> drinkResponses = drinkService.getDrinkList();
         return ResponseEntity.ok(drinkResponses);
+
     }
 
     @ApiOperation(value = "음료에 재료 추가 api")

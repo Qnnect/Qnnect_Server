@@ -6,7 +6,7 @@ import lombok.Getter;
 
 
 @Getter
-@ApiModel(value="전체 질문 리스트")
+@ApiModel(value="질문")
 public class QuestionResponse {
 
     @ApiModelProperty(value = "다이어리 질문 리스트 id", example = "1")

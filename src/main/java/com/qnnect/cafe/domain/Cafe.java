@@ -1,12 +1,14 @@
 package com.qnnect.cafe.domain;
 
 import com.qnnect.common.domain.BaseTimeEntity;
+import com.qnnect.questions.domain.CafeQuestion;
 import com.qnnect.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -35,6 +37,12 @@ public class Cafe extends BaseTimeEntity {
     @JoinColumn(name="USER_ID")
     private User organizer;
 
+    @OneToMany(mappedBy = "cafe",cascade = CascadeType.ALL)
+    private List<CafeQuestion> cafeQuestion;
+
+    @OneToMany(mappedBy = "cafe", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    private List<CafeUser> cafeUsers;
+
     @Builder
     public Cafe(String title, EGroupType groupType, EQuestionCycle questionCycle,
                 EDiaryColor diaryColor, String code, User organizer){
@@ -51,4 +59,5 @@ public class Cafe extends BaseTimeEntity {
             this.organizer = organizer;
         }
     }
+
 }

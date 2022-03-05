@@ -1,5 +1,6 @@
 package com.qnnect.cafe.domain;
 
+import com.qnnect.common.domain.BaseTimeEntity;
 import com.qnnect.drink.domain.UserDrinkSelected;
 import com.qnnect.user.domain.User;
 import lombok.Builder;
@@ -12,7 +13,7 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor
 @Entity
-public class CafeUser {
+public class CafeUser extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +23,7 @@ public class CafeUser {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "CAFE_ID")
     private Cafe cafe;
 

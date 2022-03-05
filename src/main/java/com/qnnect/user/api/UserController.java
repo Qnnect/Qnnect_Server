@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 
 @RestController
@@ -37,6 +38,13 @@ public class UserController {
     @PatchMapping("/user/enablenotification")
     public ResponseEntity<Void> enableNotification(@CurrentUser User user, boolean enableNotification) {
         userService.enableNotification(user, enableNotification);
+        return ResponseEntity.ok().build();
+    }
+
+    @ApiOperation(value = "메인 화면")
+    @PatchMapping("/home")
+    public ResponseEntity<Void> userMain (@ApiIgnore @CurrentUser User user) {
+        userService.getMain(user);
         return ResponseEntity.ok().build();
     }
 }

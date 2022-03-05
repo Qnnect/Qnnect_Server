@@ -20,6 +20,6 @@ public class DrinkIngredientsFilled {
     private UserDrinkSelected userDrinkSelected;
 
     @ManyToOne
-    @JoinColumn(name = "USER_INGREDIENTS_ID")
-    private Ingredient ingredients;
+    @JoinColumn(name = "INGREDIENT_ID")
+    private Ingredient ingredient;
 }

@@ -2,6 +2,7 @@ package com.qnnect.questions.domain;
 
 import com.qnnect.comments.domain.Comment;
 import com.qnnect.cafe.domain.Cafe;
+import com.qnnect.common.domain.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,10 +13,9 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Entity
-public class CafeQuestion {
+public class CafeQuestion extends BaseTimeEntity {
 
     @Id
-    @Column(name = "CAFE_QUESTION_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

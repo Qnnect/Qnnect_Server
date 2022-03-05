@@ -1,5 +1,5 @@
 package com.qnnect.questions.domain;
 
 public enum EQuestionType {
-    couple, friend, family, personal
+    커플, 가족, 공통, 친구
 }

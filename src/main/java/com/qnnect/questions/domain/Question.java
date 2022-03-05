@@ -11,14 +11,17 @@ import javax.persistence.*;
 public class Question {
 
     @Id
-    @Column(name = "QUESTION_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String content;
 
+    @Enumerated(EnumType.STRING)
     private EQuestionerType questionerType;
 
+    @Enumerated(EnumType.STRING)
     private EQuestionType questionType;
 
+    @OneToOne(mappedBy = "questions")
+    private QuestionUserMade questionUserMade;
 }
