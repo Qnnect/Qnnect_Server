@@ -81,8 +81,6 @@ public class SwaggerConfig{
         private Integer page;
 
         private Integer size;
-
-        private List<String> sort;
     }
 
 }
