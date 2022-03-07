@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -30,14 +31,15 @@ public class ScrapServiceImpl implements ScrapService {
     public void addScrap(User user, Long cafeQuestionId) {
         CafeQuestion cafeQuestion = cafeQuestionRepository.getById(cafeQuestionId);
         scrapRepository.save(Scrap.builder()
-                .user(user).cafeQuestion(cafeQuestion).build());
+                .user(user).question(cafeQuestion.getQuestions()).build());
     }
 
     @Override
     public void deleteScrap(User user, Long cafeQuestionId) {
         try {
+            Optional<CafeQuestion> cafeQuestion = cafeQuestionRepository.findById(cafeQuestionId);
             log.info("getting scrap");
-            Scrap scrap = scrapRepository.findByUser_IdAndCafeQuestion_Id(user.getId(), cafeQuestionId);
+            Scrap scrap = scrapRepository.findByUser_IdAndQuestion_Id(user.getId(), cafeQuestion.get().getId());
             log.info("deleting scrap");
             scrapRepository.delete(scrap);
             log.info("deleted scrap");
@@ -47,7 +49,6 @@ public class ScrapServiceImpl implements ScrapService {
     }
 
     public List<ScrapResponse> getAllScraps(Pageable pageable, User user){
-//        Pageable paging = PageRequest.of();
 
         List<ScrapResponse> scrapList = scrapRepository.findByUser_Id(user.getId(),pageable)
                 .stream()

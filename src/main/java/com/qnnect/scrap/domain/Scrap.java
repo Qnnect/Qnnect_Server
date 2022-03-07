@@ -2,6 +2,7 @@ package com.qnnect.scrap.domain;
 
 import com.qnnect.common.domain.BaseTimeEntity;
 import com.qnnect.questions.domain.CafeQuestion;
+import com.qnnect.questions.domain.Question;
 import com.qnnect.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,13 +27,13 @@ public class Scrap extends BaseTimeEntity {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "CAFE_QUESTION_ID")
-    private CafeQuestion cafeQuestion;
+    @JoinColumn(name = "QUESTION_ID")
+    private Question question;
 
     @Builder
-    public Scrap(User user, CafeQuestion cafeQuestion) {
+    public Scrap(User user, Question question) {
         setUser(user);
-        setCafeQuestion(cafeQuestion);
+        setQuestion(question);
     }
 
     public void setUser(User user){
@@ -40,9 +41,9 @@ public class Scrap extends BaseTimeEntity {
             this.user = user;
         }
     }
-    public void setCafeQuestion(CafeQuestion cafeQuestion){
-        if (Objects.isNull(this.cafeQuestion)) {
-            this.cafeQuestion = cafeQuestion;
+    public void setQuestion(Question question){
+        if (Objects.isNull(this.question)) {
+            this.question = question;
         }
     }
 }

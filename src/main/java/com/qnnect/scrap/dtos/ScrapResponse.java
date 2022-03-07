@@ -3,6 +3,7 @@ package com.qnnect.scrap.dtos;
 import com.qnnect.cafe.domain.Cafe;
 import com.qnnect.cafe.dto.CafeMainResponse;
 import com.qnnect.questions.domain.CafeQuestion;
+import com.qnnect.questions.domain.Question;
 import com.qnnect.questions.dto.QuestionMainResponse;
 import com.qnnect.scrap.domain.Scrap;
 import io.swagger.annotations.ApiModel;
@@ -26,11 +27,11 @@ public class ScrapResponse {
 
 
     public static ScrapResponse from(Scrap scrap) {
-        CafeQuestion cafeQuestion = scrap.getCafeQuestion();
+        Question question = scrap.getQuestion();
 
         return ScrapResponse.builder()
-                .createdAt(cafeQuestion.getCreatedAt().toLocalDate())
-                .question(cafeQuestion.getQuestions().getContent())
+                .createdAt(scrap.getCreatedAt().toLocalDate())
+                .question(question.getContent())
                 .build();
     }
 }

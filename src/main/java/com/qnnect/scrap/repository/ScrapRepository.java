@@ -15,8 +15,8 @@ public interface ScrapRepository extends JpaRepository<Scrap, Long> {
 
     List<Scrap> findAllByUser_Id(@Param(value="userId") UUID userId);
 
-    Scrap findByUser_IdAndCafeQuestion_Id(@Param(value = "userId") UUID userId
-            , @Param(value = "cafeQuestionId") long cafeQuestionId);
+    Scrap findByUser_IdAndQuestion_Id(@Param(value = "userId") UUID userId
+            , @Param(value = "questionId") long questionId);
 
     Page<Scrap> findByUser_Id(@Param(value="userId")UUID userId, Pageable pageable);
 }
