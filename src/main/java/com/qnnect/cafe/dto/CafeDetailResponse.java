@@ -9,6 +9,7 @@ import com.qnnect.user.dtos.ProfileResponse;
 import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
 @ApiModel(value = "카페")
 public class CafeDetailResponse {
 
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     private String title;
 
@@ -31,9 +32,9 @@ public class CafeDetailResponse {
     private List<CafeQuestionResponse> cafeQuestionResponseList;
 
     public CafeDetailResponse(Cafe entity, CafeUser currentCafeUser){
-        this.createdAt = entity.getCreatedAt();
+        this.createdAt = entity.getCreatedAt().toLocalDate();
         this.title = entity.getTitle();
-        this.isOrganizer = currentCafeUser.getUser().getId() == entity.getOrganizer().getId();
+        this.isOrganizer = currentCafeUser.getUser() == entity.getOrganizer();
         this.code = entity.getCode();
         this.currentUserResponse = CafeUserResponse.from(currentCafeUser);
         this.cafeQuestionResponseList = CafeQuestionResponse.listFrom(entity.getCafeQuestions());
