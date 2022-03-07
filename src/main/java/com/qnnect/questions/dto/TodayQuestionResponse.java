@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TodayQuestionResponse {
 
-    private CafeQuestionService cafeQuestionService;
+    private final CafeQuestionService cafeQuestionService = null;
 
     @ApiModelProperty(value = "오늘의 질문 id", example = "1")
     private Long id;
@@ -26,7 +26,6 @@ public class TodayQuestionResponse {
         if(cafe == null){
             System.out.println("cafe is null");
         }
-        System.out.println(cafe.getTitle());
         Question question = cafeQuestionService.findQuestionToday(cafe);
         if(question == null){
             this.id = 1L;

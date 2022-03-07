@@ -1,8 +1,13 @@
 package com.qnnect.user.service;
 
+import com.qnnect.cafe.domain.Cafe;
 import com.qnnect.cafe.domain.CafeUser;
+import com.qnnect.cafe.dto.CafeMainResponse;
 import com.qnnect.cafe.repository.CafeUserRepository;
 import com.qnnect.common.S3Uploader;
+import com.qnnect.questions.domain.CafeQuestion;
+import com.qnnect.questions.domain.Question;
+import com.qnnect.questions.repository.CafeQuestionRepository;
 import com.qnnect.user.domain.User;
 import com.qnnect.user.dtos.MainResponse;
 import com.qnnect.user.dtos.ProfileResponse;
@@ -14,7 +19,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -23,6 +31,7 @@ public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
     private final S3Uploader s3Uploader;
     private final CafeUserRepository cafeUserRepository;
+    private final CafeQuestionRepository cafeQuestionRepository;
 
     @Override
     public void enableNotification(User user, boolean enabledNotification) {
@@ -56,13 +65,36 @@ public class UserServiceImpl implements UserService{
     }
 
     public MainResponse getMain(User user){
+
         List<CafeUser> cafeUserList = cafeUserRepository.findAllByUser_Id(user.getId());
-        System.out.println(cafeUserList.size());
+        List<Cafe> cafeList = cafeUserList.stream().map(CafeUser::getCafe).collect(Collectors.toList());
+        List<Long> cafeIdList = cafeList.stream().map(Cafe::getId).collect(Collectors.toList());
+        HashMap<Long, Long> cafeUserNum = getCafeUserNum(cafeIdList);
+        List<CafeQuestion> todayQuestionList = getLatestQuestion(cafeIdList);
+
         if(cafeUserList == null){
-            return new MainResponse(user, null);
+            return new MainResponse(user, null, null);
         }
-        return new MainResponse(user, cafeUserList);
+        return new MainResponse(user, cafeList,todayQuestionList);
     }
+
+    public HashMap<Long, Long> getCafeUserNum (List<Long> cafeIdList){
+        HashMap<Long,Long> cafeUserNum = new HashMap<Long,Long>();
+        for(Long cafeId:cafeIdList){
+            cafeUserNum.put(cafeId, cafeUserRepository.countByCafe_Id(cafeId));
+        }
+        return cafeUserNum;
+    }
+
+    public List<CafeQuestion> getLatestQuestion(List<Long> cafeIdList){
+        List<CafeQuestion> todayQuestionList = new ArrayList<>();
+        for(Long cafeId:cafeIdList){
+            todayQuestionList.add(cafeQuestionRepository.
+                    findTop1ByCafe_IdOrderByCreatedAtDesc(cafeId));
+        }
+        return todayQuestionList;
+    }
+
 
 }
 

@@ -1,7 +1,6 @@
 package com.qnnect.scrap.dtos;
 
-import com.qnnect.questions.domain.Question;
-import com.qnnect.questions.dto.QuestionResponse;
+import com.qnnect.questions.dto.QuestionMainResponse;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -14,6 +13,6 @@ public class ScrapResponse {
     @ApiModelProperty(value = "스크랩 id", example = "3")
     private Long id;
 
-    private QuestionResponse question;
+    private QuestionMainResponse question;
 
 }

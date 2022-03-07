@@ -1,6 +1,7 @@
 package com.qnnect.user.api;
 
 import com.qnnect.common.CurrentUser;
+import com.qnnect.user.dtos.MainResponse;
 import com.qnnect.user.service.UserService;
 import com.qnnect.user.domain.User;
 import com.qnnect.user.dtos.ProfileResponse;
@@ -43,8 +44,8 @@ public class UserController {
 
     @ApiOperation(value = "메인 화면")
     @PatchMapping("/home")
-    public ResponseEntity<Void> userMain (@ApiIgnore @CurrentUser User user) {
-        userService.getMain(user);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<MainResponse> userMain (@ApiIgnore @CurrentUser User user) {
+        MainResponse mainResponse = userService.getMain(user);
+        return ResponseEntity.ok(mainResponse);
     }
 }

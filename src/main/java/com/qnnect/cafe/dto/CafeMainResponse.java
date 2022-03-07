@@ -1,44 +1,41 @@
 package com.qnnect.cafe.dto;
 
 import com.qnnect.cafe.domain.Cafe;
-import com.qnnect.cafe.domain.CafeUser;
-import com.qnnect.questions.domain.CafeQuestion;
-import com.qnnect.questions.dto.TodayQuestionResponse;
-import com.qnnect.user.dtos.ProfileResponse;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Builder
 public class CafeMainResponse {
     private String title;
     private LocalDateTime createdAt;
-    private int participantNum;
-    private TodayQuestionResponse questionResponse;
+    private int cafeUserNum;
 
-    public static CafeMainResponse from(CafeUser cafeUser) {
-        Cafe cafe = cafeUser.getCafe();
+    public static CafeMainResponse from(Cafe cafe) {
 
         return CafeMainResponse.builder()
                 .title(cafe.getTitle())
                 .createdAt(cafe.getCreatedAt())
-                .participantNum(cafe.getCafeUsers().size())
-                .questionResponse(new TodayQuestionResponse(cafe))
+                .cafeUserNum(cafe.getCafeUsers().size())
                 .build();
     }
 
-    public static List<CafeMainResponse> listFrom(List<CafeUser> cafeUserList) {
-        if(cafeUserList == null){
+    public static List<CafeMainResponse> listFrom(List<Cafe> cafeList) {
+        if(cafeList == null){
             return null;
         }
-        System.out.println("listFrom");
-        return cafeUserList.stream()
-                .map(CafeMainResponse::from)
-                .collect(Collectors.toList());
+
+        List<CafeMainResponse> cafeMainResponseList = new ArrayList<>();
+
+        for(Cafe cafe:cafeList){
+            cafeMainResponseList.add(from(cafe));
+        }
+
+        return cafeMainResponseList;
     }
 }
 

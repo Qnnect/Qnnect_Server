@@ -31,8 +31,8 @@ public class CafeDetailResponse {
         this.title = entity.getTitle();
         this.organizer = ProfileResponse.from(entity.getOrganizer());
         this.code = entity.getCode();
-        List<CafeQuestion> cafeQuestion = entity.getCafeQuestion();
-        this.cafeQuestionResponseList = CafeQuestionResponse.listFrom(cafeQuestion);
+        List<CafeQuestion> cafeQuestions = entity.getCafeQuestions();
+        this.cafeQuestionResponseList = CafeQuestionResponse.listFrom(cafeQuestions);
         this.cafeUserResponseList = CafeUserResponse.listFrom(entity.getCafeUsers());
     }
 }

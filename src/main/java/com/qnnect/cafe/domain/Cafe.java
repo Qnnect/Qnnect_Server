@@ -37,11 +37,12 @@ public class Cafe extends BaseTimeEntity {
     @JoinColumn(name="USER_ID")
     private User organizer;
 
-    @OneToMany(mappedBy = "cafe",cascade = CascadeType.ALL)
-    private List<CafeQuestion> cafeQuestion;
-
-    @OneToMany(mappedBy = "cafe", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "cafe")
     private List<CafeUser> cafeUsers;
+
+    @OneToMany(mappedBy = "cafe")
+    private List<CafeQuestion> cafeQuestions;
+
 
     @Builder
     public Cafe(String title, EGroupType groupType, EQuestionCycle questionCycle,

@@ -49,14 +49,14 @@ public class User extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private ELoginType loginType;
 
-    @OneToMany(mappedBy="user")
-    private List<UserDrinkSelected> userDrinkSelectedList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<UserIngredient> userIngredientsList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<QuestionUserMade> questionUserMadeList = new ArrayList<>();
+//    @OneToMany(mappedBy="user")
+//    private List<UserDrinkSelected> userDrinkSelectedList = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "user")
+//    private List<UserIngredient> userIngredientsList = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "user")
+//    private List<QuestionUserMade> questionUserMadeList = new ArrayList<>();
 
 
     @Builder

@@ -2,7 +2,7 @@ package com.qnnect.questions.apis;
 
 
 import com.qnnect.questions.dto.QuestionDetailResponse;
-import com.qnnect.questions.dto.QuestionResponse;
+import com.qnnect.questions.dto.QuestionMainResponse;
 import com.qnnect.questions.dto.TodayQuestionResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,8 +28,8 @@ public class QuestionController {
 
     @GetMapping("/diaries/{diaryId}/question/all")
     @ApiOperation(value = "전체 질문")
-    public ResponseEntity<List<QuestionResponse>> getQuestionAll(@PathVariable Long diaryId){
-        List<QuestionResponse> questionResponse = new ArrayList<>();
+    public ResponseEntity<List<QuestionMainResponse>> getQuestionAll(@PathVariable Long diaryId){
+        List<QuestionMainResponse> questionResponse = new ArrayList<>();
         return ResponseEntity.ok(questionResponse);
     }
 
