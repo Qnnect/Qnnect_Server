@@ -4,7 +4,8 @@ import com.qnnect.common.domain.BaseTimeEntity;
 import com.qnnect.questions.domain.CafeQuestion;
 import com.qnnect.user.domain.User;
 import lombok.Builder;
-import org.springframework.data.jpa.repository.JpaRepository;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
 import javax.persistence.*;
@@ -12,6 +13,8 @@ import java.util.Objects;
 
 
 @Entity
+@Getter
+@NoArgsConstructor
 public class Scrap extends BaseTimeEntity {
 
     @Id
@@ -24,7 +27,7 @@ public class Scrap extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "CAFE_QUESTION_ID")
-    private CafeQuestion cafeQuestions;
+    private CafeQuestion cafeQuestion;
 
     @Builder
     public Scrap(User user, CafeQuestion cafeQuestion) {
@@ -38,8 +41,8 @@ public class Scrap extends BaseTimeEntity {
         }
     }
     public void setCafeQuestion(CafeQuestion cafeQuestion){
-        if (Objects.isNull(this.cafeQuestions)) {
-            this.cafeQuestions = cafeQuestion;
+        if (Objects.isNull(this.cafeQuestion)) {
+            this.cafeQuestion = cafeQuestion;
         }
     }
 }

@@ -11,14 +11,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 @Api(tags = {"스크랩 관련 API"})
 public class ScrapController {
+
     private final ScrapService scrapService;
 
     @PostMapping("/users/scrap")
@@ -29,15 +30,17 @@ public class ScrapController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/users/scrap/{scrapId}")
+    @DeleteMapping("/users/scrap")
     @ApiOperation(value = "스크랩 취소 api")
-    public ResponseEntity<Void> cancelScrapQuestion(
-            @PathVariable Long scrapId){
+    public ResponseEntity<Void> deleteScrapQuestion(
+            @RequestParam Long cafeQuestionId, @ApiIgnore @CurrentUser User user){
+        System.out.println("controller");
+        scrapService.deleteScrap(user, cafeQuestionId);
         return ResponseEntity.noContent().build();
     }
 
 //    @GetMapping("/users/scrap/")
-//    @ApiOperation(value = "스크랩 리스트 가져오기 api")
+//    @ApiOperation(value = "전체 스크랩 리스트 가져오기 api")
 //    public ResponseEntity<List<ScrapResponse>> getAllScrapQuestion(@ApiIgnore @CurrentUser User user){
 //        List<ScrapResponse> scrapResponseList = scrapService.getAllScraps(user);
 //        return ResponseEntity.ok(scrapResponseList);
