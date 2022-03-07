@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class QuestionMainResponse {
 
     @ApiModelProperty(value = "다이어리 질문 리스트 id", example = "1")
-    private Long id;
+    private Long cafeQuestionId;
 
     @ApiModelProperty(value = "답변 가능 날 수")
     private long daysLeft;
@@ -38,6 +38,7 @@ public class QuestionMainResponse {
             return null;
         }
         return QuestionMainResponse.builder()
+                .cafeQuestionId(cafeQuestion.getId())
                 .content(cafeQuestion.getQuestions().getContent())
                 .cafeTitle(cafeQuestion.getCafe().getTitle())
                 .daysLeft(calculateDaysLeft(cafeQuestion))
@@ -46,7 +47,7 @@ public class QuestionMainResponse {
 
     public static long calculateDaysLeft(CafeQuestion cafeQuestion){
         LocalDateTime now = LocalDateTime.now();
-        Duration duration = Duration.between(now, cafeQuestion.getCreatedAt());
+        Duration duration = Duration.between(cafeQuestion.getCreatedAt(),now);
         Long daysLeft = 7 - duration.toDays();
         return daysLeft;
     }

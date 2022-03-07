@@ -4,7 +4,7 @@ import com.qnnect.cafe.domain.Cafe;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,14 +12,14 @@ import java.util.List;
 @Builder
 public class CafeMainResponse {
     private String title;
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
     private int cafeUserNum;
 
     public static CafeMainResponse from(Cafe cafe) {
 
         return CafeMainResponse.builder()
                 .title(cafe.getTitle())
-                .createdAt(cafe.getCreatedAt())
+                .createdAt(cafe.getCreatedAt().toLocalDate())
                 .cafeUserNum(cafe.getCafeUsers().size())
                 .build();
     }

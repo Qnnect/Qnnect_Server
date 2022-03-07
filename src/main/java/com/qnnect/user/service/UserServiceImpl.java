@@ -69,21 +69,12 @@ public class UserServiceImpl implements UserService{
         List<CafeUser> cafeUserList = cafeUserRepository.findAllByUser_Id(user.getId());
         List<Cafe> cafeList = cafeUserList.stream().map(CafeUser::getCafe).collect(Collectors.toList());
         List<Long> cafeIdList = cafeList.stream().map(Cafe::getId).collect(Collectors.toList());
-        HashMap<Long, Long> cafeUserNum = getCafeUserNum(cafeIdList);
         List<CafeQuestion> todayQuestionList = getLatestQuestion(cafeIdList);
 
         if(cafeUserList == null){
             return new MainResponse(user, null, null);
         }
         return new MainResponse(user, cafeList,todayQuestionList);
-    }
-
-    public HashMap<Long, Long> getCafeUserNum (List<Long> cafeIdList){
-        HashMap<Long,Long> cafeUserNum = new HashMap<Long,Long>();
-        for(Long cafeId:cafeIdList){
-            cafeUserNum.put(cafeId, cafeUserRepository.countByCafe_Id(cafeId));
-        }
-        return cafeUserNum;
     }
 
     public List<CafeQuestion> getLatestQuestion(List<Long> cafeIdList){
@@ -94,7 +85,5 @@ public class UserServiceImpl implements UserService{
         }
         return todayQuestionList;
     }
-
-
 }
 

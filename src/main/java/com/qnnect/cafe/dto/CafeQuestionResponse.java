@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 @ApiModel(value = "카페 질문")
 public class CafeQuestionResponse {
 
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
     private long daysLeft;
     private String questioner;
     private String question;
@@ -25,7 +26,7 @@ public class CafeQuestionResponse {
     public static CafeQuestionResponse from(CafeQuestion cafeQuestion) {
 
         return CafeQuestionResponse.builder()
-                .createdAt(cafeQuestion.getCreatedAt())
+                .createdAt(cafeQuestion.getCreatedAt().toLocalDate())
                 .daysLeft(calculateDaysLeft(cafeQuestion))
                 .question(cafeQuestion.getQuestions().getContent())
                 .questioner(findQuestioner(cafeQuestion))

@@ -23,7 +23,6 @@ public class MainResponse {
         if(cafe == null){
             this.cafeMainResponseList = null;
         }else {
-            System.out.println("else");
             this.cafeMainResponseList = CafeMainResponse.listFrom(cafe);
         }
 
