@@ -9,10 +9,12 @@ import com.qnnect.cafe.repository.CafeUserRepository;
 import com.qnnect.common.exception.cafe.CafeMemberExceededExeption;
 import com.qnnect.common.exception.cafe.IncorrectCafeCodeException;
 import com.qnnect.user.domain.User;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import springfox.documentation.annotations.ApiIgnore;
 
 
 @Service
@@ -48,12 +50,14 @@ public class CafeServiceImpl implements CafeService {
             throw new IncorrectCafeCodeException();
         }
         cafeUserRepository.save(CafeUser.builder().cafe(cafe).user(user).build());
-        return new CafeDetailResponse(cafe);
+        CafeUser currentCafeUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafeId, user.getId());
+        return new CafeDetailResponse(cafe, currentCafeUser);
     }
 
     @Transactional(readOnly=true)
-    public CafeDetailResponse getCafe(Long cafeId){
+    public CafeDetailResponse getCafe(Long cafeId, @ApiIgnore User user){
+        CafeUser currentCafeUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafeId, user.getId());
         Cafe cafe = cafeRepository.getById(cafeId);
-        return new CafeDetailResponse(cafe);
+        return new CafeDetailResponse(cafe, currentCafeUser);
     }
 }

@@ -27,10 +27,10 @@ public class CafeController {
 
     @PostMapping("/cafes")
     @ApiOperation(value = "카페 생성 api")
-    public ResponseEntity<CafeDetailResponse> createCafe(@RequestBody CafeCreateRequest cafeCreateRequest,
+    public ResponseEntity<Long> createCafe(@RequestBody CafeCreateRequest cafeCreateRequest,
                                                          @ApiIgnore @CurrentUser User user){
         Cafe cafe = cafeService.createCafe(cafeCreateRequest, user);
-        return ResponseEntity.created(URI.create("/cafes/" + cafe.getId())).build();
+        return ResponseEntity.ok(cafe.getId());
     }
 
     @PostMapping("/cafes/{cafeId}")
@@ -46,7 +46,7 @@ public class CafeController {
     @ApiOperation(value = "카페 홈 api")
     public ResponseEntity<CafeDetailResponse> showCafe(@PathVariable long cafeId,
                                                        @ApiIgnore @CurrentUser User user){
-        CafeDetailResponse cafeResponse = cafeService.getCafe(cafeId);
+        CafeDetailResponse cafeResponse = cafeService.getCafe(cafeId, user);
         return ResponseEntity.ok(cafeResponse);
     }
 

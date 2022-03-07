@@ -59,6 +59,7 @@ public class QuestionMainResponse {
 
         return cafeQuestionList.stream()
                 .map(QuestionMainResponse::from)
+                .filter(questionMainResponse -> questionMainResponse != null)
                 .collect(Collectors.toList());
     }
 }

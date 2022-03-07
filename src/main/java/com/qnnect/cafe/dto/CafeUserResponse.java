@@ -4,12 +4,14 @@ import com.qnnect.cafe.domain.CafeUser;
 import com.qnnect.drink.domain.DrinkIngredientsFilled;
 import com.qnnect.drink.domain.UserDrinkSelected;
 import com.qnnect.drink.dtos.DrinkIngredientsFilledResponse;
+import com.qnnect.user.domain.User;
 import com.qnnect.user.dtos.ProfileResponse;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Getter
@@ -25,7 +27,7 @@ public class CafeUserResponse {
         if(userDrinkSelected != null){
             drinkIngredientsFilled = userDrinkSelected.getDrinkIngredientsFilled();
         }
-        
+
         return CafeUserResponse.builder()
                 .user(ProfileResponse.from(cafeUser.getUser()))
                 .userDrinkSelected(userDrinkSelected != null ? userDrinkSelected.getDrink().getName() : null)
@@ -35,9 +37,11 @@ public class CafeUserResponse {
     }
 
 
-    public static List<CafeUserResponse> listFrom(List<CafeUser> cafeUsers) {
-
+    public static List<CafeUserResponse> listFrom(List<CafeUser> cafeUsers,
+                                                  CafeUser currentCafeUser) {
+        
         return cafeUsers.stream()
+                .filter(cafeUser -> cafeUser.getUser() != currentCafeUser.getUser())
                 .map(CafeUserResponse::from)
                 .collect(Collectors.toList());
     }
