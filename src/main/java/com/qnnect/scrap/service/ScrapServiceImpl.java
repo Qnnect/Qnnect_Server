@@ -9,7 +9,13 @@ import com.qnnect.scrap.repository.ScrapRepository;
 import com.qnnect.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -40,8 +46,13 @@ public class ScrapServiceImpl implements ScrapService {
         }
     }
 
-//    public List<ScrapResponse> getAllScraps(User user){
-//        List<Scrap> scrapList = scrapRepository.findAllByUser_Id(user.getId());
-//        return new
-//    }
+    public List<ScrapResponse> getAllScraps(Pageable pageable, User user){
+//        Pageable paging = PageRequest.of();
+
+        List<ScrapResponse> scrapList = scrapRepository.findByUser_Id(user.getId(),pageable)
+                .stream()
+                .map(ScrapResponse::from)
+                .collect(Collectors.toList());
+        return scrapList;
+    }
 }

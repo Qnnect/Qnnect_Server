@@ -16,8 +16,8 @@ public class CafeMainResponse {
     private LocalDate createdAt;
     private int cafeUserNum;
 
-    public static CafeMainResponse from(Cafe cafe) {
 
+    public static CafeMainResponse from(Cafe cafe) {
         return CafeMainResponse.builder()
                 .id(cafe.getId())
                 .title(cafe.getTitle())

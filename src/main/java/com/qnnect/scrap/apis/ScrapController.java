@@ -7,6 +7,9 @@ import com.qnnect.user.domain.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -39,11 +42,11 @@ public class ScrapController {
         return ResponseEntity.noContent().build();
     }
 
-//    @GetMapping("/users/scrap/")
-//    @ApiOperation(value = "전체 스크랩 리스트 가져오기 api")
-//    public ResponseEntity<List<ScrapResponse>> getAllScrapQuestion(@ApiIgnore @CurrentUser User user){
-//        List<ScrapResponse> scrapResponseList = scrapService.getAllScraps(user);
-//        return ResponseEntity.ok(scrapResponseList);
-//    }
+    @GetMapping("/users/scrap/")
+    @ApiOperation(value = "전체 스크랩 리스트 가져오기 api")
+    public ResponseEntity<List<ScrapResponse>> getAllScrapQuestion(@PageableDefault(sort="id", direction = Sort.Direction.DESC)final Pageable pageable, @ApiIgnore @CurrentUser User user){
+        List<ScrapResponse> scrapResponseList = scrapService.getAllScraps(pageable, user);
+        return ResponseEntity.ok(scrapResponseList);
+    }
 
 }

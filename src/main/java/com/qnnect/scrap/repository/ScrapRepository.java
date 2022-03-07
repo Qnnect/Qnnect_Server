@@ -1,6 +1,8 @@
 package com.qnnect.scrap.repository;
 
 import com.qnnect.scrap.domain.Scrap;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -10,7 +12,11 @@ import java.util.UUID;
 
 @Repository
 public interface ScrapRepository extends JpaRepository<Scrap, Long> {
-    public List<Scrap> findAllByUser_Id(@Param(value="userId") UUID userId);
-    public Scrap findByUser_IdAndCafeQuestion_Id(@Param(value = "userId") UUID userId
+
+    List<Scrap> findAllByUser_Id(@Param(value="userId") UUID userId);
+
+    Scrap findByUser_IdAndCafeQuestion_Id(@Param(value = "userId") UUID userId
             , @Param(value = "cafeQuestionId") long cafeQuestionId);
+
+    Page<Scrap> findByUser_Id(@Param(value="userId")UUID userId, Pageable pageable);
 }
