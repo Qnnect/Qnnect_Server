@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 @Builder
 public class CafeMainResponse {
+    private Long id;
     private String title;
     private LocalDate createdAt;
     private int cafeUserNum;
@@ -18,6 +19,7 @@ public class CafeMainResponse {
     public static CafeMainResponse from(Cafe cafe) {
 
         return CafeMainResponse.builder()
+                .id(cafe.getId())
                 .title(cafe.getTitle())
                 .createdAt(cafe.getCreatedAt().toLocalDate())
                 .cafeUserNum(cafe.getCafeUsers().size())
