@@ -1,5 +1,6 @@
 package com.qnnect.cafe.api;
 
+import com.qnnect.cafe.domain.Cafe;
 import com.qnnect.cafe.domain.EQuestionCycle;
 import com.qnnect.cafe.dto.CafeCreateRequest;
 import com.qnnect.cafe.dto.CafeDetailResponse;
@@ -12,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.net.URI;
 
 
 @RestController
@@ -26,8 +29,8 @@ public class CafeController {
     @ApiOperation(value = "카페 생성 api")
     public ResponseEntity<CafeDetailResponse> createCafe(@RequestBody CafeCreateRequest cafeCreateRequest,
                                                          @ApiIgnore @CurrentUser User user){
-        cafeService.createCafe(cafeCreateRequest, user);
-        return ResponseEntity.ok().build();
+        Cafe cafe = cafeService.createCafe(cafeCreateRequest, user);
+        return ResponseEntity.created(URI.create("/cafes/" + cafe.getId())).build();
     }
 
     @PostMapping("/cafes/{cafeId}")
