@@ -1,25 +1,28 @@
 package com.qnnect.questions.apis;
 
+import com.qnnect.common.CurrentUser;
+import com.qnnect.questions.dto.QuestionCreateRequest;
+import com.qnnect.questions.service.CafeQuestionService;
+import com.qnnect.user.domain.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 @Api(tags = {"사용자 질문 생성관련 API"})
 public class UserQuestionController {
-    @PostMapping("/diaries/{diaryId}/question/")
-    @ApiOperation(value = "사용자 질문 생성 api(바로보이게)")
-    public ResponseEntity<Void> createQuestionNow(@RequestBody String question){//바로 보이게
-        return ResponseEntity.ok().build();
-    }
 
-    @PostMapping("/diaries/{diaryId}/question/list")
-    @ApiOperation(value = "사용자 질문 생성 api(질문리스트로)")
-    public ResponseEntity<Void> createQuestionLater(@RequestBody String question){//나중에
+    private final CafeQuestionService cafeQuestionService;
+
+    @PostMapping("/diaries/{diaryId}/question/")
+    @ApiOperation(value = "사용자 질문 생성 api")
+    public ResponseEntity<Void> createQuestion(@RequestBody QuestionCreateRequest questionCreateRequest, @ApiIgnore @CurrentUser User user){
+        cafeQuestionService.create(questionCreateRequest,user );
         return ResponseEntity.ok().build();
     }
 

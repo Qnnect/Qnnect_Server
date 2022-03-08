@@ -50,7 +50,7 @@ public class ScrapController {
 //        return ResponseEntity.ok(scrapResponseList);
 //    }
 
-    @GetMapping("/users/scrap/{groupId}")
+    @GetMapping("/users/scrap/{cafeId}")
     @ApiOperation(value = "카페별 스크랩 리스트 가져오기 api")
     public ResponseEntity<List<ScrapResponse>> getCafeScrapQuestion(@PathVariable Long cafeId, @PageableDefault(sort="id", direction = Sort.Direction.DESC)final Pageable pageable, @ApiIgnore @CurrentUser User user){
         List<ScrapResponse> scrapResponseList = scrapService.getCafeScraps(pageable,user, cafeId);
