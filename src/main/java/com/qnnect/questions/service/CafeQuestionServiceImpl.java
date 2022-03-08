@@ -18,13 +18,13 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
     private final CafeQuestionRepository cafeQuestionRepository;
 
 
-//    @Override
-//    Question findQuestionToday(Cafe cafe) {
-//        System.out.println("service");
-//        CafeQuestion cafeQuestion = cafeQuestionRepository.findTop1ByCafe_IdOrderByCreatedAtDesc(cafe.getId());
-//        System.out.println(cafeQuestion);
-//        return cafeQuestion.getQuestions();
-//    }
+    @Override
+    public Question findQuestionToday(Cafe cafe) {
+        System.out.println("service");
+        CafeQuestion cafeQuestion = cafeQuestionRepository.findTop1ByCafe_IdOrderByCreatedAtDesc(cafe.getId());
+        System.out.println(cafeQuestion);
+        return cafeQuestion.getQuestions();
+    }
 
     @Override
     public void create(QuestionCreateRequest questionCreateRequest, User user) {

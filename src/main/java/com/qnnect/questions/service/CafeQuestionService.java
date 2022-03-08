@@ -7,6 +7,6 @@ import com.qnnect.user.domain.User;
 
 
 public interface CafeQuestionService {
-//    Question findQuestionToday(Cafe cafe);
+    public Question findQuestionToday(Cafe cafe);
     void create(QuestionCreateRequest questionCreateRequest, User user);
 }
