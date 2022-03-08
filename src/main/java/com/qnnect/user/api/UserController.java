@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "메인 화면")
-    @PatchMapping("/home")
+    @GetMapping("/home")
     public ResponseEntity<MainResponse> userMain (@ApiIgnore @CurrentUser User user) {
         MainResponse mainResponse = userService.getMain(user);
         return ResponseEntity.ok(mainResponse);
