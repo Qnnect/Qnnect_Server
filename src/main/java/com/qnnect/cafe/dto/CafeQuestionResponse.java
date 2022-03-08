@@ -20,6 +20,7 @@ public class CafeQuestionResponse {
 
     private LocalDate createdAt;
     private long daysLeft;
+    private long cafeQuestionId;
     private String questioner;
     private String question;
 
@@ -27,6 +28,7 @@ public class CafeQuestionResponse {
 
         return CafeQuestionResponse.builder()
                 .createdAt(cafeQuestion.getCreatedAt().toLocalDate())
+                .cafeQuestionId(cafeQuestion.getId())
                 .daysLeft(calculateDaysLeft(cafeQuestion))
                 .question(cafeQuestion.getQuestions().getContent())
                 .questioner(findQuestioner(cafeQuestion))
