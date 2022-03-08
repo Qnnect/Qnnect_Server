@@ -1,6 +1,7 @@
 package com.qnnect.cafe.dto;
 
 import com.qnnect.cafe.domain.Cafe;
+import com.qnnect.cafe.domain.EDiaryColor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,12 +16,14 @@ public class CafeMainResponse {
     private String title;
     private LocalDate createdAt;
     private int cafeUserNum;
+    private EDiaryColor diaryColor;
 
 
     public static CafeMainResponse from(Cafe cafe) {
         return CafeMainResponse.builder()
                 .id(cafe.getId())
                 .title(cafe.getTitle())
+                .diaryColor(cafe.getDiaryColor())
                 .createdAt(cafe.getCreatedAt().toLocalDate())
                 .cafeUserNum(cafe.getCafeUsers().size())
                 .build();
