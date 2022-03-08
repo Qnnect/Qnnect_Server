@@ -47,6 +47,7 @@ public class ScrapServiceImpl implements ScrapService {
         }
     }
 
+//    @Override
 //    public List<ScrapResponse> getAllScraps(Pageable pageable, User user){
 //
 //        List<ScrapResponse> scrapList = scrapRepository.findByUser_Id(user.getId(),pageable)

@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @Builder
 public class ScrapResponse {
 
-//    private Long cafeQuestionId;
+    private Long cafeQuestionId;
 
     private LocalDate createdAt;
 
@@ -30,6 +30,7 @@ public class ScrapResponse {
         Question question = scrap.getCafeQuestion().getQuestions();
 
         return ScrapResponse.builder()
+                .cafeQuestionId(scrap.getCafeQuestion().getId())
                 .createdAt(scrap.getCreatedAt().toLocalDate())
                 .question(question.getContent())
                 .build();
