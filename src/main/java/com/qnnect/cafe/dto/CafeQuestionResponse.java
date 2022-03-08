@@ -39,7 +39,7 @@ public class CafeQuestionResponse {
         if(cafeQuestion.getQuestions().getQuestionerType() == EQuestionerType.admin){
             return "넥트";
         }else{
-            User user = cafeQuestion.getQuestions().getQuestionUserMade().getUser();
+            User user = cafeQuestion.getQuestions().getUser();
             return user.getNickName();
         }
     }

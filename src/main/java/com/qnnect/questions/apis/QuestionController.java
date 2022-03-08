@@ -19,12 +19,6 @@ import java.util.List;
 @Api(tags = {"질문 관련 API"})
 public class QuestionController {
 
-//    @PMapping("/questions")
-//    @ApiOperation(value = "오늘의 질문")
-//    public ResponseEntity<TodayQuestionResponse> getQuestionToday(@RequestParam String searchWord){
-//
-//        return ResponseEntity.ok(todayQuestionResponse);
-//    }
 
     @GetMapping("/diaries/{diaryId}/question/all")
     @ApiOperation(value = "전체 질문")

@@ -1,11 +1,9 @@
 package com.qnnect.questions.dto;
 
-import com.qnnect.comments.domain.Comment;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.List;
-
+@Getter
 public class QuestionCreateRequest {
     @ApiModelProperty(value = "카페 id", example = "1")
     private Long cafeId;

@@ -2,9 +2,6 @@ package com.qnnect.user.domain;
 
 import com.qnnect.auth.ELoginType;
 import com.qnnect.common.domain.BaseTimeEntity;
-import com.qnnect.drink.domain.UserDrinkSelected;
-import com.qnnect.ingredients.domain.UserIngredient;
-import com.qnnect.questions.domain.QuestionUserMade;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,8 +10,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
