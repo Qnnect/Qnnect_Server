@@ -1,5 +1,6 @@
 package com.qnnect.scrap.service;
 
+import com.qnnect.common.CurrentUser;
 import com.qnnect.common.exception.cafe.QuestionNotScrappedException;
 import com.qnnect.questions.domain.CafeQuestion;
 import com.qnnect.questions.repository.CafeQuestionRepository;
@@ -7,12 +8,17 @@ import com.qnnect.scrap.domain.Scrap;
 import com.qnnect.scrap.dtos.ScrapResponse;
 import com.qnnect.scrap.repository.ScrapRepository;
 import com.qnnect.user.domain.User;
+import com.qnnect.user.dtos.MainResponse;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PatchMapping;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 import java.util.Optional;
@@ -66,4 +72,6 @@ public class ScrapServiceImpl implements ScrapService {
                 .collect(Collectors.toList());
         return scrapList;
     }
+
+
 }

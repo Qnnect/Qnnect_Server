@@ -3,6 +3,7 @@ package com.qnnect.user.service;
 import com.qnnect.cafe.domain.Cafe;
 import com.qnnect.cafe.domain.CafeUser;
 import com.qnnect.cafe.dto.CafeMainResponse;
+import com.qnnect.cafe.dto.CafeScrapResponse;
 import com.qnnect.cafe.repository.CafeUserRepository;
 import com.qnnect.common.S3Uploader;
 import com.qnnect.questions.domain.CafeQuestion;
@@ -84,6 +85,12 @@ public class UserServiceImpl implements UserService{
                     findTop1ByCafe_IdOrderByCreatedAtDesc(cafeId));
         }
         return todayQuestionList;
+    }
+
+    public List<CafeScrapResponse> getCafeList(User user){
+        List<CafeUser> cafeUserList = cafeUserRepository.findAllByUser_Id(user.getId());
+        List<Cafe> cafeList = cafeUserList.stream().map(CafeUser::getCafe).collect(Collectors.toList());
+        return CafeScrapResponse.listFrom(cafeList);
     }
 }
 

@@ -1,5 +1,6 @@
 package com.qnnect.user.api;
 
+import com.qnnect.cafe.dto.CafeScrapResponse;
 import com.qnnect.common.CurrentUser;
 import com.qnnect.user.dtos.MainResponse;
 import com.qnnect.user.service.UserService;
@@ -12,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.List;
 
 
 @RestController
@@ -49,10 +52,10 @@ public class UserController {
         return ResponseEntity.ok(mainResponse);
     }
 
-//    @ApiOperation(value = "사용자 카페 리스트")
-//    @PatchMapping("/home")
-//    public ResponseEntity<MainResponse> getUserCafeList (@ApiIgnore @CurrentUser User user) {
-//        List<> = userService.getCafeList(user);
-//        return ResponseEntity.ok(mainResponse);
-//    }
+    @ApiOperation(value = "사용자 카페 리스트")
+    @GetMapping("/scrap/cafes")
+    public ResponseEntity<List<CafeScrapResponse>> getUserCafeList (@ApiIgnore @CurrentUser User user) {
+        List<CafeScrapResponse> cafeList = userService.getCafeList(user);
+        return ResponseEntity.ok(cafeList);
+    }
 }

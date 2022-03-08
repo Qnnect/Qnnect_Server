@@ -4,6 +4,7 @@ import com.qnnect.common.CurrentUser;
 import com.qnnect.scrap.dtos.ScrapResponse;
 import com.qnnect.scrap.service.ScrapService;
 import com.qnnect.user.domain.User;
+import com.qnnect.user.dtos.MainResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -55,7 +56,4 @@ public class ScrapController {
         List<ScrapResponse> scrapResponseList = scrapService.getCafeScraps(pageable,user, cafeId);
         return ResponseEntity.ok(scrapResponseList);
     }
-
-
-
 }
