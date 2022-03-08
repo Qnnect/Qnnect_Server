@@ -48,4 +48,11 @@ public class UserController {
         MainResponse mainResponse = userService.getMain(user);
         return ResponseEntity.ok(mainResponse);
     }
+
+//    @ApiOperation(value = "사용자 카페 리스트")
+//    @PatchMapping("/home")
+//    public ResponseEntity<MainResponse> getUserCafeList (@ApiIgnore @CurrentUser User user) {
+//        List<> = userService.getCafeList(user);
+//        return ResponseEntity.ok(mainResponse);
+//    }
 }

@@ -58,7 +58,7 @@ public class ScrapServiceImpl implements ScrapService {
 //    }
 
     @Override
-    public List<ScrapResponse> getGroupScraps(Pageable pageable, User user, Long cafeId ){
+    public List<ScrapResponse> getCafeScraps(Pageable pageable, User user, Long cafeId ){
 
         List<ScrapResponse> scrapList = scrapRepository.findByUser_IdAndCafe_Id(user.getId(), cafeId ,pageable)
                 .stream()
