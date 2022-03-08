@@ -31,15 +31,14 @@ public class ScrapServiceImpl implements ScrapService {
     public void addScrap(User user, Long cafeQuestionId) {
         CafeQuestion cafeQuestion = cafeQuestionRepository.getById(cafeQuestionId);
         scrapRepository.save(Scrap.builder()
-                .user(user).question(cafeQuestion.getQuestions()).build());
+                .user(user).cafeQuestion(cafeQuestion).build());
     }
 
     @Override
     public void deleteScrap(User user, Long cafeQuestionId) {
         try {
-            Optional<CafeQuestion> cafeQuestion = cafeQuestionRepository.findById(cafeQuestionId);
-            log.info("getting scrap");
-            Scrap scrap = scrapRepository.findByUser_IdAndQuestion_Id(user.getId(), cafeQuestion.get().getId());
+
+            Scrap scrap = scrapRepository.findByUser_IdAndCafeQuestion_Id(user.getId(), cafeQuestionId);
             log.info("deleting scrap");
             scrapRepository.delete(scrap);
             log.info("deleted scrap");
@@ -48,9 +47,19 @@ public class ScrapServiceImpl implements ScrapService {
         }
     }
 
-    public List<ScrapResponse> getAllScraps(Pageable pageable, User user){
+//    public List<ScrapResponse> getAllScraps(Pageable pageable, User user){
+//
+//        List<ScrapResponse> scrapList = scrapRepository.findByUser_Id(user.getId(),pageable)
+//                .stream()
+//                .map(ScrapResponse::from)
+//                .collect(Collectors.toList());
+//        return scrapList;
+//    }
 
-        List<ScrapResponse> scrapList = scrapRepository.findByUser_Id(user.getId(),pageable)
+    @Override
+    public List<ScrapResponse> getGroupScraps(Pageable pageable, User user, Long cafeId ){
+
+        List<ScrapResponse> scrapList = scrapRepository.findByUser_IdAndCafe_Id(user.getId(), cafeId ,pageable)
                 .stream()
                 .map(ScrapResponse::from)
                 .collect(Collectors.toList());

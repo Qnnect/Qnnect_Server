@@ -27,7 +27,7 @@ public class ScrapResponse {
 
 
     public static ScrapResponse from(Scrap scrap) {
-        Question question = scrap.getQuestion();
+        Question question = scrap.getCafeQuestion().getQuestions();
 
         return ScrapResponse.builder()
                 .createdAt(scrap.getCreatedAt().toLocalDate())

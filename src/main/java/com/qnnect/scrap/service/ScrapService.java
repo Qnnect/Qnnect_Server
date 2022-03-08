@@ -9,7 +9,12 @@ import java.util.List;
 
 
 public interface ScrapService {
+
     public void addScrap(User user, Long cafeQuestionId);
+
     public void deleteScrap(User user, Long cafeQuestionId);
-    public List<ScrapResponse> getAllScraps(Pageable pageable, User user);
+
+//    public List<ScrapResponse> getAllScraps(Pageable pageable, User user);
+
+    public List<ScrapResponse> getGroupScraps(Pageable pageable, User user, Long cafeId);
 }

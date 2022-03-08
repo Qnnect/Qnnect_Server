@@ -42,11 +42,20 @@ public class ScrapController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/users/scrap/")
-    @ApiOperation(value = "전체 스크랩 리스트 가져오기 api")
-    public ResponseEntity<List<ScrapResponse>> getAllScrapQuestion(@PageableDefault(sort="id", direction = Sort.Direction.DESC)final Pageable pageable, @ApiIgnore @CurrentUser User user){
-        List<ScrapResponse> scrapResponseList = scrapService.getAllScraps(pageable, user);
+//    @GetMapping("/users/scrap/")
+//    @ApiOperation(value = "전체 스크랩 리스트 가져오기 api")
+//    public ResponseEntity<List<ScrapResponse>> getAllScrapQuestion(@PageableDefault(sort="id", direction = Sort.Direction.DESC)final Pageable pageable, @ApiIgnore @CurrentUser User user){
+//        List<ScrapResponse> scrapResponseList = scrapService.getAllScraps(pageable, user);
+//        return ResponseEntity.ok(scrapResponseList);
+//    }
+
+    @GetMapping("/users/scrap/{groupId}")
+    @ApiOperation(value = "그룹별 스크랩 리스트 가져오기 api")
+    public ResponseEntity<List<ScrapResponse>> getGroupScrapQuestion(@PathVariable Long groupId, @PageableDefault(sort="id", direction = Sort.Direction.DESC)final Pageable pageable, @ApiIgnore @CurrentUser User user){
+        List<ScrapResponse> scrapResponseList = scrapService.getGroupScraps(pageable,user, groupId);
         return ResponseEntity.ok(scrapResponseList);
     }
+
+
 
 }

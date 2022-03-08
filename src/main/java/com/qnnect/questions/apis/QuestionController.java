@@ -19,12 +19,12 @@ import java.util.List;
 @Api(tags = {"질문 관련 API"})
 public class QuestionController {
 
-    @GetMapping("/diaries/{diaryId}/question/today")
-    @ApiOperation(value = "오늘의 질문")
-    public ResponseEntity<TodayQuestionResponse> getQuestionToday(@PathVariable Long diaryId){
-        TodayQuestionResponse todayQuestionResponse = new TodayQuestionResponse();
-        return ResponseEntity.ok(todayQuestionResponse);
-    }
+//    @GetMapping("/questions")
+//    @ApiOperation(value = "오늘의 질문")
+//    public ResponseEntity<TodayQuestionResponse> getQuestionToday(@RequestParam String searchWord){
+//
+//        return ResponseEntity.ok(todayQuestionResponse);
+//    }
 
     @GetMapping("/diaries/{diaryId}/question/all")
     @ApiOperation(value = "전체 질문")

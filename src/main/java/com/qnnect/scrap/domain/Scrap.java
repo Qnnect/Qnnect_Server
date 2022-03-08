@@ -27,13 +27,13 @@ public class Scrap extends BaseTimeEntity {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "QUESTION_ID")
-    private Question question;
+    @JoinColumn(name = "CAFE_QUESTION_ID")
+    private CafeQuestion cafeQuestion;
 
     @Builder
-    public Scrap(User user, Question question) {
+    public Scrap(User user, CafeQuestion cafeQuestion) {
         setUser(user);
-        setQuestion(question);
+        setCafeQuestion(cafeQuestion);
     }
 
     public void setUser(User user){
@@ -41,9 +41,9 @@ public class Scrap extends BaseTimeEntity {
             this.user = user;
         }
     }
-    public void setQuestion(Question question){
-        if (Objects.isNull(this.question)) {
-            this.question = question;
+    public void setCafeQuestion(CafeQuestion cafeQuestion){
+        if (Objects.isNull(this.cafeQuestion)) {
+            this.cafeQuestion = cafeQuestion;
         }
     }
 }
