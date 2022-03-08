@@ -17,4 +17,6 @@ public interface ScrapService {
 //    public List<ScrapResponse> getAllScraps(Pageable pageable, User user);
 
     public List<ScrapResponse> getCafeScraps(Pageable pageable, User user, Long cafeId);
+
+    public List<ScrapResponse> searchScraps(Pageable pageable, User user, String searchWord );
 }

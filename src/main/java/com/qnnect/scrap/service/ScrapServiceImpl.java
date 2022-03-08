@@ -73,5 +73,15 @@ public class ScrapServiceImpl implements ScrapService {
         return scrapList;
     }
 
+    @Override
+    public List<ScrapResponse> searchScraps(Pageable pageable, User user, String searchWord){
+
+        List<ScrapResponse> scrapList = scrapRepository.findByUser_IdAndWord(user.getId(), searchWord ,pageable)
+                .stream()
+                .map(ScrapResponse::from)
+                .collect(Collectors.toList());
+        return scrapList;
+    }
+
 
 }
