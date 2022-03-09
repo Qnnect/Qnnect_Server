@@ -52,18 +52,15 @@ public class CafeController {
 
 
 
-    @ApiOperation(value = "제목 업데이트 api")
-    @PatchMapping("/diaries/{diaryId}/title")
-    public ResponseEntity<Void> updateTitle(@RequestParam String title){
+    @ApiOperation(value = "카페 업데이트 api")
+    @PatchMapping("/cafes/{cafeId}")
+    public ResponseEntity<Void> updateCafe(@PathVariable Long cafeId,
+                                           @RequestBody CafeCreateRequest cafeCreateRequest,
+                                           @ApiIgnore @CurrentUser User user){
+        cafeService.updateCafe(cafeId, cafeCreateRequest, user);
         return ResponseEntity.ok().build();
     }
 
-
-    @ApiOperation(value = "질문 주기 api")
-    @PatchMapping("/diaries/{diaryId}/question-cycle")
-    public ResponseEntity<Void> updateQuestionCycle(@RequestParam EQuestionCycle questionCycle){
-        return ResponseEntity.ok().build();
-    }
 
     @ApiOperation(value = "카페 삭제 api")
     @DeleteMapping("/cafes/{cafeId}")

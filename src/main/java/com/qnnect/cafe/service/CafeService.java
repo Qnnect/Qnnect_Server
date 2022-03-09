@@ -11,4 +11,5 @@ public interface CafeService {
     CafeDetailResponse getCafe(Long cafeId, User user);
     CafeDetailResponse joinCafe(String code, User user, long cafeId);
     void deleteCafe(Long cafeId, User user);
+    public Cafe updateCafe(Long cafeId, CafeCreateRequest cafeCreateRequest, User user);
 }

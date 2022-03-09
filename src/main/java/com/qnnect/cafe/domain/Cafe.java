@@ -6,6 +6,7 @@ import com.qnnect.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor
 @Entity
+@Setter
 public class Cafe extends BaseTimeEntity {
 
     @Id

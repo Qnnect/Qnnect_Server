@@ -66,4 +66,23 @@ public class CafeServiceImpl implements CafeService {
     public void deleteCafe(Long cafeId, User user){
         cafeRepository.deleteById(cafeId);
     }
+
+    @Transactional
+    @Override
+    public Cafe updateCafe(Long cafeId, CafeCreateRequest cafeCreateRequest, User user){
+        Cafe cafe = cafeRepository.getById(cafeId);
+        if(cafeCreateRequest.getDiaryColor() != null){
+            cafe.setDiaryColor(cafeCreateRequest.getDiaryColor());
+        }
+        if(cafeCreateRequest.getGroupType() != null){
+            cafe.setGroupType(cafeCreateRequest.getGroupType());
+        }
+        if(cafeCreateRequest.getQuestionCycle() != null){
+            cafe.setQuestionCycle(cafeCreateRequest.getQuestionCycle());
+        }
+        if(cafeCreateRequest.getTitle() != null){
+            cafe.setTitle(cafeCreateRequest.getTitle());
+        }
+        return cafe;
+    }
 }
