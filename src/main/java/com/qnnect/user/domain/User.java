@@ -55,7 +55,7 @@ public class User extends BaseTimeEntity {
 
 
     @Builder
-    public User(String socialId, String profilePicture, ELoginType loginType,UUID id, String nickName) {
+    public User(String socialId, String profilePicture, ELoginType loginType, UUID id, String nickName) {
         this.socialId = socialId;
         this.loginType = loginType;
         this.profilePicture = profilePicture;
@@ -68,6 +68,9 @@ public class User extends BaseTimeEntity {
         this.socialId = socialId;
     }
 
+    public void addPoint(int addingPoint) {
+        this.point += addingPoint;
+    }
 
 
 }

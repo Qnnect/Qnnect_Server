@@ -1,16 +1,19 @@
 package com.qnnect.questions.domain;
 
 import com.qnnect.cafe.domain.Cafe;
+import com.qnnect.common.domain.BaseTimeEntity;
 import com.qnnect.user.domain.User;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Getter
 @NoArgsConstructor
 @Entity
-public class CafeQuestionWaitingList {
+public class CafeQuestionWaitingList extends BaseTimeEntity {
     @Id
     @Column(name="CAFE_QUESTION_WAITING_LIST_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,9 +25,23 @@ public class CafeQuestionWaitingList {
 
     @ManyToOne
     @JoinColumn(name="QUESTION_ID")
-    private Question questions;
+    private Question question;
 
-    @ManyToOne
-    @JoinColumn(name="USER_ID")
-    private User user;
+    @Builder
+    public CafeQuestionWaitingList(Cafe cafe, Question question){
+        setCafe(cafe);
+        setQuestion(question);
+    }
+
+    public void setCafe(Cafe cafe){
+        if (Objects.isNull(this.cafe)) {
+            this.cafe = cafe;
+        }
+    }
+
+    public void setQuestion(Question question){
+        if (Objects.isNull(this.question)) {
+            this.question = question;
+        }
+    }
 }

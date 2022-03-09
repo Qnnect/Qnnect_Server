@@ -1,7 +1,6 @@
 package com.qnnect.questions.apis;
 
 import com.qnnect.common.CurrentUser;
-import com.qnnect.questions.dto.QuestionCreateRequest;
 import com.qnnect.questions.service.CafeQuestionService;
 import com.qnnect.user.domain.User;
 import io.swagger.annotations.Api;
@@ -19,22 +18,25 @@ public class UserQuestionController {
 
     private final CafeQuestionService cafeQuestionService;
 
-    @PostMapping("/diaries/{diaryId}/question/")
+    @PostMapping("/cafes/{cafeId}/question/")
     @ApiOperation(value = "사용자 질문 생성 api")
-    public ResponseEntity<Void> createQuestion(@RequestBody QuestionCreateRequest questionCreateRequest, @ApiIgnore @CurrentUser User user){
-        cafeQuestionService.create(questionCreateRequest,user );
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Long> createQuestion(@PathVariable Long cafeId, @RequestBody String content, @ApiIgnore @CurrentUser User user){
+        Long questionId = cafeQuestionService.create(cafeId, content,user );
+        return ResponseEntity.ok(questionId);
     }
 
-    @PatchMapping("/diaries/{diaryId}/question/{questionId}")
+    @PatchMapping("/question/{questionId}")
     @ApiOperation(value = "사용자 질문 수정 api")
-    public ResponseEntity<Void> updateQuestion(@PathVariable Long questionId,@RequestBody String question){//나중에
+    public ResponseEntity<Void> updateQuestion(@PathVariable Long questionId,@RequestBody String content){
+        cafeQuestionService.update(questionId, content);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/diaries/{diaryId}/question/{questionId}")
+    @DeleteMapping("/question/{questionId}")
     @ApiOperation(value = "사용자 질문 삭제 api")
-    public ResponseEntity<Void> deleteQuestion(@PathVariable Long questionId){//나중에
+    public ResponseEntity<Void> deleteQuestion(@PathVariable Long questionId){
+        cafeQuestionService.delete(questionId);
         return ResponseEntity.noContent().build();
     }
+
 }

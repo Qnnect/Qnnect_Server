@@ -42,4 +42,7 @@ public class Question {
             this.user = user;
         }
     }
+    public void setContent (String content){
+        this.content = content;
+    }
 }
