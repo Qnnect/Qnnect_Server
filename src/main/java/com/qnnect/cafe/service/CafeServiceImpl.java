@@ -55,9 +55,15 @@ public class CafeServiceImpl implements CafeService {
     }
 
     @Transactional(readOnly=true)
-    public CafeDetailResponse getCafe(Long cafeId, @ApiIgnore User user){
+    public CafeDetailResponse getCafe(Long cafeId, User user){
         CafeUser currentCafeUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafeId, user.getId());
         Cafe cafe = cafeRepository.getById(cafeId);
         return new CafeDetailResponse(cafe, currentCafeUser);
+    }
+
+    @Transactional
+    @Override
+    public void deleteCafe(Long cafeId, User user){
+        cafeRepository.deleteById(cafeId);
     }
 }

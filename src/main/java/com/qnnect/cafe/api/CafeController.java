@@ -65,9 +65,10 @@ public class CafeController {
         return ResponseEntity.ok().build();
     }
 
-    @ApiOperation(value = "다이어리 삭제 api")
-    @DeleteMapping("/diaries/{diaryId}")
-    public ResponseEntity<Void> deleteDiary(@PathVariable Long diaryId){
+    @ApiOperation(value = "카페 삭제 api")
+    @DeleteMapping("/cafes/{cafeId}")
+    public ResponseEntity<Void> deleteDiary(@PathVariable Long cafeId, @ApiIgnore @CurrentUser User user){
+        cafeService.deleteCafe(cafeId, user);
         return ResponseEntity.noContent().build();
     }
 

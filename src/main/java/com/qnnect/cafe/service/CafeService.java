@@ -8,6 +8,7 @@ import com.qnnect.user.domain.User;
 public interface CafeService {
     public Cafe createCafe(CafeCreateRequest cafeCreateRequest,
                            User user);
-    public CafeDetailResponse getCafe(Long cafeId, User user);
-    public CafeDetailResponse joinCafe(String code, User user, long cafeId);
+    CafeDetailResponse getCafe(Long cafeId, User user);
+    CafeDetailResponse joinCafe(String code, User user, long cafeId);
+    void deleteCafe(Long cafeId, User user);
 }
