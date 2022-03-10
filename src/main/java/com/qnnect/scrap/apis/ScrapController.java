@@ -43,12 +43,12 @@ public class ScrapController {
         return ResponseEntity.noContent().build();
     }
 
-//    @GetMapping("/users/scrap/")
-//    @ApiOperation(value = "전체 스크랩 리스트 가져오기 api")
-//    public ResponseEntity<List<ScrapResponse>> getAllScrapQuestion(@PageableDefault(sort="id", direction = Sort.Direction.DESC)final Pageable pageable, @ApiIgnore @CurrentUser User user){
-//        List<ScrapResponse> scrapResponseList = scrapService.getAllScraps(pageable, user);
-//        return ResponseEntity.ok(scrapResponseList);
-//    }
+    @GetMapping("/users/scrap/all")
+    @ApiOperation(value = "전체 스크랩 리스트 가져오기 api")
+    public ResponseEntity<List<ScrapResponse>> getAllScrapQuestion(@PageableDefault(sort="id", direction = Sort.Direction.DESC)final Pageable pageable, @ApiIgnore @CurrentUser User user){
+        List<ScrapResponse> scrapResponseList = scrapService.getAllScraps(pageable, user);
+        return ResponseEntity.ok(scrapResponseList);
+    }
 
     @GetMapping("/users/scrap/{cafeId}")
     @ApiOperation(value = "카페별 스크랩 리스트 가져오기 api")

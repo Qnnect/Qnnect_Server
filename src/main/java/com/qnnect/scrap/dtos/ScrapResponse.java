@@ -25,6 +25,8 @@ public class ScrapResponse {
 
     private String question;
 
+    private String cafeTitle;
+
 
     public static ScrapResponse from(Scrap scrap) {
         Question question = scrap.getCafeQuestion().getQuestions();
@@ -33,6 +35,7 @@ public class ScrapResponse {
                 .cafeQuestionId(scrap.getCafeQuestion().getId())
                 .createdAt(scrap.getCreatedAt().toLocalDate())
                 .question(question.getContent())
+                .cafeTitle(scrap.getCafeQuestion().getCafe().getTitle())
                 .build();
     }
 }

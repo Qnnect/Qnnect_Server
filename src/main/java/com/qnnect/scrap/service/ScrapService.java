@@ -14,7 +14,7 @@ public interface ScrapService {
 
     public void deleteScrap(User user, Long cafeQuestionId);
 
-//    public List<ScrapResponse> getAllScraps(Pageable pageable, User user);
+    public List<ScrapResponse> getAllScraps(Pageable pageable, User user);
 
     public List<ScrapResponse> getCafeScraps(Pageable pageable, User user, Long cafeId);
 

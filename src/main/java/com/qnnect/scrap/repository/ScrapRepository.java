@@ -19,8 +19,7 @@ public interface ScrapRepository extends JpaRepository<Scrap, Long> {
     Scrap findByUser_IdAndCafeQuestion_Id(@Param(value = "userId") UUID userId
             , @Param(value = "cafeQuestionId") long cafeQuestionId);
 
-//    @Query("SELECT m FROM Scrap m INNER JOIN m.cafeQuestion c WHERE m.user.id=:userId AND c.cafe.id=:cafeId")
-//    Page<Scrap> findByUser_Id(@Param(value="userId")UUID userId, Pageable pageable);
+    Page<Scrap> findByUser_Id(@Param(value="userId")UUID userId, Pageable pageable);
 
     @Query("SELECT m FROM Scrap m INNER JOIN m.cafeQuestion c WHERE m.user.id=:userId AND c.cafe.id=:cafeId")
     Page<Scrap> findByUser_IdAndCafe_Id(@Param(value="userId")UUID userId

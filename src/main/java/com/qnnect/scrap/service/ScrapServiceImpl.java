@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PatchMapping;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -53,15 +54,16 @@ public class ScrapServiceImpl implements ScrapService {
         }
     }
 
-//    @Override
-//    public List<ScrapResponse> getAllScraps(Pageable pageable, User user){
-//
-//        List<ScrapResponse> scrapList = scrapRepository.findByUser_Id(user.getId(),pageable)
-//                .stream()
-//                .map(ScrapResponse::from)
-//                .collect(Collectors.toList());
-//        return scrapList;
-//    }
+    @Override
+    @Transactional
+    public List<ScrapResponse> getAllScraps(Pageable pageable, User user){
+
+        List<ScrapResponse> scrapList = scrapRepository.findByUser_Id(user.getId(),pageable)
+                .stream()
+                .map(ScrapResponse::from)
+                .collect(Collectors.toList());
+        return scrapList;
+    }
 
     @Override
     public List<ScrapResponse> getCafeScraps(Pageable pageable, User user, Long cafeId ){
