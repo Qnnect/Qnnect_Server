@@ -21,8 +21,6 @@ public class CafeDetailResponse {
     private LocalDate createdAt;
 
     private String title;
-
-    private boolean isOrganizer;
     
     private String code;
 
@@ -37,7 +35,6 @@ public class CafeDetailResponse {
     public CafeDetailResponse(Cafe entity, CafeUser currentCafeUser){
         this.createdAt = entity.getCreatedAt().toLocalDate();
         this.title = entity.getTitle();
-        this.isOrganizer = currentCafeUser.getUser() == entity.getOrganizer();
         this.code = entity.getCode();
         this.diaryColor = entity.getDiaryColor();
         this.currentUserResponse = CafeUserResponse.from(currentCafeUser);

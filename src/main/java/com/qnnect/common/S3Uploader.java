@@ -35,13 +35,19 @@ public class S3Uploader {
     private String secretKey;
 
     @Value("${cloud.aws.s3.profileBucket}")
-    private String bucket;
+    private String profileBucket;
+
+    @Value("${cloud.aws.s3.commentBucket}")
+    private String commentBucket;
 
     @Value("${cloud.aws.region.static}")
     private String region;
 
     @Value("${cloud.aws.s3.profileImagePath}")
-    private String defaultPath;
+    private String profileDefaultPath;
+
+    @Value("${cloud.aws.s3.commentImagePath}")
+    private String commentDefaultPath;
 
     @PostConstruct
     public void setS3Client() {
@@ -53,21 +59,27 @@ public class S3Uploader {
                 .build();
     }
 
-    public String upload(MultipartFile multipartFile) throws IOException {
+    public String upload(MultipartFile multipartFile, String type) throws IOException {
         File uploadFile = convert(multipartFile)
                 .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File로 전환이 실패했습니다."));
 
-        return upload(uploadFile);
+        return upload(uploadFile, type);
     }
 
-    private String upload(File uploadFile) {
+    private String upload(File uploadFile, String type) {
         String fileName = UUID.randomUUID() + "_" + uploadFile.getName();
-        String uploadImageUrl = putS3(uploadFile, fileName);
+        String uploadImageUrl = putS3(uploadFile, fileName, type);
         removeNewFile(uploadFile);
         return uploadImageUrl;
     }
 
-    private String putS3(File uploadFile, String fileName) {
+    private String putS3(File uploadFile, String fileName, String type) {
+        String bucket;
+        if (type.equals("profile")) {
+            bucket = profileBucket;
+        } else {
+            bucket = commentBucket;
+        }
         amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
         return amazonS3Client.getUrl(bucket, fileName).toString();
     }
@@ -82,26 +94,37 @@ public class S3Uploader {
 
     private Optional<File> convert(MultipartFile file) throws IOException {
         File convertFile = new File(System.getProperty("java.io.tmpdir") +
-                System.getProperty("file.separator" ) +
+                System.getProperty("file.separator") +
                 file.getOriginalFilename());
         System.out.println(convertFile);
-        if(convertFile.createNewFile()) {
+        if (convertFile.createNewFile()) {
             try (FileOutputStream fos = new FileOutputStream(convertFile)) {
                 fos.write(file.getBytes());
             }
             return Optional.of(convertFile);
-        }else{
+        } else {
             removeNewFile(convertFile);
         }
         return Optional.empty();
     }
 
-    public void deleteS3(String imageUrl){
-        try{
-            amazonS3Client.deleteObject(bucket, imageUrl.replace(defaultPath,""));
-        }catch(AmazonServiceException e) {
+    public void deleteS3(String imageUrl, String type) {
+        String bucket;
+        String defaultPath;
+
+        if (type.equals("profile")) {
+            bucket = profileBucket;
+            defaultPath = profileDefaultPath;
+        } else {
+            bucket = commentBucket;
+            defaultPath = commentDefaultPath;
+        }
+
+        try {
+            amazonS3Client.deleteObject(bucket, imageUrl.replace(defaultPath, ""));
+        } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
         }
-           log.info("file deleted");
+        log.info("file deleted");
     }
 }

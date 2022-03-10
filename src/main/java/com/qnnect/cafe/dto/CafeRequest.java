@@ -12,7 +12,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 @ApiModel(value="다이어리 생성")
 @Getter
-public class CafeCreateRequest {
+public class CafeRequest {
 
     @ApiModelProperty(value = "다이어리 제목", example = "신사고 4인방")
     private String title;
@@ -26,9 +26,9 @@ public class CafeCreateRequest {
     @ApiModelProperty(value = "다이어리 색", example = "red")
     private EDiaryColor diaryColor;
 
-    public Cafe toEntity(User user) {
+    public Cafe toEntity() {
         return Cafe.builder().title(title).groupType(groupType).questionCycle(questionCycle)
-                .diaryColor(diaryColor).organizer(user).code(generateCode()).build();
+                .diaryColor(diaryColor).code(generateCode()).build();
     }
 
     public String generateCode(){

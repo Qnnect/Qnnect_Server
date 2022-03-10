@@ -2,19 +2,17 @@ package com.qnnect.cafe.service;
 
 import com.qnnect.cafe.domain.Cafe;
 import com.qnnect.cafe.domain.CafeUser;
-import com.qnnect.cafe.dto.CafeCreateRequest;
+import com.qnnect.cafe.dto.CafeRequest;
 import com.qnnect.cafe.dto.CafeDetailResponse;
 import com.qnnect.cafe.repository.CafeRepository;
 import com.qnnect.cafe.repository.CafeUserRepository;
 import com.qnnect.common.exception.cafe.CafeMemberExceededExeption;
 import com.qnnect.common.exception.cafe.IncorrectCafeCodeException;
 import com.qnnect.user.domain.User;
-import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import springfox.documentation.annotations.ApiIgnore;
 
 
 @Service
@@ -26,8 +24,8 @@ public class CafeServiceImpl implements CafeService {
     private final CafeUserRepository cafeUserRepository;
 
     @Transactional
-    public Cafe createCafe(CafeCreateRequest cafeCreateRequest, User user){
-        Cafe cafe = cafeRepository.save(cafeCreateRequest.toEntity(user));
+    public Cafe createCafe(CafeRequest cafeRequest, User user){
+        Cafe cafe = cafeRepository.save(cafeRequest.toEntity());
         log.info("created cafe");
         CafeUser cafeUser = cafeUserRepository.save(CafeUser.builder().cafe(cafe).user(user).build());
         log.info("added user to cafe user");
@@ -69,7 +67,21 @@ public class CafeServiceImpl implements CafeService {
 
     @Transactional
     @Override
-    public Cafe updateCafe(Long cafeId, CafeCreateRequest cafeCreateRequest, User user){
+    public void leaveCafe(Long cafeId, User user){
+        System.out.println("finding cafeUser");
+        CafeUser cafeUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafeId, user.getId());
+        System.out.println("delete cafe user");
+        cafeUserRepository.delete(cafeUser);
+
+//        if(cafeUserRepository.existsByCafe_Id(cafeId)){
+//            System.out.println("deleting cafe");
+//            cafeRepository.deleteById(cafeId);
+//        }
+    }
+
+    @Transactional
+    @Override
+    public Cafe updateCafe(Long cafeId, CafeRequest cafeCreateRequest, User user){
         Cafe cafe = cafeRepository.getById(cafeId);
         if(cafeCreateRequest.getDiaryColor() != null){
             cafe.setDiaryColor(cafeCreateRequest.getDiaryColor());

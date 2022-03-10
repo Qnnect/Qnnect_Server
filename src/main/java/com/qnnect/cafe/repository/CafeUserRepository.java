@@ -16,4 +16,6 @@ public interface CafeUserRepository extends JpaRepository <CafeUser, Long>{
                                      @Param(value="userId") UUID userId);
 
     List<CafeUser> findAllByUser_Id(@Param(value = "userId") UUID userId);
+
+    boolean existsByCafe_Id(@Param(value = "cafeId") long cafeId);
 }

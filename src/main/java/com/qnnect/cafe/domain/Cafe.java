@@ -10,7 +10,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 @Getter
 @NoArgsConstructor
@@ -35,10 +34,6 @@ public class Cafe extends BaseTimeEntity {
 
     private String code;
 
-    @ManyToOne()
-    @JoinColumn(name="USER_ID")
-    private User organizer;
-
     @OneToMany(mappedBy = "cafe")
     private List<CafeUser> cafeUsers;
 
@@ -54,13 +49,5 @@ public class Cafe extends BaseTimeEntity {
         this.questionCycle = questionCycle;
         this.diaryColor = diaryColor;
         this.code = code;
-        setOrganizer(organizer);
     }
-
-    public void setOrganizer(User organizer){
-        if (Objects.isNull(this.organizer)) {
-            this.organizer = organizer;
-        }
-    }
-
 }

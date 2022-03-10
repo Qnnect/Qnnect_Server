@@ -26,7 +26,7 @@ public class UserController {
 
     @ApiOperation(value = "프로필 설정")
     @PatchMapping(path = "/user/profile")
-    public ResponseEntity<ProfileResponse> updateProfile(@CurrentUser User user, @RequestPart(required = false) MultipartFile profilePicture,
+    public ResponseEntity<ProfileResponse> updateProfile(@ApiIgnore @CurrentUser User user, @RequestPart(required = false) MultipartFile profilePicture,
                                                          @RequestPart(required = false) String nickName) {
         ProfileResponse profileResponse = userService.updateUserProfile(user, nickName, profilePicture);
         return ResponseEntity.ok(profileResponse);
@@ -34,7 +34,7 @@ public class UserController {
 
     @ApiOperation(value = "사용자 정보")
     @GetMapping("/user")
-    public ResponseEntity<ProfileResponse> getUser(@CurrentUser User user) {
+    public ResponseEntity<ProfileResponse> getUser(@ApiIgnore @CurrentUser User user) {
         return ResponseEntity.ok(ProfileResponse.from(user));
     }
 

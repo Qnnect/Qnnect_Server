@@ -50,10 +50,10 @@ public class UserServiceImpl implements UserService{
 
         if(profileImage != null){
             if(user.getProfilePicture() != null){
-                s3Uploader.deleteS3(user.getProfilePicture());
+                s3Uploader.deleteS3(user.getProfilePicture(), "profile");
             }
             try {
-                String imageUrl = s3Uploader.upload(profileImage);
+                String imageUrl = s3Uploader.upload(profileImage, "profile");
                 user.setProfilePicture(imageUrl);
             } catch (IOException e) {
                 e.printStackTrace();
