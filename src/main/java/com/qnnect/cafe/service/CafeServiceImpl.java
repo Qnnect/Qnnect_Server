@@ -73,10 +73,10 @@ public class CafeServiceImpl implements CafeService {
         System.out.println("delete cafe user");
         cafeUserRepository.delete(cafeUser);
 
-//        if(cafeUserRepository.existsByCafe_Id(cafeId)){
-//            System.out.println("deleting cafe");
-//            cafeRepository.deleteById(cafeId);
-//        }
+        if(cafeUserRepository.existsByCafe_Id(cafeId)){
+            System.out.println("deleting cafe");
+            cafeRepository.deleteById(cafeId);
+        }
     }
 
     @Transactional
