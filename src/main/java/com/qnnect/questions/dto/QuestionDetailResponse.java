@@ -6,6 +6,7 @@ import com.qnnect.cafe.dto.CafeQuestionResponse;
 import com.qnnect.cafe.dto.CafeUserResponse;
 import com.qnnect.comments.domain.Comment;
 import com.qnnect.comments.dtos.CommentResponse;
+import com.qnnect.questions.domain.CafeQuestion;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -17,17 +18,12 @@ import java.util.List;
 @Getter
 public class QuestionDetailResponse {
 
-    private QuestionMainResponse questionMainResponse;
+    private CafeQuestionResponse questionMainResponse;
 
     private List<CommentResponse> comments = new ArrayList<>();
 
-//    public QuestionDetailResponse(Cafe entity, CafeUser currentCafeUser){
-//        this.createdAt = entity.getCreatedAt().toLocalDate();
-//        this.title = entity.getTitle();
-//        this.code = entity.getCode();
-//        this.diaryColor = entity.getDiaryColor();
-//        this.currentUserResponse = CafeUserResponse.from(currentCafeUser);
-//        this.cafeQuestionResponseList = CafeQuestionResponse.listFrom(entity.getCafeQuestions());
-//        this.cafeUserResponseList = CafeUserResponse.listFrom(entity.getCafeUsers(), currentCafeUser);
-//    }
+    public QuestionDetailResponse(CafeQuestion cafeQuestion, List<Comment> comments){
+        this.questionMainResponse = CafeQuestionResponse.from(cafeQuestion);
+        this.comments = CommentResponse.listFrom(comments);
+    }
 }

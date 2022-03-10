@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -44,6 +45,9 @@ public class Comment extends BaseTimeEntity {
     @JoinColumn(name="USER_ID")
     private User user;
 
+    @OneToMany(mappedBy = "comment")
+    private List<Reply> reply;
+
     @ManyToOne
     @JoinColumn(name="CAFE_QUESTION_ID")
     private CafeQuestion cafeQuestion;
@@ -71,5 +75,9 @@ public class Comment extends BaseTimeEntity {
         if (Objects.isNull(this.cafeQuestion)) {
             this.cafeQuestion = cafeQuestion;
         }
+    }
+
+    public int countReply(){
+        return this.reply.size();
     }
 }

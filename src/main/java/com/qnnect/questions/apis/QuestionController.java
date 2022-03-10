@@ -5,6 +5,7 @@ import com.qnnect.common.CurrentUser;
 import com.qnnect.questions.dto.QuestionDetailResponse;
 import com.qnnect.questions.dto.QuestionMainResponse;
 import com.qnnect.questions.dto.TodayQuestionResponse;
+import com.qnnect.questions.service.CafeQuestionService;
 import com.qnnect.user.domain.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,6 +23,8 @@ import java.util.List;
 @Api(tags = {"질문 관련 API"})
 public class QuestionController {
 
+    private final CafeQuestionService cafeQuestionService;
+
 
 //    @GetMapping("/diaries/{diaryId}/question/all")
 //    @ApiOperation(value = "전체 질문")
@@ -34,7 +37,7 @@ public class QuestionController {
     @ApiOperation(value = "질문 가져오기(댓글 함께)")
     public ResponseEntity<QuestionDetailResponse> getQuestion(@PathVariable Long cafeQuestionId
             , @ApiIgnore @CurrentUser User user){
-        QuestionDetailResponse questionDetailResposeResponse = new QuestionDetailResponse();
+        QuestionDetailResponse questionDetailResposeResponse = cafeQuestionService.getQuestion(cafeQuestionId,user);
         return ResponseEntity.ok(questionDetailResposeResponse);
     }
 

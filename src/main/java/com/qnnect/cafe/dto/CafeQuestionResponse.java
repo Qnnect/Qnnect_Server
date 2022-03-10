@@ -46,8 +46,11 @@ public class CafeQuestionResponse {
 
     public static long calculateDaysLeft(CafeQuestion cafeQuestion){
         LocalDateTime now = LocalDateTime.now();
-        Duration duration = Duration.between(now, cafeQuestion.getCreatedAt());
+        Duration duration = Duration.between(cafeQuestion.getCreatedAt(),now);
         Long daysLeft = 7 - duration.toDays();
+        if(daysLeft < 0){
+            daysLeft = 0L;
+        }
         return daysLeft;
     }
 

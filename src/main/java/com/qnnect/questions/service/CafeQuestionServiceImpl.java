@@ -2,9 +2,12 @@ package com.qnnect.questions.service;
 
 import com.qnnect.cafe.domain.Cafe;
 import com.qnnect.cafe.repository.CafeRepository;
+import com.qnnect.comments.domain.Comment;
+import com.qnnect.comments.repository.CommentRepository;
 import com.qnnect.questions.domain.CafeQuestion;
 import com.qnnect.questions.domain.CafeQuestionWaitingList;
 import com.qnnect.questions.domain.Question;
+import com.qnnect.questions.dto.QuestionDetailResponse;
 import com.qnnect.questions.repository.CafeQuestionRepository;
 import com.qnnect.questions.repository.CafeQuestionWaitingListRespository;
 import com.qnnect.questions.repository.QuestionRepository;
@@ -13,6 +16,8 @@ import com.qnnect.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -24,6 +29,7 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
     private final CafeRepository cafeRepository;
     private final CafeQuestionWaitingListRespository cafeQuestionWaitingListRespository;
     private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
 
     @Override
     public Question findQuestionToday(Cafe cafe) {
@@ -62,5 +68,11 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long questionId) {
         questionRepository.deleteById(questionId);
+    }
+
+    public QuestionDetailResponse getQuestion(Long cafeQuestionId, User user){
+        CafeQuestion cafeQuestion = cafeQuestionRepository.getById(cafeQuestionId);
+        List<Comment> comments = commentRepository.findAllByCafeQuestion_Id(cafeQuestionId);
+        return new QuestionDetailResponse(cafeQuestion, comments);
     }
 }
