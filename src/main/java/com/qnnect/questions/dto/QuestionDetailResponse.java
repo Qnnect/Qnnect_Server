@@ -7,6 +7,7 @@ import com.qnnect.cafe.dto.CafeUserResponse;
 import com.qnnect.comments.domain.Comment;
 import com.qnnect.comments.dtos.CommentResponse;
 import com.qnnect.questions.domain.CafeQuestion;
+import com.qnnect.user.domain.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -22,8 +23,8 @@ public class QuestionDetailResponse {
 
     private List<CommentResponse> comments = new ArrayList<>();
 
-    public QuestionDetailResponse(CafeQuestion cafeQuestion, List<Comment> comments){
-        this.questionMainResponse = CafeQuestionResponse.from(cafeQuestion);
+    public QuestionDetailResponse(CafeQuestion cafeQuestion, List<Comment> comments, User user){
+        this.questionMainResponse = CafeQuestionResponse.from(cafeQuestion, user);
         this.comments = CommentResponse.listFrom(comments);
     }
 }

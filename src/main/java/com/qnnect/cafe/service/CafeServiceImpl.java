@@ -49,14 +49,14 @@ public class CafeServiceImpl implements CafeService {
         }
         cafeUserRepository.save(CafeUser.builder().cafe(cafe).user(user).build());
         CafeUser currentCafeUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafeId, user.getId());
-        return new CafeDetailResponse(cafe, currentCafeUser);
+        return new CafeDetailResponse(cafe, currentCafeUser, user);
     }
 
     @Transactional(readOnly=true)
     public CafeDetailResponse getCafe(Long cafeId, User user){
         CafeUser currentCafeUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafeId, user.getId());
         Cafe cafe = cafeRepository.getById(cafeId);
-        return new CafeDetailResponse(cafe, currentCafeUser);
+        return new CafeDetailResponse(cafe, currentCafeUser, user);
     }
 
     @Transactional

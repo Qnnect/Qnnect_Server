@@ -1,28 +1,19 @@
 package com.qnnect.scrap.service;
 
-import com.qnnect.common.CurrentUser;
 import com.qnnect.common.exception.cafe.QuestionNotScrappedException;
 import com.qnnect.questions.domain.CafeQuestion;
 import com.qnnect.questions.repository.CafeQuestionRepository;
 import com.qnnect.scrap.domain.Scrap;
-import com.qnnect.scrap.dtos.ScrapResponse;
+import com.qnnect.questions.dto.QuestionResponse;
 import com.qnnect.scrap.repository.ScrapRepository;
 import com.qnnect.user.domain.User;
-import com.qnnect.user.dtos.MainResponse;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PatchMapping;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -56,31 +47,31 @@ public class ScrapServiceImpl implements ScrapService {
 
     @Override
     @Transactional
-    public List<ScrapResponse> getAllScraps(Pageable pageable, User user){
+    public List<QuestionResponse> getAllScraps(Pageable pageable, User user){
 
-        List<ScrapResponse> scrapList = scrapRepository.findByUser_Id(user.getId(),pageable)
+        List<QuestionResponse> scrapList = scrapRepository.findByUser_Id(user.getId(),pageable)
                 .stream()
-                .map(ScrapResponse::from)
+                .map(QuestionResponse::from)
                 .collect(Collectors.toList());
         return scrapList;
     }
 
     @Override
-    public List<ScrapResponse> getCafeScraps(Pageable pageable, User user, Long cafeId ){
+    public List<QuestionResponse> getCafeScraps(Pageable pageable, User user, Long cafeId ){
 
-        List<ScrapResponse> scrapList = scrapRepository.findByUser_IdAndCafe_Id(user.getId(), cafeId ,pageable)
+        List<QuestionResponse> scrapList = scrapRepository.findByUser_IdAndCafe_Id(user.getId(), cafeId ,pageable)
                 .stream()
-                .map(ScrapResponse::from)
+                .map(QuestionResponse::from)
                 .collect(Collectors.toList());
         return scrapList;
     }
 
     @Override
-    public List<ScrapResponse> searchScraps(Pageable pageable, User user, String searchWord){
+    public List<QuestionResponse> searchScraps(Pageable pageable, User user, String searchWord){
 
-        List<ScrapResponse> scrapList = scrapRepository.findByUser_IdAndWord(user.getId(), searchWord ,pageable)
+        List<QuestionResponse> scrapList = scrapRepository.findByUser_IdAndWord(user.getId(), searchWord ,pageable)
                 .stream()
-                .map(ScrapResponse::from)
+                .map(QuestionResponse::from)
                 .collect(Collectors.toList());
         return scrapList;
     }

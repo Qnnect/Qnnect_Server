@@ -7,13 +7,16 @@ import com.qnnect.comments.repository.CommentRepository;
 import com.qnnect.questions.domain.CafeQuestion;
 import com.qnnect.questions.domain.CafeQuestionWaitingList;
 import com.qnnect.questions.domain.Question;
+import com.qnnect.questions.dto.CafeQuestionResponse;
 import com.qnnect.questions.dto.QuestionDetailResponse;
+import com.qnnect.questions.dto.QuestionResponse;
 import com.qnnect.questions.repository.CafeQuestionRepository;
 import com.qnnect.questions.repository.CafeQuestionWaitingListRespository;
 import com.qnnect.questions.repository.QuestionRepository;
 import com.qnnect.user.domain.User;
 import com.qnnect.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,9 +73,19 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
         questionRepository.deleteById(questionId);
     }
 
-    public QuestionDetailResponse getQuestion(Long cafeQuestionId, User user){
+    public QuestionDetailResponse getQuestion(Long cafeQuestionId, User user) {
         CafeQuestion cafeQuestion = cafeQuestionRepository.getById(cafeQuestionId);
         List<Comment> comments = commentRepository.findAllByCafeQuestion_Id(cafeQuestionId);
-        return new QuestionDetailResponse(cafeQuestion, comments);
+        return new QuestionDetailResponse(cafeQuestion, comments, user);
+    }
+
+    @Override
+    @Transactional
+    public CafeQuestionResponse getCafeQuestions(Long cafeId, Pageable pageable) {
+        List<CafeQuestion> cafeQuestion = cafeQuestionRepository.findAllByCafe_Id(cafeId, pageable);
+//        List<CafeQuestionWaitingList> cafeQuestionWaitingLists =
+//                cafeQuestionWaitingListRespository.findAllByCafe_Id(cafeId);
+
+        return CafeQuestionResponse.from(cafeQuestion);
     }
 }

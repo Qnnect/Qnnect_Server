@@ -2,8 +2,12 @@ package com.qnnect.questions.service;
 
 import com.qnnect.cafe.domain.Cafe;
 import com.qnnect.questions.domain.Question;
+import com.qnnect.questions.dto.CafeQuestionResponse;
 import com.qnnect.questions.dto.QuestionDetailResponse;
 import com.qnnect.user.domain.User;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 
 public interface CafeQuestionService {
@@ -13,4 +17,5 @@ public interface CafeQuestionService {
     void update(Long questionId, String content);
     void delete(Long questionId);
     QuestionDetailResponse getQuestion(Long cafeQuestionId, User user);
+    CafeQuestionResponse getCafeQuestions(Long cafeId, Pageable pageable);
 }

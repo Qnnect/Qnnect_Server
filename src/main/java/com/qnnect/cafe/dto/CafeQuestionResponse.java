@@ -23,13 +23,17 @@ public class CafeQuestionResponse {
     private long cafeQuestionId;
     private String questioner;
     private String question;
+    private boolean isWriter;
+    private boolean isLiked;
+    private boolean isScraped;
 
-    public static CafeQuestionResponse from(CafeQuestion cafeQuestion) {
+    public static CafeQuestionResponse from(CafeQuestion cafeQuestion, User user) {
 
         return CafeQuestionResponse.builder()
                 .createdAt(cafeQuestion.getCreatedAt().toLocalDate())
                 .cafeQuestionId(cafeQuestion.getId())
                 .daysLeft(calculateDaysLeft(cafeQuestion))
+                .isWriter(isWriter(cafeQuestion, user))
                 .question(cafeQuestion.getQuestions().getContent())
                 .questioner(findQuestioner(cafeQuestion))
                 .build();
@@ -43,6 +47,14 @@ public class CafeQuestionResponse {
             return user.getNickName();
         }
     }
+    public static boolean isWriter(CafeQuestion cafeQuestion, User currentUser){
+        if(cafeQuestion.getQuestions().getQuestionerType() == EQuestionerType.admin){
+            return false;
+        }else{
+            User writer = cafeQuestion.getQuestions().getUser();
+            return currentUser == writer;
+        }
+    }
 
     public static long calculateDaysLeft(CafeQuestion cafeQuestion){
         LocalDateTime now = LocalDateTime.now();
@@ -54,12 +66,12 @@ public class CafeQuestionResponse {
         return daysLeft;
     }
 
-    public static List<CafeQuestionResponse> listFrom(List<CafeQuestion> cafeQuestionList) {
+    public static List<CafeQuestionResponse> listFrom(List<CafeQuestion> cafeQuestionList, User user) {
         if(cafeQuestionList == null){
             return null;
         }
         return cafeQuestionList.stream()
-                .map(CafeQuestionResponse::from)
+                .map((cafeQuestion) -> CafeQuestionResponse.from(cafeQuestion, user))
                 .collect(Collectors.toList());
     }
 }

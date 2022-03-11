@@ -1,9 +1,12 @@
 package com.qnnect.questions.repository;
 
 import com.qnnect.questions.domain.CafeQuestion;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 public interface CafeQuestionRepository extends JpaRepository<CafeQuestion, Long> {
 //    @Query(value="SELECT 1 * FROM table ORDER BY anyField DESC LIMIT 1", nativeQuery = true)
@@ -12,4 +15,5 @@ public interface CafeQuestionRepository extends JpaRepository<CafeQuestion, Long
 //AaaEntity findTop1ByFlagEqualsOrderByCreatedAtDesc(Integer flag);
 
     CafeQuestion findTop1ByCafe_IdOrderByCreatedAtDesc(@Param(value="cafeId") long cafeId);
+    public List<CafeQuestion> findAllByCafe_Id(@Param(value = "cafeId") long cafeId, Pageable pageable);
 }

@@ -1,7 +1,7 @@
 package com.qnnect.scrap.service;
 
 
-import com.qnnect.scrap.dtos.ScrapResponse;
+import com.qnnect.questions.dto.QuestionResponse;
 import com.qnnect.user.domain.User;
 import org.springframework.data.domain.Pageable;
 
@@ -14,9 +14,9 @@ public interface ScrapService {
 
     public void deleteScrap(User user, Long cafeQuestionId);
 
-    public List<ScrapResponse> getAllScraps(Pageable pageable, User user);
+    public List<QuestionResponse> getAllScraps(Pageable pageable, User user);
 
-    public List<ScrapResponse> getCafeScraps(Pageable pageable, User user, Long cafeId);
+    public List<QuestionResponse> getCafeScraps(Pageable pageable, User user, Long cafeId);
 
-    public List<ScrapResponse> searchScraps(Pageable pageable, User user, String searchWord );
+    public List<QuestionResponse> searchScraps(Pageable pageable, User user, String searchWord );
 }
