@@ -11,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,19 +43,22 @@ public class QuestionController {
         return ResponseEntity.ok(questionDetailResposeResponse);
     }
 
-    @GetMapping("/question/cafes/{cafeId}")
+    @GetMapping("/question/cafes/{cafeId}/all")
     @ApiOperation(value = "카페 질문 가져오기 api")
-    public ResponseEntity<CafeQuestionResponse> getGroupQuestion(@PathVariable Long cafeId, Pageable pageable){
+    public ResponseEntity<CafeQuestionResponse> getCafeQuestion(@PathVariable Long cafeId,
+                                                                 @PageableDefault(sort="id", direction = Sort.Direction.DESC)final Pageable pageable){
         CafeQuestionResponse cafeQuestionResponse = cafeQuestionService.getCafeQuestions(cafeId, pageable);
         return ResponseEntity.ok(cafeQuestionResponse);
     }
 
-//    @GetMapping("/users/scrap/")
-//    @ApiOperation(value = "스크랩 검색 api")
-//    public ResponseEntity<List<ScrapResponse>> searchScrapQuestion(@RequestParam String searchWord, @PageableDefault(sort="id", direction = Sort.Direction.DESC)final Pageable pageable, @ApiIgnore @CurrentUser User user){
-//        List<ScrapResponse> scrapResponseList = scrapService.searchScraps( pageable,user, searchWord);
-//        return ResponseEntity.ok(scrapResponseList);
-//    }
+    @GetMapping("/question/cafes/{cafeId}/search")
+    @ApiOperation(value = "카페 질문 검색 api")
+    public ResponseEntity<CafeQuestionResponse> searchCafeQuestion(@PathVariable Long cafeId,
+                                                                   @RequestParam String searchWord,
+                                                                    @PageableDefault(sort="id", direction = Sort.Direction.DESC)final Pageable pageable, @ApiIgnore @CurrentUser User user){
+        CafeQuestionResponse cafeQuestionResponse = cafeQuestionService.searchCafeQuestions(cafeId, searchWord,pageable);
+        return ResponseEntity.ok(cafeQuestionResponse);
+    }
 
 
 }

@@ -88,4 +88,12 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
 
         return CafeQuestionResponse.from(cafeQuestion);
     }
+
+    @Override
+    @Transactional
+    public CafeQuestionResponse searchCafeQuestions(Long cafeId, String word,Pageable pageable) {
+        List<CafeQuestion> cafeQuestion = cafeQuestionRepository.findByCafe_IdAndWord(cafeId, word,pageable);
+
+        return CafeQuestionResponse.from(cafeQuestion);
+    }
 }

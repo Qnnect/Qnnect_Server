@@ -18,4 +18,5 @@ public interface CafeQuestionService {
     void delete(Long questionId);
     QuestionDetailResponse getQuestion(Long cafeQuestionId, User user);
     CafeQuestionResponse getCafeQuestions(Long cafeId, Pageable pageable);
+    CafeQuestionResponse searchCafeQuestions(Long cafeId, String word,Pageable pageable);
 }
