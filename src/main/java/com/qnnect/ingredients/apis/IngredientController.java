@@ -2,6 +2,7 @@ package com.qnnect.ingredients.apis;
 
 import com.qnnect.drink.dtos.DrinkResponse;
 import com.qnnect.ingredients.dto.IngredientResponse;
+import com.qnnect.ingredients.service.IngredientService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +18,14 @@ import java.util.List;
 @Api(tags = {"재료 관련 API"})
 public class IngredientController {
 
-//    @ApiOperation(value = "재료 보기 api")
-//    @GetMapping("/ingredients")
-//    public ResponseEntity<List<IngredientResponse>> getIngredientList(){
-//        List <IngredientResponse> ingredientResponses = ;
-//        return ResponseEntity.ok(ingredientResponses);
-//    }
+    private final IngredientService ingredientService;
+
+    @ApiOperation(value = "재료 보기 api")
+    @GetMapping("/ingredients")
+    public ResponseEntity<List<IngredientResponse>> getIngredientList(){
+        List <IngredientResponse> ingredientResponses = ingredientService.getIngredients();
+        return ResponseEntity.ok(ingredientResponses);
+    }
 
     @ApiOperation(value = "재료 구매 api")
     @PatchMapping("/ingredients/{ingredientsId}")

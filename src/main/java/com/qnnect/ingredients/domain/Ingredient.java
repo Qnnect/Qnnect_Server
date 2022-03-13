@@ -18,6 +18,9 @@ public class Ingredient {
     private String name;
 
     @Column
+    @Enumerated(EnumType.STRING)
     private EIngredientType ingredientType;
 
+    @Column()
+    private int point;
 }

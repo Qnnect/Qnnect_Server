@@ -1,5 +1,5 @@
 package com.qnnect.ingredients.domain;
 
 public enum EIngredientType {
-    ice, base , main , topping
+    ice_base , main , topping
 }
