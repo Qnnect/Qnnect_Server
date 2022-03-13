@@ -32,6 +32,13 @@ public class UserController {
         return ResponseEntity.ok(profileResponse);
     }
 
+    @ApiOperation(value = "사진 초기화")
+    @PatchMapping(path = "/user/profile/default_image")
+    public ResponseEntity<Void> updateProfilePicture(@ApiIgnore @CurrentUser User user) {
+        userService.updateToDefaultImage(user);
+        return ResponseEntity.ok().build();
+    }
+
     @ApiOperation(value = "사용자 정보")
     @GetMapping("/user")
     public ResponseEntity<ProfileResponse> getUser(@ApiIgnore @CurrentUser User user) {

@@ -13,4 +13,5 @@ public interface UserService {
     public ProfileResponse updateUserProfile(User user, String nickName, MultipartFile profileImage);
     public MainResponse getMain(User user);
     public List<CafeScrapResponse> getCafeList(User user);
+    public void updateToDefaultImage(User user);
 }

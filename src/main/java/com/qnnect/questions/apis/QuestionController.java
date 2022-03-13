@@ -59,6 +59,4 @@ public class QuestionController {
         CafeQuestionResponse cafeQuestionResponse = cafeQuestionService.searchCafeQuestions(cafeId, searchWord,pageable);
         return ResponseEntity.ok(cafeQuestionResponse);
     }
-
-
 }

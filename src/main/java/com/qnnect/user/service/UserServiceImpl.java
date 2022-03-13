@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService{
     private final S3Uploader s3Uploader;
     private final CafeUserRepository cafeUserRepository;
     private final CafeQuestionRepository cafeQuestionRepository;
+    private final String defaultImage = "https://dev-qnnect-profile.s3.ap-northeast-2.amazonaws.com/profileDefault.png";
 
     @Override
     public void enableNotification(User user, boolean enabledNotification) {
@@ -49,7 +50,7 @@ public class UserServiceImpl implements UserService{
         }
 
         if(profileImage != null){
-            if(user.getProfilePicture() != null){
+            if(user.getProfilePicture() != null || user.getProfilePicture() != defaultImage){
                 s3Uploader.deleteS3(user.getProfilePicture(), "profile");
             }
             try {
@@ -63,6 +64,14 @@ public class UserServiceImpl implements UserService{
         User currUser = userRepository.save(user);
         System.out.println(currUser.getCreatedAt());
         return ProfileResponse.from(user);
+    }
+
+    public void updateToDefaultImage(User user){
+        if(user.getProfilePicture() != null || user.getProfilePicture() != defaultImage){
+            s3Uploader.deleteS3(user.getProfilePicture(), "profile");
+        }
+        user.setProfilePicture(defaultImage);
+        userRepository.save(user);
     }
 
     public MainResponse getMain(User user){

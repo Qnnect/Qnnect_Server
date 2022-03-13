@@ -1,19 +1,23 @@
 package com.qnnect.likes;
 
+import com.qnnect.common.domain.BaseTimeEntity;
+import com.qnnect.questions.domain.CafeQuestion;
 import com.qnnect.questions.domain.Question;
 import com.qnnect.user.domain.User;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Getter
 @NoArgsConstructor
 @Entity
-public class UserLikeQuestion {
+public class UserLikeQuestion extends BaseTimeEntity {
 
     @Id
-    @Column(name = "USER_LIKE_QUESTION_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -23,5 +27,23 @@ public class UserLikeQuestion {
 
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
-    private Question questions;
+    private Question question;
+
+    @Builder
+    public UserLikeQuestion(User user, Question question) {
+        setUser(user);
+        setQuestion(question);
+    }
+
+    public void setUser(User user){
+        if (Objects.isNull(this.user)) {
+            this.user = user;
+        }
+    }
+
+    public void setQuestion(Question question){
+        if (Objects.isNull(this.question)) {
+            this.question = question;
+        }
+    }
 }
