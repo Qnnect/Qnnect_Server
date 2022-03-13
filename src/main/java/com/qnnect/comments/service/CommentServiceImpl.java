@@ -8,6 +8,7 @@ import com.qnnect.common.exception.ErrorCode;
 import com.qnnect.questions.domain.CafeQuestion;
 import com.qnnect.questions.repository.CafeQuestionRepository;
 import com.qnnect.user.domain.User;
+import com.qnnect.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +26,10 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
     private final S3Uploader s3Uploader;
     private final CafeQuestionRepository cafeQuestionRepository;
+    private final UserRepository userRepository;
 
+    @Override
+    @Transactional
     public Long create(Long cafeQuestionId, User user, String content, MultipartFile image1,
                        MultipartFile image2, MultipartFile image3, MultipartFile image4,
                        MultipartFile image5) {
@@ -63,9 +67,13 @@ public class CommentServiceImpl implements CommentService {
                 .imageUrl4(imageUrl4).imageUrl5(imageUrl5).user(user)
                 .cafeQuestion(cafeQuestion).build());
 
+        user.addPoint(5);
+        userRepository.save(user);
+
         return comment.getId();
     }
 
+    @Transactional
     public String uploadImage(MultipartFile image) {
         try {
             String imageUrl = s3Uploader.upload(image, "comment");
