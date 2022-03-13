@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService{
         }
 
         if(profileImage != null){
-            if(user.getProfilePicture() != null || user.getProfilePicture() != defaultImage){
+            if(user.getProfilePicture() != null && user.getProfilePicture() != defaultImage){
                 s3Uploader.deleteS3(user.getProfilePicture(), "profile");
             }
             try {
