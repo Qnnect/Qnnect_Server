@@ -71,6 +71,9 @@ public class User extends BaseTimeEntity {
     public void addPoint(int addingPoint) {
         this.point += addingPoint;
     }
+    public void minusPoint(int minusPoint) {
+        this.point -= minusPoint;
+    }
 
 
 }

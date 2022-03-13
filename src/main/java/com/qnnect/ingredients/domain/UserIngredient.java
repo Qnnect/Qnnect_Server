@@ -20,4 +20,8 @@ public class UserIngredient {
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "INGREDIENT_ID")
+    private Ingredient ingredient;
 }
