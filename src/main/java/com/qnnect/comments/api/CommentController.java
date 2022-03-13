@@ -41,8 +41,7 @@ public class CommentController {
 
     @PatchMapping("/comments/{commentId}")
     @ApiOperation(value = "댓글 수정 api")
-    public ResponseEntity<Long> updateComment(@PathVariable Long cafeId,
-                                              @PathVariable Long cafeQuestionId,
+    public ResponseEntity<Long> updateComment(@PathVariable Long cafeQuestionId,
                                               @ApiIgnore @CurrentUser User user,
                                               @RequestPart(required = true) String content,
                                               @RequestPart(required = false) MultipartFile image1,
@@ -62,14 +61,12 @@ public class CommentController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/diaries/{diaryId}/question/{questionId}/comments/{commentId}")
+    @GetMapping("/comments/{commentId}")
     @ApiOperation(value = "댓글 가져오기 api(대댓글 포함")
-    public ResponseEntity<CommentDetailResponse> getComment(@PathVariable Long diaryId,
-                                                            @PathVariable Long questionId,
-                                                            @PathVariable Long commentId,
-                                                            @RequestBody String comment){
-        CommentDetailResponse commentDetailResponse = new CommentDetailResponse();
-        return ResponseEntity.ok(commentDetailResponse);
+    public ResponseEntity<CommentDetailResponse> getComment(@PathVariable Long commentId,
+                                                            @ApiIgnore @CurrentUser User user){
+//        CommentDetailResponse commentDetailResponse = commentService.getComments(commentId, user);
+        return ResponseEntity.ok().build();
     }
 
 }

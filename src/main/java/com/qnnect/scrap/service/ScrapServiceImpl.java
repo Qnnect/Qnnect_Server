@@ -1,6 +1,7 @@
 package com.qnnect.scrap.service;
 
-import com.qnnect.common.exception.cafe.QuestionNotScrappedException;
+import com.qnnect.common.exception.CustomException;
+import com.qnnect.common.exception.ErrorCode;
 import com.qnnect.questions.domain.CafeQuestion;
 import com.qnnect.questions.repository.CafeQuestionRepository;
 import com.qnnect.scrap.domain.Scrap;
@@ -40,8 +41,8 @@ public class ScrapServiceImpl implements ScrapService {
             log.info("deleting scrap");
             scrapRepository.delete(scrap);
             log.info("deleted scrap");
-        } catch (IllegalArgumentException e) {
-            throw new QuestionNotScrappedException();
+        } catch (CustomException e) {
+            throw new CustomException(ErrorCode.QUESTION_NOT_SCRAPPED);
         }
     }
 

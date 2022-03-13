@@ -1,7 +1,12 @@
 package com.qnnect.common.exception;
 
+import com.qnnect.user.service.UserService;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@AllArgsConstructor
 public class CustomException extends RuntimeException{
-    public CustomException(String message) {
-        super(message);
-    }
+    private final ErrorCode errorCode;
 }

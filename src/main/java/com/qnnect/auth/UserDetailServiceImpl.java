@@ -1,6 +1,7 @@
 package com.qnnect.auth;
 
 import com.qnnect.auth.token.CurrentUserDetails;
+import com.qnnect.common.exception.CustomException;
 import com.qnnect.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
