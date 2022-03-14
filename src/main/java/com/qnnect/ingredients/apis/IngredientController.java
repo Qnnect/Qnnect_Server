@@ -4,6 +4,7 @@ import com.qnnect.common.CurrentUser;
 import com.qnnect.drink.dtos.DrinkResponse;
 import com.qnnect.ingredients.domain.EIngredientType;
 import com.qnnect.ingredients.dto.IngredientResponse;
+import com.qnnect.ingredients.dto.MyIngredientResponse;
 import com.qnnect.ingredients.service.IngredientService;
 import com.qnnect.user.domain.User;
 import io.swagger.annotations.Api;
@@ -47,9 +48,9 @@ public class IngredientController {
 
     @ApiOperation(value = "내가 구매한 재료 api")
     @GetMapping("/ingredients/me")
-    public ResponseEntity<List<IngredientResponse>> myIngredients(@ApiIgnore @CurrentUser User user){
-        List<IngredientResponse> ingredientResponses = ingredientService.getMyIngredients(user);
-        return ResponseEntity.ok(ingredientResponses);
+    public ResponseEntity<List<MyIngredientResponse>> myIngredients(@ApiIgnore @CurrentUser User user){
+         List<MyIngredientResponse> myIngredientResponses = ingredientService.getAllMyIngredients(user);
+        return ResponseEntity.ok(myIngredientResponses);
     }
 
 }
