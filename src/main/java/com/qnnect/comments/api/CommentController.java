@@ -65,8 +65,8 @@ public class CommentController {
     @ApiOperation(value = "댓글 가져오기 api(대댓글 포함)")
     public ResponseEntity<CommentDetailResponse> getComment(@PathVariable Long commentId,
                                                             @ApiIgnore @CurrentUser User user){
-//        CommentDetailResponse commentDetailResponse = commentService.getComments(commentId, user);
-        return ResponseEntity.ok().build();
+        CommentDetailResponse commentDetailResponse = commentService.getComment(commentId, user);
+        return ResponseEntity.ok(commentDetailResponse);
     }
 
 }

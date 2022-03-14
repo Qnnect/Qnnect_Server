@@ -1,6 +1,7 @@
 package com.qnnect.comments.dtos;
 
 import com.qnnect.comments.domain.Comment;
+import com.qnnect.comments.domain.Reply;
 import com.qnnect.user.domain.User;
 import com.qnnect.user.dtos.ProfileResponse;
 import io.swagger.annotations.ApiModel;
@@ -28,7 +29,7 @@ public class CommentDetailResponse {
     boolean isWriter;
     private List<ReplyResponse> replies;
 
-    public static CommentDetailResponse from(Comment comment, User user) {
+    public static CommentDetailResponse from(Comment comment, User user, List<Reply> reply) {
 
         return CommentDetailResponse.builder()
                 .commentId(comment.getId())
@@ -40,13 +41,13 @@ public class CommentDetailResponse {
                 .imageUrl3(comment.getImageUrl3())
                 .imageUrl4(comment.getImageUrl4())
                 .imageUrl5(comment.getImageUrl5())
-//                .isWriter(isWriter(comment, user))
-//                .replies()
+                .isWriter(isWriter(comment, user))
+                .replies(ReplyResponse.listFrom(reply, user))
                 .build();
     }
 
-//    public static boolean isWriter(Comment comment ,User user){
-//        comment.ge
-//    }
+    public static boolean isWriter(Comment comment ,User user){
+        return comment.getUser().getId().equals(user.getId());
+    }
 
 }

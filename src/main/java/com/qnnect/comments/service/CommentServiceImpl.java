@@ -1,23 +1,30 @@
 package com.qnnect.comments.service;
 
 import com.qnnect.comments.domain.Comment;
+import com.qnnect.comments.domain.Reply;
+import com.qnnect.comments.dtos.CommentDetailResponse;
 import com.qnnect.comments.repository.CommentRepository;
+import com.qnnect.comments.repository.ReplyRepository;
 import com.qnnect.common.S3Uploader;
 import com.qnnect.common.exception.CustomException;
 import com.qnnect.common.exception.ErrorCode;
 import com.qnnect.questions.domain.CafeQuestion;
+import com.qnnect.questions.dto.CafeQuestionResponse;
 import com.qnnect.questions.repository.CafeQuestionRepository;
 import com.qnnect.user.domain.User;
 import com.qnnect.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static com.qnnect.common.exception.ErrorCode.CAFE_QUESTION_NOT_FOUND;
+import static com.qnnect.common.exception.ErrorCode.COMMENT_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +34,7 @@ public class CommentServiceImpl implements CommentService {
     private final S3Uploader s3Uploader;
     private final CafeQuestionRepository cafeQuestionRepository;
     private final UserRepository userRepository;
+    private final ReplyRepository replyRepository;
 
     @Override
     @Transactional
@@ -91,9 +99,13 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.deleteById(commentId);
     }
 
-//    @Transactional
-//    @Override
-//    public CommentDetailResponse(getComment){
-//
-//    }
+
+    @Override
+    @Transactional
+    public CommentDetailResponse getComment(Long commentId, User user) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(()-> new CustomException(COMMENT_NOT_FOUND));
+        List<Reply> reply = replyRepository.findAllByComment_Id(comment.getId());
+        return CommentDetailResponse.from(comment, user, reply);
+    }
 }

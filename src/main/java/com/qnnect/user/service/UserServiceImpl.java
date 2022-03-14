@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService{
 
     @Transactional
     public void updateToDefaultImage(User user){
-        if(user.getProfilePicture() != null && user.getProfilePicture() != defaultImage){
+        if(user.getProfilePicture() != defaultImage){
             s3Uploader.deleteS3(user.getProfilePicture(), "profile");
         }
         user.setProfilePicture(defaultImage);

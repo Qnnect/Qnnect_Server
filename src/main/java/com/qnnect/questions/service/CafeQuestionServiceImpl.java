@@ -83,9 +83,6 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
     @Transactional
     public CafeQuestionResponse getCafeQuestions(Long cafeId, Pageable pageable) {
         List<CafeQuestion> cafeQuestion = cafeQuestionRepository.findAllByCafe_Id(cafeId, pageable);
-//        List<CafeQuestionWaitingList> cafeQuestionWaitingLists =
-//                cafeQuestionWaitingListRespository.findAllByCafe_Id(cafeId);
-
         return CafeQuestionResponse.from(cafeQuestion);
     }
 
