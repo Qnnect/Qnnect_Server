@@ -46,7 +46,7 @@ public class IngredientController {
         return ResponseEntity.ok().build();
     }
 
-    @ApiOperation(value = "내가 구매한 재료 api")
+    @ApiOperation(value = "내가 구매한 재료(전체) api")
     @GetMapping("/ingredients/me")
     public ResponseEntity<List<MyIngredientResponse>> myIngredients(@ApiIgnore @CurrentUser User user){
          List<MyIngredientResponse> myIngredientResponses = ingredientService.getAllMyIngredients(user);
