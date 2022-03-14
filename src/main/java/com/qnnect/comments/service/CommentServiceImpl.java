@@ -98,6 +98,23 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     @Override
     public void deleteComment(Long commentId){
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(()-> new CustomException(COMMENT_NOT_FOUND));
+        if (comment.getImageUrl1() != null) {
+            s3Uploader.deleteS3(comment.getImageUrl1(), "comment");
+        }
+        if (comment.getImageUrl2() != null) {
+            s3Uploader.deleteS3(comment.getImageUrl2(), "comment");
+        }
+        if (comment.getImageUrl3() != null) {
+            s3Uploader.deleteS3(comment.getImageUrl3(), "comment");
+        }
+        if (comment.getImageUrl4() != null) {
+            s3Uploader.deleteS3(comment.getImageUrl4(), "comment");
+        }
+        if (comment.getImageUrl5() != null) {
+            s3Uploader.deleteS3(comment.getImageUrl5(), "comment");
+        }
         commentRepository.deleteById(commentId);
     }
 
