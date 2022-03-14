@@ -14,6 +14,7 @@ import com.qnnect.questions.repository.CafeQuestionRepository;
 import com.qnnect.user.domain.User;
 import com.qnnect.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,7 @@ import static com.qnnect.common.exception.ErrorCode.CAFE_QUESTION_NOT_FOUND;
 import static com.qnnect.common.exception.ErrorCode.COMMENT_NOT_FOUND;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
 
@@ -107,5 +109,71 @@ public class CommentServiceImpl implements CommentService {
                 .orElseThrow(()-> new CustomException(COMMENT_NOT_FOUND));
         List<Reply> reply = replyRepository.findAllByComment_Id(comment.getId());
         return CommentDetailResponse.from(comment, user, reply);
+    }
+
+    @Override
+    @Transactional
+    public void update(Long commentId, User user, String content, MultipartFile image1,
+                       MultipartFile image2, MultipartFile image3, MultipartFile image4,
+                       MultipartFile image5) {
+        String imageUrl1 = null;
+        String imageUrl2 = null;
+        String imageUrl3 = null;
+        String imageUrl4 = null;
+        String imageUrl5 = null;
+
+
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new CustomException(COMMENT_NOT_FOUND));
+
+        comment.setContent(content);
+        if (comment.getImageUrl1() != null) {
+            s3Uploader.deleteS3(comment.getImageUrl1(), "comment");
+            if(image1!=null){
+                imageUrl1 = uploadImage(image1);
+                comment.setImageUrl1(imageUrl1);
+            }else{
+                comment.setImageUrl1(null);
+            }
+        }
+        if (comment.getImageUrl2() != null) {
+            s3Uploader.deleteS3(comment.getImageUrl2(), "comment");
+            if(image2!=null){
+                imageUrl2 = uploadImage(image2);
+                comment.setImageUrl2(imageUrl2);
+            }else{
+                comment.setImageUrl2(null);
+            }
+        }
+        if (comment.getImageUrl3() != null) {
+            log.info("image not null");
+            s3Uploader.deleteS3(comment.getImageUrl3(), "comment");
+            if(image3!=null){
+                imageUrl3 = uploadImage(image3);
+                comment.setImageUrl3(imageUrl3);
+            }else{
+                comment.setImageUrl3(null);
+            }
+        }
+        if (comment.getImageUrl4() != null) {
+            s3Uploader.deleteS3(comment.getImageUrl4(), "comment");
+            if(image4!=null){
+                imageUrl4 = uploadImage(image4);
+                comment.setImageUrl4(imageUrl4);
+            }else{
+                comment.setImageUrl4(null);
+            }
+        }
+        if (comment.getImageUrl5() != null) {
+            s3Uploader.deleteS3(comment.getImageUrl5(), "comment");
+            if(image5!=null){
+                imageUrl5 = uploadImage(image5);
+                comment.setImageUrl5(imageUrl5);
+            }else{
+                comment.setImageUrl5(null);
+            }
+        }
+
+        commentRepository.save(comment);
     }
 }

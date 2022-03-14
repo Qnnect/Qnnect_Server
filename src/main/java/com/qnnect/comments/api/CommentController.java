@@ -41,7 +41,7 @@ public class CommentController {
 
     @PatchMapping("/comments/{commentId}")
     @ApiOperation(value = "댓글 수정 api")
-    public ResponseEntity<Long> updateComment(@PathVariable Long cafeQuestionId,
+    public ResponseEntity<Void> updateComment(@PathVariable Long commentId,
                                               @ApiIgnore @CurrentUser User user,
                                               @RequestPart(required = true) String content,
                                               @RequestPart(required = false) MultipartFile image1,
@@ -50,6 +50,8 @@ public class CommentController {
                                               @RequestPart(required = false) MultipartFile image4,
                                               @RequestPart(required = false) MultipartFile image5){
 
+        commentService.update(commentId, user, content, image1,
+                image2, image3, image4, image5);
         return ResponseEntity.ok().build();
     }
 

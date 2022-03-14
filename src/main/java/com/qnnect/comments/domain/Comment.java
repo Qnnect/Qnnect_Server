@@ -9,12 +9,14 @@ import com.qnnect.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @Entity
 public class Comment extends BaseTimeEntity {
@@ -71,11 +73,7 @@ public class Comment extends BaseTimeEntity {
             this.user = user;
         }
     }
-    public void setCafeQuestion(CafeQuestion cafeQuestion){
-        if (Objects.isNull(this.cafeQuestion)) {
-            this.cafeQuestion = cafeQuestion;
-        }
-    }
+
 
     public int countReply(){
         return this.reply.size();

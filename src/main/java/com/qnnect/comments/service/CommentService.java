@@ -11,4 +11,8 @@ public interface CommentService {
     void deleteComment(Long commentId);
 
     CommentDetailResponse getComment(Long commentId, User user);
+
+    void update(Long commentId, User user, String content, MultipartFile image1,
+                       MultipartFile image2, MultipartFile image3, MultipartFile image4,
+                       MultipartFile image5);
 }
