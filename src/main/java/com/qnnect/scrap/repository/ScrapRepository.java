@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,4 +30,7 @@ public interface ScrapRepository extends JpaRepository<Scrap, Long> {
     Page<Scrap> findByUser_IdAndWord(@Param(value="userId")UUID userId
             ,@Param(value = "word") String word, Pageable pageable);
 
+
+    boolean existsByUser_IdAndCafeQuestion_Id(@Param(value = "userId") UUID userId,
+                                              @Param(value = "cafeQuestionId") long cafeQuestionId);
 }

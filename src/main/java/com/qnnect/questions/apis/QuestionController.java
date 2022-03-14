@@ -39,8 +39,8 @@ public class QuestionController {
     @ApiOperation(value = "질문 가져오기(댓글 함께) api")
     public ResponseEntity<QuestionDetailResponse> getQuestion(@PathVariable Long cafeQuestionId
             , @ApiIgnore @CurrentUser User user){
-        QuestionDetailResponse questionDetailResposeResponse = cafeQuestionService.getQuestion(cafeQuestionId,user);
-        return ResponseEntity.ok(questionDetailResposeResponse);
+        QuestionDetailResponse questionDetailRespose = cafeQuestionService.getQuestion(cafeQuestionId,user);
+        return ResponseEntity.ok(questionDetailRespose);
     }
 
     @GetMapping("/question/cafes/{cafeId}/all")

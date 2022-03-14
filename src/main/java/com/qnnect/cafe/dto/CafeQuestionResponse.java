@@ -24,8 +24,6 @@ public class CafeQuestionResponse {
     private String questioner;
     private String question;
     private boolean isWriter;
-    private boolean isLiked;
-    private boolean isScraped;
 
     public static CafeQuestionResponse from(CafeQuestion cafeQuestion, User user) {
 
@@ -47,6 +45,7 @@ public class CafeQuestionResponse {
             return user.getNickName();
         }
     }
+
     public static boolean isWriter(CafeQuestion cafeQuestion, User currentUser){
         if(cafeQuestion.getQuestions().getQuestionerType() == EQuestionerType.admin){
             return false;

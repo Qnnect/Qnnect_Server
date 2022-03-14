@@ -21,10 +21,16 @@ public class QuestionDetailResponse {
 
     private CafeQuestionResponse questionMainResponse;
 
+    private boolean isLiked;
+
+    private boolean isScraped;
+
     private List<CommentResponse> comments = new ArrayList<>();
 
-    public QuestionDetailResponse(CafeQuestion cafeQuestion, List<Comment> comments, User user){
+    public QuestionDetailResponse(CafeQuestion cafeQuestion, List<Comment> comments, User user, boolean isScraped, boolean isLiked){
         this.questionMainResponse = CafeQuestionResponse.from(cafeQuestion, user);
+        this.isLiked = isLiked;
+        this.isScraped = isScraped;
         this.comments = CommentResponse.listFrom(comments);
     }
 }

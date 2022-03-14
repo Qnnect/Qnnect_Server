@@ -4,6 +4,8 @@ import com.qnnect.cafe.domain.Cafe;
 import com.qnnect.cafe.repository.CafeRepository;
 import com.qnnect.comments.domain.Comment;
 import com.qnnect.comments.repository.CommentRepository;
+import com.qnnect.likes.UserLikeQuestion;
+import com.qnnect.likes.UserLikeQuestionRepository;
 import com.qnnect.questions.domain.CafeQuestion;
 import com.qnnect.questions.domain.CafeQuestionWaitingList;
 import com.qnnect.questions.domain.Question;
@@ -13,6 +15,7 @@ import com.qnnect.questions.dto.QuestionResponse;
 import com.qnnect.questions.repository.CafeQuestionRepository;
 import com.qnnect.questions.repository.CafeQuestionWaitingListRespository;
 import com.qnnect.questions.repository.QuestionRepository;
+import com.qnnect.scrap.repository.ScrapRepository;
 import com.qnnect.user.domain.User;
 import com.qnnect.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +36,8 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
     private final CafeQuestionWaitingListRespository cafeQuestionWaitingListRespository;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
+    private final ScrapRepository scrapRepository;
+    private final UserLikeQuestionRepository likeRepository;
 
     @Override
     public Question findQuestionToday(Cafe cafe) {
@@ -76,7 +81,11 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
     public QuestionDetailResponse getQuestion(Long cafeQuestionId, User user) {
         CafeQuestion cafeQuestion = cafeQuestionRepository.getById(cafeQuestionId);
         List<Comment> comments = commentRepository.findAllByCafeQuestion_Id(cafeQuestionId);
-        return new QuestionDetailResponse(cafeQuestion, comments, user);
+        boolean isScraped = scrapRepository.existsByUser_IdAndCafeQuestion_Id(user.getId()
+                ,cafeQuestion.getQuestions().getId());
+        boolean isLiked = likeRepository.existsByUser_IdAndQuestion_Id(user.getId(),
+                cafeQuestion.getQuestions().getId());
+        return new QuestionDetailResponse(cafeQuestion, comments, user, isScraped,isLiked);
     }
 
     @Override
