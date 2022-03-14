@@ -39,10 +39,17 @@ public class IngredientController {
     }
 
     @ApiOperation(value = "재료 구매 api")
-    @PatchMapping("/ingredients/{ingredientsId}")
+    @PostMapping("/ingredients/{ingredientsId}")
     public ResponseEntity<Void> buyIngredients(@PathVariable Long ingredientsId, @ApiIgnore @CurrentUser User user){
-//        ingredientService.buyIngredients(ingredientsId, user);
+        ingredientService.buyIngredients(ingredientsId, user);
         return ResponseEntity.ok().build();
+    }
+
+    @ApiOperation(value = "내가 구매한 재료 api")
+    @GetMapping("/ingredients/me")
+    public ResponseEntity<List<IngredientResponse>> myIngredients(@ApiIgnore @CurrentUser User user){
+        List<IngredientResponse> ingredientResponses = ingredientService.getMyIngredients(user);
+        return ResponseEntity.ok(ingredientResponses);
     }
 
 }

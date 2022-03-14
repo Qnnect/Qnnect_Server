@@ -9,5 +9,6 @@ import java.util.List;
 public interface IngredientService {
     public List<IngredientResponse> getIngredients();
     public List<IngredientResponse> getIngredientsByType(EIngredientType ingredientType);
-//    public List<IngredientResponse> buyIngredients(Long ingredientId, User user);
+    public void buyIngredients(Long ingredientId, User user);
+    public List<IngredientResponse> getMyIngredients(User user);
 }

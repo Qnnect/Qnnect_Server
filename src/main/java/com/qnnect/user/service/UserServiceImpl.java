@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -43,6 +44,7 @@ public class UserServiceImpl implements UserService{
         userRepository.save(user);
     }
 
+    @Transactional
     public ProfileResponse updateUserProfile(User user, String nickName, MultipartFile profileImage){
         if(!StringUtils.isEmpty(nickName)){
             user.setNickName(nickName);
@@ -66,6 +68,7 @@ public class UserServiceImpl implements UserService{
         return ProfileResponse.from(user);
     }
 
+    @Transactional
     public void updateToDefaultImage(User user){
         if(user.getProfilePicture() != null && user.getProfilePicture() != defaultImage){
             s3Uploader.deleteS3(user.getProfilePicture(), "profile");
