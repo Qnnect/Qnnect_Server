@@ -1,5 +1,6 @@
 package com.qnnect.ingredients.repository;
 
+import com.qnnect.ingredients.domain.EIngredientType;
 import com.qnnect.ingredients.domain.Ingredient;
 import com.qnnect.ingredients.domain.UserIngredient;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,4 +16,6 @@ public interface UserIngredientRepository extends JpaRepository<UserIngredient, 
     @Query("SELECT m,COUNT(i.name) FROM UserIngredient m INNER JOIN m.ingredient i WHERE m.user.id=:userId GROUP BY i.name")
     List<Object[]> CountByIngredientWhereUser_Id(@Param(value="userId") UUID userId);
 
+    @Query("SELECT m,COUNT(i.name) FROM UserIngredient m INNER JOIN m.ingredient i WHERE m.user.id=:userId AND i.ingredientType=:ingredientType GROUP BY i.name")
+    List<Object[]> CountByIngredientWhereUser_IdAndType(@Param(value="userId") UUID userId, @Param(value = "ingredientType")EIngredientType ingredientType);
 }

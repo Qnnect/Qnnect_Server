@@ -12,4 +12,5 @@ public interface IngredientService {
     public List<IngredientResponse> getIngredientsByType(EIngredientType ingredientType);
     public void buyIngredients(Long ingredientId, User user);
     public List<MyIngredientResponse> getAllMyIngredients(User user);
+    public List<MyIngredientResponse> getMyIngredientsByType(User user, EIngredientType ingredientType);
 }

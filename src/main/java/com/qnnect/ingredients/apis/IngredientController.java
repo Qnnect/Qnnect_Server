@@ -47,9 +47,16 @@ public class IngredientController {
     }
 
     @ApiOperation(value = "내가 구매한 재료(전체) api")
-    @GetMapping("/ingredients/me")
+    @GetMapping("/ingredients/me/all")
     public ResponseEntity<List<MyIngredientResponse>> myIngredients(@ApiIgnore @CurrentUser User user){
          List<MyIngredientResponse> myIngredientResponses = ingredientService.getAllMyIngredients(user);
+        return ResponseEntity.ok(myIngredientResponses);
+    }
+
+    @ApiOperation(value = "내가 구매한 재료 종류별 api")
+    @GetMapping("/ingredients/me/{ingredientType}")
+    public ResponseEntity<List<MyIngredientResponse>> myIngredients(@ApiIgnore @CurrentUser User user, @PathVariable EIngredientType ingredientType){
+        List<MyIngredientResponse> myIngredientResponses = ingredientService.getMyIngredientsByType(user, ingredientType);
         return ResponseEntity.ok(myIngredientResponses);
     }
 
