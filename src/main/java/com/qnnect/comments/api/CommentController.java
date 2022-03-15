@@ -21,10 +21,9 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/cafes/{cafeId}/questions/{cafeQuestionId}/comments")
+    @PostMapping("/questions/{cafeQuestionId}/comments")
     @ApiOperation(value = "댓글 생성 api")
-    public ResponseEntity<Long> createComment(@PathVariable Long cafeId,
-                                              @PathVariable Long cafeQuestionId,
+    public ResponseEntity<Long> createComment(@PathVariable Long cafeQuestionId,
                                               @ApiIgnore @CurrentUser User user,
                                               @RequestPart(required = true) String content,
                                               @RequestPart(required = false) MultipartFile image1,

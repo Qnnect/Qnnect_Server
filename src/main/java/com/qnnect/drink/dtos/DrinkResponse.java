@@ -20,15 +20,13 @@ public class DrinkResponse {
     @ApiModelProperty(value = "음료 이름", example = "딸기라떼")
     private String name;
 
-    @ApiModelProperty(value = "음료 레시피", example = "얼음 몇개, 물 얼마나, 가루")
-    private String recipe;
 
 
     public static DrinkResponse from(Drink drink) {
         return DrinkResponse.builder()
                 .id(drink.getId())
                 .name(drink.getName())
-                .recipe(drink.getRecipe())
+//                .recipe(drink.getRecipe())
                 .build();
     }
 

@@ -15,7 +15,4 @@ public class Drink {
 
     @Column()
     private String name;
-
-    @Column()
-    private String recipe;
 }
