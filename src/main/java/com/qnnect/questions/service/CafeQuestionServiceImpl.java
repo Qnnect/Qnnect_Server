@@ -19,6 +19,7 @@ import com.qnnect.scrap.repository.ScrapRepository;
 import com.qnnect.user.domain.User;
 import com.qnnect.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CafeQuestionServiceImpl implements CafeQuestionService {
@@ -80,9 +82,12 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
 
     public QuestionDetailResponse getQuestion(Long cafeQuestionId, User user) {
         CafeQuestion cafeQuestion = cafeQuestionRepository.getById(cafeQuestionId);
+        log.info("getting cafeQuestion");
         List<Comment> comments = commentRepository.findAllByCafeQuestion_Id(cafeQuestionId);
         boolean isScraped = scrapRepository.existsByUser_IdAndCafeQuestion_Id(user.getId()
-                ,cafeQuestion.getQuestions().getId());
+                ,cafeQuestion.getId());
+        System.out.println(user.getNickName());
+        System.out.println("isScraped" + isScraped);
         boolean isLiked = likeRepository.existsByUser_IdAndQuestion_Id(user.getId(),
                 cafeQuestion.getQuestions().getId());
         return new QuestionDetailResponse(cafeQuestion, comments, user, isScraped,isLiked);
