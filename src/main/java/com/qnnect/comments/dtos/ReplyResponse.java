@@ -18,11 +18,11 @@ public class ReplyResponse {
 
     private Long replyId;
 
-    private ProfileResponse writer;
+    private ProfileResponse writerInfo;
 
     private String content;
 
-    private boolean isWriter;
+    private boolean writer;
 
     private LocalDate createdAt;
 
@@ -31,14 +31,15 @@ public class ReplyResponse {
 
         return ReplyResponse.builder()
                 .replyId(reply.getId())
-                .writer(ProfileResponse.from(reply.getUser()))
+                .writerInfo(ProfileResponse.from(reply.getUser()))
                 .content(reply.getContent())
                 .createdAt(reply.getCreatedAt().toLocalDate())
-                .isWriter(isWriter(reply, user))
+                .writer(isWriter(reply, user))
                 .build();
     }
 
     public static boolean isWriter(Reply reply,User user){
+        System.out.println(reply.getUser().getId().equals(user.getId()));
         return reply.getUser().getId().equals(user.getId());
     }
 

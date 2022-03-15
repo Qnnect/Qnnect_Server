@@ -19,7 +19,7 @@ public class CommentDetailResponse {
 
     Long commentId;
     LocalDate createdAt;
-    ProfileResponse writer;
+    ProfileResponse writerInfo;
     String content;
     String imageUrl1;
     String imageUrl2;
@@ -34,7 +34,7 @@ public class CommentDetailResponse {
         return CommentDetailResponse.builder()
                 .commentId(comment.getId())
                 .createdAt(comment.getCreatedAt().toLocalDate())
-                .writer(ProfileResponse.from(comment.getUser()))
+                .writerInfo(ProfileResponse.from(comment.getUser()))
                 .content(comment.getContent())
                 .imageUrl1(comment.getImageUrl1())
                 .imageUrl2(comment.getImageUrl2())
