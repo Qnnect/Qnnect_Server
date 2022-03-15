@@ -25,12 +25,16 @@ public class QuestionDetailResponse {
 
     private boolean isScraped;
 
+    private CommentResponse currentUserComment;
+
     private List<CommentResponse> comments = new ArrayList<>();
 
-    public QuestionDetailResponse(CafeQuestion cafeQuestion, List<Comment> comments, User user, boolean isScraped, boolean isLiked){
+    public QuestionDetailResponse(CafeQuestion cafeQuestion, List<Comment> comments, User user, boolean isScraped,
+                                  boolean isLiked, Comment currentUserComment){
         this.questionMainResponse = CafeQuestionResponse.from(cafeQuestion, user);
         this.isLiked = isLiked;
         this.isScraped = isScraped;
-        this.comments = CommentResponse.listFrom(comments);
+        this.currentUserComment = CommentResponse.from(currentUserComment);
+        this.comments = CommentResponse.listFrom(comments, user);
     }
 }

@@ -80,6 +80,7 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
         questionRepository.deleteById(questionId);
     }
 
+    @Transactional
     public QuestionDetailResponse getQuestion(Long cafeQuestionId, User user) {
         CafeQuestion cafeQuestion = cafeQuestionRepository.getById(cafeQuestionId);
         log.info("getting cafeQuestion");
@@ -90,7 +91,8 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
         System.out.println("isScraped" + isScraped);
         boolean isLiked = likeRepository.existsByUser_IdAndQuestion_Id(user.getId(),
                 cafeQuestion.getQuestions().getId());
-        return new QuestionDetailResponse(cafeQuestion, comments, user, isScraped,isLiked);
+        Comment currentUserComment = commentRepository.findByUser_IdAndCafeQuestion_Id( user.getId(), cafeQuestionId);
+        return new QuestionDetailResponse(cafeQuestion, comments, user, isScraped,isLiked, currentUserComment);
     }
 
     @Override

@@ -23,4 +23,6 @@ public interface CafeQuestionRepository extends JpaRepository<CafeQuestion, Long
     @Query("SELECT m FROM CafeQuestion m INNER JOIN m.questions c WHERE m.cafe.id=:cafeId AND c.content LIKE %:word%")
     List<CafeQuestion> findByCafe_IdAndWord(@Param(value="cafeId") Long cafeId
             , @Param(value = "word") String word, Pageable pageable);
+
+
 }
