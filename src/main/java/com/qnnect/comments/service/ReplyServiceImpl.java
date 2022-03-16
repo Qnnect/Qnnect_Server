@@ -2,6 +2,7 @@ package com.qnnect.comments.service;
 
 import com.qnnect.comments.domain.Comment;
 import com.qnnect.comments.domain.Reply;
+import com.qnnect.comments.dtos.ContentDto;
 import com.qnnect.comments.repository.CommentRepository;
 import com.qnnect.comments.repository.ReplyRepository;
 import com.qnnect.user.domain.User;
@@ -17,9 +18,9 @@ public class ReplyServiceImpl implements ReplyService{
     private final ReplyRepository replyRepository;
     private final CommentRepository commentRepository;
 
-    public Reply createReply(Long commentId, String content, User user){
+    public Reply createReply(Long commentId, ContentDto content, User user){
         Comment comment = commentRepository.getById(commentId);
-        Reply reply = replyRepository.save(Reply.builder().content(content).user(user)
+        Reply reply = replyRepository.save(Reply.builder().content(content.getContent()).user(user)
                 .comment(comment).build());
         return reply;
     }

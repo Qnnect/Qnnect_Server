@@ -29,4 +29,6 @@ public class CafeDrinkServiceImpl implements CafeDrinkService{
         cafeUser.setUserDrinkSelected(userDrinkSelected);
         cafeUserRepository.save(cafeUser);
     }
+
+
 }

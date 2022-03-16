@@ -1,12 +1,15 @@
 package com.qnnect.drink.apis;
 
+import com.qnnect.common.CurrentUser;
 import com.qnnect.drink.dtos.DrinkResponse;
 import com.qnnect.drink.service.DrinkService;
+import com.qnnect.user.domain.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +33,9 @@ public class DrinkController {
     @ApiOperation(value = "음료에 재료 추가 api")
     @PatchMapping("/drinks/{userDrinkSelectedId}/ingredients/{ingredientsId}")
     public ResponseEntity<Void> addIngredientDrink(@PathVariable Long userDrinkSelectedId,
-                                                   @PathVariable Long ingredientsId){
+                                                   @PathVariable Long ingredientsId,
+                                                   @ApiIgnore @CurrentUser User user){
+        drinkService.addIngredient(userDrinkSelectedId, ingredientsId, user);
         return ResponseEntity.ok().build();
     }
 

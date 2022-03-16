@@ -1,6 +1,7 @@
 package com.qnnect.comments.api;
 
 import com.qnnect.comments.domain.Reply;
+import com.qnnect.comments.dtos.ContentDto;
 import com.qnnect.comments.service.ReplyService;
 import com.qnnect.common.CurrentUser;
 import com.qnnect.user.domain.User;
@@ -23,7 +24,7 @@ public class ReplyController {
     @ApiOperation(value = "대댓글 생성 api")
     public ResponseEntity<Long> createReply(
                                             @PathVariable Long commentId,
-                                            @RequestBody String content,
+                                            @RequestBody ContentDto content,
                                             @ApiIgnore @CurrentUser User user) {
         Reply reply = replyService.createReply(commentId, content, user);
         return ResponseEntity.ok(reply.getId());
