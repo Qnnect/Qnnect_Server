@@ -18,6 +18,10 @@ import java.util.List;
 @ApiModel(value = "카페")
 public class CafeDetailResponse {
 
+    private long cafeId;
+
+    private long cafeUserId;
+
     private LocalDate createdAt;
 
     private String title;
@@ -36,6 +40,8 @@ public class CafeDetailResponse {
         this.createdAt = entity.getCreatedAt().toLocalDate();
         this.title = entity.getTitle();
         this.code = entity.getCode();
+        this.cafeId = entity.getId();
+        this.cafeUserId = currentCafeUser.getId();
         this.diaryColor = entity.getDiaryColor();
         this.currentUserResponse = CafeUserResponse.from(currentCafeUser);
         this.cafeQuestionResponseList = CafeQuestionResponse.listFrom(entity.getCafeQuestions(), user);
