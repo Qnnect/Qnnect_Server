@@ -10,6 +10,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @ApiModel(value="내 재료 가져오기")
 @Getter
 @Builder
@@ -35,6 +38,13 @@ public class MyIngredientResponse {
                 .ingredientType(userIngredient.getIngredient().getIngredientType())
                 .count(count)
                 .build();
+    }
+
+    public static List<MyIngredientResponse> listfrom(List<Object[]> userIngredients){
+        return userIngredients.stream()
+                .map(userIngredient -> MyIngredientResponse
+                .from(((UserIngredient) userIngredient[0]),
+                        ((long) userIngredient[1]))).collect(Collectors.toList());
     }
 
 

@@ -4,10 +4,13 @@ import com.qnnect.cafe.domain.CafeUser;
 import com.qnnect.cafe.repository.CafeUserRepository;
 import com.qnnect.drink.domain.DrinkRecipe;
 import com.qnnect.drink.domain.UserDrinkSelected;
+import com.qnnect.drink.dtos.CafeDrinkIngredientResponse;
 import com.qnnect.drink.dtos.CafeDrinkResponse;
 import com.qnnect.drink.repository.DrinkRecipeRepository;
 import com.qnnect.drink.repository.DrinkRepository;
 import com.qnnect.drink.repository.UserDrinkSelectedRepository;
+import com.qnnect.ingredients.repository.IngredientRepository;
+import com.qnnect.ingredients.repository.UserIngredientRepository;
 import com.qnnect.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,7 @@ public class CafeDrinkServiceImpl implements CafeDrinkService{
     private final CafeUserRepository cafeUserRepository;
     private final UserDrinkSelectedRepository userDrinkSelectedRepository;
     private final DrinkRecipeRepository drinkRecipeRepository;
+    private final UserIngredientRepository userIngredientRepository;
 
     @Transactional
     @Override
@@ -47,5 +51,16 @@ public class CafeDrinkServiceImpl implements CafeDrinkService{
                 .getDrink().getId());
         int size = drinkOwner.getUserDrinkSelected().getDrinkIngredientsFilled().size();
         return new CafeDrinkResponse(drinkOwner,cafeUsers , user, drinkRecipe, size);
+    }
+
+    @Transactional
+    @Override
+    public CafeDrinkIngredientResponse getDrinkIngredient(User user, long cafeId){
+        CafeUser currentUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafeId,user.getId());
+        List<DrinkRecipe> drinkRecipe = drinkRecipeRepository.findAllByDrink_Id(currentUser.getUserDrinkSelected()
+                .getDrink().getId());
+        List<Object[]> ingredients = userIngredientRepository.countByIngredientWhereUser_Id(user.getId());
+        int size = currentUser.getUserDrinkSelected().getDrinkIngredientsFilled().size();
+        return new CafeDrinkIngredientResponse(currentUser, drinkRecipe, size, ingredients);
     }
 }

@@ -15,10 +15,10 @@ import java.util.UUID;
 @Repository
 public interface UserIngredientRepository extends JpaRepository<UserIngredient, Long> {
     @Query("SELECT m,COUNT(i.name) FROM UserIngredient m INNER JOIN m.ingredient i WHERE m.user.id=:userId GROUP BY i.name")
-    List<Object[]> CountByIngredientWhereUser_Id(@Param(value="userId") UUID userId);
+    List<Object[]> countByIngredientWhereUser_Id(@Param(value="userId") UUID userId);
 
     @Query("SELECT m,COUNT(i.name) FROM UserIngredient m INNER JOIN m.ingredient i WHERE m.user.id=:userId AND i.ingredientType=:ingredientType GROUP BY i.name")
-    List<Object[]> CountByIngredientWhereUser_IdAndType(@Param(value="userId") UUID userId, @Param(value = "ingredientType")EIngredientType ingredientType);
+    List<Object[]> countByIngredientWhereUser_IdAndType(@Param(value="userId") UUID userId, @Param(value = "ingredientType")EIngredientType ingredientType);
 
     List<UserIngredient> getByUser_IdAndIngredient_Id(@Param(value = "userId") UUID userId, @Param(value = "ingredientId")long ingredientId, Pageable pageable);
 

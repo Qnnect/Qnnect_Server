@@ -54,16 +54,12 @@ public class IngredientServiceImpl implements IngredientService{
     }
 
     public List<MyIngredientResponse> getAllMyIngredients(User user){
-        List<Object[]> userIngredients = userIngredientRepository.CountByIngredientWhereUser_Id(user.getId());
-        List<MyIngredientResponse> myIngredientResponses = userIngredients.stream().map(userIngredient -> MyIngredientResponse
-                .from(((UserIngredient) userIngredient[0]), ((long) userIngredient[1]))).collect(Collectors.toList());
-        return myIngredientResponses;
+        List<Object[]> userIngredients = userIngredientRepository.countByIngredientWhereUser_Id(user.getId());
+        return MyIngredientResponse.listfrom(userIngredients);
     }
 
     public List<MyIngredientResponse> getMyIngredientsByType(User user, EIngredientType ingredientType){
-        List<Object[]> userIngredients = userIngredientRepository.CountByIngredientWhereUser_IdAndType(user.getId(), ingredientType);
-        List<MyIngredientResponse> myIngredientResponses = userIngredients.stream().map(userIngredient -> MyIngredientResponse
-                .from(((UserIngredient) userIngredient[0]), ((long) userIngredient[1]))).collect(Collectors.toList());
-        return myIngredientResponses;
+        List<Object[]> userIngredients = userIngredientRepository.countByIngredientWhereUser_IdAndType(user.getId(), ingredientType);
+        return MyIngredientResponse.listfrom(userIngredients);
     }
 }
