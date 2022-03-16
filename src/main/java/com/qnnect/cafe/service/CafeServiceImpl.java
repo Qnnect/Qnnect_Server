@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 
 @Service
 @Slf4j
@@ -25,30 +27,26 @@ public class CafeServiceImpl implements CafeService {
 
     @Transactional
     public Cafe createCafe(CafeRequest cafeRequest, User user){
-        Cafe cafe = cafeRepository.save(cafeRequest.toEntity());
+        Cafe cafe = cafeRequest.toEntity();
         log.info("created cafe");
         CafeUser cafeUser = cafeUserRepository.save(CafeUser.builder().cafe(cafe).user(user).build());
         log.info("added user to cafe user");
 
-       return cafe;
+        return cafe;
     }
 
     @Transactional
-    public CafeDetailResponse joinCafe(String code, User user, long cafeId){
-        Cafe cafe = cafeRepository.getById(cafeId);
-        long memberNum = cafeUserRepository.countByCafe_Id(cafeId);
+    public CafeDetailResponse joinCafe(String code, User user){
+        Cafe cafe = cafeRepository.findByCode(code).orElseThrow(()-> new CustomException(ErrorCode.CAFE_NOT_FOUND));
+        long memberNum = cafeUserRepository.countByCafe_Id(cafe.getId());
 
         System.out.println(memberNum);
         if(memberNum >= 5){
             throw new CustomException(ErrorCode.CAFE_MEMBER_EXCEED_EXCEPTION);
         }
-        System.out.println("member not exceeded");
-        System.out.println(cafe.getCode());
-        if(!cafe.getCode().equals(code)){
-            throw new CustomException(ErrorCode.INCORRECT_CAFE_CODE_EXCEPTION);
-        }
+
         cafeUserRepository.save(CafeUser.builder().cafe(cafe).user(user).build());
-        CafeUser currentCafeUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafeId, user.getId());
+        CafeUser currentCafeUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafe.getId(), user.getId());
         return new CafeDetailResponse(cafe, currentCafeUser, user);
     }
 

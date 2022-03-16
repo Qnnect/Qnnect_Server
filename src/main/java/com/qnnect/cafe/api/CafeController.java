@@ -33,9 +33,8 @@ public class CafeController {
     @PostMapping("/cafes/{cafeId}")
     @ApiOperation(value = "카페 참여 api")
     public ResponseEntity<CafeDetailResponse> joinCafe(@RequestParam String cafeCode,
-                                                       @PathVariable long cafeId,
                                                        @ApiIgnore @CurrentUser User user){
-        CafeDetailResponse cafeResponse = cafeService.joinCafe(cafeCode, user, cafeId);
+        CafeDetailResponse cafeResponse = cafeService.joinCafe(cafeCode, user);
         return ResponseEntity.ok(cafeResponse);
     }
 
