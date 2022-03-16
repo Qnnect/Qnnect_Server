@@ -1,10 +1,14 @@
 package com.qnnect.drink.service;
 
+import com.qnnect.cafe.domain.CafeUser;
+import com.qnnect.cafe.repository.CafeUserRepository;
 import com.qnnect.common.exception.CustomException;
 import com.qnnect.common.exception.ErrorCode;
 import com.qnnect.drink.domain.DrinkIngredientsFilled;
 import com.qnnect.drink.domain.DrinkRecipe;
 import com.qnnect.drink.domain.UserDrinkSelected;
+import com.qnnect.drink.dtos.CafeDrinkRecipeResponse;
+import com.qnnect.drink.dtos.DrinkIngredientsFilledResponse;
 import com.qnnect.drink.dtos.DrinkResponse;
 import com.qnnect.drink.repository.DrinkIngredientsFilledRepository;
 import com.qnnect.drink.repository.DrinkRecipeRepository;
@@ -39,11 +43,23 @@ public class DrinkServiceImpl implements DrinkService{
     private final DrinkRecipeRepository drinkRecipeRepository;
     private final UserIngredientRepository userIngredientRepository;
     private final IngredientRepository ingredientRepository;
+    private final CafeUserRepository cafeUserRepository;
 
 
+    @Override
     public List<DrinkResponse> getDrinkList(){
         List<DrinkResponse> drinkResponses = DrinkResponse.listFrom(drinkRepository.findAll());
         return drinkResponses;
+    }
+
+    @Override
+    public CafeDrinkRecipeResponse getDrinkRecipes(User user, long userSelectedDrinkId, long cafeId){
+        CafeUser currentUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafeId, user.getId());
+        UserDrinkSelected userDrinkSelected = userDrinkSelectedRepository.getById(userSelectedDrinkId);
+        System.out.println(userDrinkSelected.getDrink().getId());
+        List<DrinkRecipe> drinkRecipes = drinkRecipeRepository.findAllByDrink_Id(userDrinkSelected.getDrink().getId());
+        int size = currentUser.getUserDrinkSelected().getDrinkIngredientsFilled().size();
+        return new CafeDrinkRecipeResponse(currentUser, drinkRecipes, size);
     }
 
     @Override

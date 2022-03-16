@@ -11,20 +11,22 @@ import java.util.List;
 
 @Getter
 public class CafeDrinkCommonResponse {
-    List<DrinkIngredientsFilledResponse> currentDrinkIngredientsFilled;
-    int ice;
-    int iceFilled;
-    int base;
-    int baseFilled;
-    int main;
-    int mainFilled;
-    int topping;
-    int toppingFilled;
+    private Long userDrinkSelectedId;
+    private List<DrinkIngredientsFilledResponse> currentDrinkIngredientsFilled;
+    private int ice;
+    private int iceFilled;
+    private int base;
+    private int baseFilled;
+    private int main;
+    private int mainFilled;
+    private int topping;
+    private int toppingFilled;
 
     public CafeDrinkCommonResponse(CafeUser drinkOwner,
                               List<DrinkRecipe> drinkRecipes, int size) {
         List<DrinkIngredientsFilled> drinkIngredientsFilled = drinkOwner.getUserDrinkSelected()
                 .getDrinkIngredientsFilled();
+        this.userDrinkSelectedId = drinkOwner.getUserDrinkSelected().getId();
         this.currentDrinkIngredientsFilled =
                 DrinkIngredientsFilledResponse.listFrom(drinkIngredientsFilled);
         this.ice = drinkRecipes.get(0).getNumber();

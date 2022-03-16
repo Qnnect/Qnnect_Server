@@ -2,6 +2,7 @@ package com.qnnect.drink.apis;
 
 import com.qnnect.common.CurrentUser;
 import com.qnnect.drink.dtos.CafeDrinkIngredientResponse;
+import com.qnnect.drink.dtos.CafeDrinkRecipeResponse;
 import com.qnnect.drink.dtos.CafeDrinkResponse;
 import com.qnnect.drink.dtos.DrinkResponse;
 import com.qnnect.drink.service.CafeDrinkService;
@@ -56,9 +57,11 @@ public class DrinkController {
 
     @ApiOperation(value = "음료에 레시피 가져오기 api")
     @GetMapping("/drinks/{userDrinkSelectedId}/recipe")
-    public ResponseEntity<Void> getDrinkRecipe(@PathVariable Long userDrinkSelectedId){
-//        List<>drinkService.getDrinkRecipe();
-        return ResponseEntity.ok().build();
+    public ResponseEntity<CafeDrinkRecipeResponse> getDrinkRecipe(@PathVariable Long userDrinkSelectedId,
+                                                                  @RequestParam Long cafeId,
+                                                                  @ApiIgnore @CurrentUser User user){
+        CafeDrinkRecipeResponse cafeDrinkRecipeResponse = drinkService.getDrinkRecipes(user, userDrinkSelectedId, cafeId);
+        return ResponseEntity.ok(cafeDrinkRecipeResponse);
     }
 
     @ApiOperation(value = "음료와 재료 api")
