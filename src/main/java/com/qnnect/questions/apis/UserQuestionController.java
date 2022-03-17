@@ -25,18 +25,17 @@ public class UserQuestionController {
         return ResponseEntity.ok(questionId);
     }
 
-    @PatchMapping("/question/{questionId}")
+    @PatchMapping("/question/{cafeQuestionId}")
     @ApiOperation(value = "사용자 질문 수정 api")
-    public ResponseEntity<Void> updateQuestion(@PathVariable Long questionId,@RequestBody String content){
-        cafeQuestionService.update(questionId, content);
+    public ResponseEntity<Void> updateQuestion(@PathVariable Long cafeQuestionId,@RequestBody String content){
+        cafeQuestionService.update(cafeQuestionId, content);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/question/{questionId}")
+    @DeleteMapping("/question/{cafeQuestionId}")
     @ApiOperation(value = "사용자 질문 삭제 api")
-    public ResponseEntity<Void> deleteQuestion(@PathVariable Long questionId){
-        cafeQuestionService.delete(questionId);
+    public ResponseEntity<Void> deleteQuestion(@PathVariable Long cafeQuestionId){
+        cafeQuestionService.delete(cafeQuestionId);
         return ResponseEntity.noContent().build();
     }
-
 }

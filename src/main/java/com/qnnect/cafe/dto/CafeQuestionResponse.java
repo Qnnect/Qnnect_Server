@@ -11,6 +11,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Builder
@@ -50,8 +51,8 @@ public class CafeQuestionResponse {
         if(cafeQuestion.getQuestions().getQuestionerType() == EQuestionerType.admin){
             return false;
         }else{
-            User writer = cafeQuestion.getQuestions().getUser();
-            return currentUser == writer;
+            UUID writerId = cafeQuestion.getQuestions().getUser().getId();
+            return currentUser.getId().equals(writerId);
         }
     }
 

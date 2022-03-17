@@ -67,17 +67,19 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void update(Long questionId, String content) {
-        Question question = questionRepository.getById(questionId);
+    public void update(Long cafeQuestionId, String content) {
+        CafeQuestion cafeQuestion = cafeQuestionRepository.getById(cafeQuestionId);
+        Question question = cafeQuestion.getQuestions();
         question.setContent(content);
-        System.out.println(question.getContent());
         questionRepository.save(question);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void delete(Long questionId) {
-        questionRepository.deleteById(questionId);
+    public void delete(Long cafeQuestionId) {
+        CafeQuestion cafeQuestion = cafeQuestionRepository.getById(cafeQuestionId);
+        Question question = cafeQuestion.getQuestions();
+        questionRepository.deleteById(question.getId());
     }
 
     @Transactional
