@@ -24,7 +24,7 @@ public class ReplyController {
     @ApiOperation(value = "대댓글 생성 api")
     public ResponseEntity<Long> createReply(
                                             @PathVariable Long commentId,
-                                            @RequestBody ContentDto content,
+                                            @RequestBody String content,
                                             @ApiIgnore @CurrentUser User user) {
         Reply reply = replyService.createReply(commentId, content, user);
         return ResponseEntity.ok(reply.getId());

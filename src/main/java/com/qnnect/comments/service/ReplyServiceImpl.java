@@ -18,9 +18,9 @@ public class ReplyServiceImpl implements ReplyService{
     private final ReplyRepository replyRepository;
     private final CommentRepository commentRepository;
 
-    public Reply createReply(Long commentId, ContentDto content, User user){
+    public Reply createReply(Long commentId, String content, User user){
         Comment comment = commentRepository.getById(commentId);
-        Reply reply = replyRepository.save(Reply.builder().content(content.getContent()).user(user)
+        Reply reply = replyRepository.save(Reply.builder().content(content).user(user)
                 .comment(comment).build());
         return reply;
     }
