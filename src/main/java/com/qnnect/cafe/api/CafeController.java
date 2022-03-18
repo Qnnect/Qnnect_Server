@@ -30,7 +30,7 @@ public class CafeController {
         return ResponseEntity.ok(cafe.getId());
     }
 
-    @PostMapping("/cafes")
+    @PostMapping("/cafes/join")
     @ApiOperation(value = "카페 참여 api")
     public ResponseEntity<CafeDetailResponse> joinCafe(@RequestParam String cafeCode,
                                                        @ApiIgnore @CurrentUser User user){
