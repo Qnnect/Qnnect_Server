@@ -66,6 +66,7 @@ public class DrinkServiceImpl implements DrinkService{
     public void addIngredient(Long userDrinkSelectedId, Long ingredientsId, User user){
         UserDrinkSelected userDrinkSelected = userDrinkSelectedRepository.getById(userDrinkSelectedId);
         long count = drinkIngredientsFilledRepository.countByUserDrinkSelected_Id(userDrinkSelectedId);
+        System.out.println(userDrinkSelected.getDrink());
         List<DrinkRecipe> drinkRecipe = drinkRecipeRepository.findAllByDrink_Id(userDrinkSelected.getDrink().getId());
         int recipecount=0;
         int idx = -1;
@@ -78,10 +79,14 @@ public class DrinkServiceImpl implements DrinkService{
         Ingredient currIngredientLevel = drinkRecipe.get(idx).getIngredient();
         Pageable pageable = PageRequest.of(0, 1);
         List<UserIngredient> userIngredient = userIngredientRepository.getByUser_IdAndIngredient_Id(user.getId(), ingredientsId, pageable);
+        System.out.println(userIngredient.size());
         if(currIngredientLevel.getId() == ingredientsId){// 성공시 로직
+            System.out.println("right ingredient");
             putIngredients(currIngredientLevel, userDrinkSelected, userIngredient);
+        }else{
+            System.out.println(currIngredientLevel.getId());
+            wrongIngredients(currIngredientLevel, ingredientsId, userIngredient);
         }
-        wrongIngredients(currIngredientLevel, ingredientsId, userIngredient);
     }
 
     @Transactional
