@@ -8,7 +8,9 @@ import com.qnnect.comments.repository.ReplyRepository;
 import com.qnnect.common.S3Uploader;
 import com.qnnect.common.exception.CustomException;
 import com.qnnect.common.exception.ErrorCode;
+import com.qnnect.notification.FirebaseCloudMessageService;
 import com.qnnect.questions.domain.CafeQuestion;
+import com.qnnect.questions.domain.EQuestionerType;
 import com.qnnect.questions.dto.CafeQuestionResponse;
 import com.qnnect.questions.repository.CafeQuestionRepository;
 import com.qnnect.user.domain.User;
@@ -37,6 +39,7 @@ public class CommentServiceImpl implements CommentService {
     private final CafeQuestionRepository cafeQuestionRepository;
     private final UserRepository userRepository;
     private final ReplyRepository replyRepository;
+    private final FirebaseCloudMessageService firebaseCloudMessageService;
 
     @Override
     @Transactional
@@ -63,8 +66,18 @@ public class CommentServiceImpl implements CommentService {
         user.addPoint(5);
         userRepository.save(user);
 
+        if(cafeQuestion.getQuestions().getQuestionerType() == EQuestionerType.user){
+//            sendCommentNotification(cafeQuestion.getQuestions().getUser());
+        }
         return comment.getId();
     }
+
+//    public sendCommentNotification(User user){
+//        firebaseCloudMessageService.sendMessageTo(
+//                requestDTO.getTargetToken(),
+//                requestDTO.getTitle(),
+//                requestDTO.getBody());
+//    }
 
     public String[] imageUploader(MultipartFile image1, MultipartFile image2,
                                  MultipartFile image3, MultipartFile image4,

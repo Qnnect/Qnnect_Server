@@ -69,9 +69,10 @@ public class CafeServiceImpl implements CafeService {
         System.out.println("finding cafeUser");
         CafeUser cafeUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafeId, user.getId());
         System.out.println("delete cafe user");
-        cafeUserRepository.delete(cafeUser);
+        cafeUserRepository.deleteById(cafeUser.getId());
 
-        if(cafeUserRepository.existsByCafe_Id(cafeId)){
+        if(!cafeUserRepository.existsByCafe_Id(cafeId)){
+            System.out.println("no cafe member");
             System.out.println("deleting cafe");
             cafeRepository.deleteById(cafeId);
         }

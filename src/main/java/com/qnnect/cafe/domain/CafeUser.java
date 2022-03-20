@@ -23,7 +23,7 @@ public class CafeUser extends BaseTimeEntity {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "CAFE_ID")
     private Cafe cafe;
 
