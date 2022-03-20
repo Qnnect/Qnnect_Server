@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 public class CafeDrinkCommonResponse {
     private Long userDrinkSelectedId;
+    private String userDrinkName;
     private List<DrinkIngredientsFilledResponse> currentDrinkIngredientsFilled;
     private int ice;
     private int iceFilled;
@@ -29,6 +30,7 @@ public class CafeDrinkCommonResponse {
         this.userDrinkSelectedId = drinkOwner.getUserDrinkSelected().getId();
         this.currentDrinkIngredientsFilled =
                 DrinkIngredientsFilledResponse.listFrom(drinkIngredientsFilled);
+        this.userDrinkName = drinkOwner.getUserDrinkSelected().getDrink().getName();
         this.ice = drinkRecipes.get(0).getNumber();
         this.base = drinkRecipes.get(1).getNumber();
         this.main = drinkRecipes.get(2).getNumber();
