@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -15,4 +17,8 @@ public class Drink {
 
     @Column()
     private String name;
+
+    @OneToMany(mappedBy = "drink")
+    private List<DrinkRecipe> drinkRecipeList = new ArrayList<>();
+
 }
