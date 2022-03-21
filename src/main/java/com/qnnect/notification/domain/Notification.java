@@ -1,5 +1,7 @@
-package com.qnnect.notification;
+package com.qnnect.notification.domain;
 
+import com.qnnect.common.domain.BaseTimeEntity;
+import com.qnnect.notification.domain.ENotificationType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,11 +15,15 @@ import javax.persistence.Id;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Notification {
+public class Notification extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private ENotificationType notificationType;
 
+    private String content;
+
+    private boolean userChecked;
 }

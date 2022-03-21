@@ -9,6 +9,8 @@ import com.qnnect.common.S3Uploader;
 import com.qnnect.common.exception.CustomException;
 import com.qnnect.common.exception.ErrorCode;
 import com.qnnect.notification.FirebaseCloudMessageService;
+import com.qnnect.notification.domain.FcmToken;
+import com.qnnect.notification.repository.FcmTokenRepository;
 import com.qnnect.questions.domain.CafeQuestion;
 import com.qnnect.questions.domain.EQuestionerType;
 import com.qnnect.questions.dto.CafeQuestionResponse;
@@ -40,6 +42,7 @@ public class CommentServiceImpl implements CommentService {
     private final UserRepository userRepository;
     private final ReplyRepository replyRepository;
     private final FirebaseCloudMessageService firebaseCloudMessageService;
+    private final FcmTokenRepository fcmTokenRepository;
 
     @Override
     @Transactional
@@ -67,17 +70,24 @@ public class CommentServiceImpl implements CommentService {
         userRepository.save(user);
 
         if(cafeQuestion.getQuestions().getQuestionerType() == EQuestionerType.user){
-//            sendCommentNotification(cafeQuestion.getQuestions().getUser());
+            sendCommentNotification(cafeQuestion.getQuestions().getUser(), comment);
         }
         return comment.getId();
     }
 
-//    public sendCommentNotification(User user){
-//        firebaseCloudMessageService.sendMessageTo(
-//                requestDTO.getTargetToken(),
-//                requestDTO.getTitle(),
-//                requestDTO.getBody());
-//    }
+    public void sendCommentNotification(User user, Comment comment){
+//        FcmToken fcmToken = fcmTokenRepository.findByUserId(user.getId())
+//                .orElseThrow(()-> new CustomException(ErrorCode.INVALID_AUTH_TOKEN));
+        try{
+            firebaseCloudMessageService.sendMessageTo(
+                    "eVsvDZAkrEvamfY90tzPPq:APA91bEIRRKC_oZdj8lcxsJVW3vr112tVV_Hz5_9S9JL234gDaLMcld77yYXTy_ybhHUxAJKTjTT05IvnFQYGK6oGQfBO70ees2gqiEtOQgauP9S_8aQtth4uyCLN3PjBVztcF6-fYTB",
+                    "📮내 답변에 댓글이 달렸어요! 댓글을 보러 가볼까요?",
+                    comment.getContent());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public String[] imageUploader(MultipartFile image1, MultipartFile image2,
                                  MultipartFile image3, MultipartFile image4,

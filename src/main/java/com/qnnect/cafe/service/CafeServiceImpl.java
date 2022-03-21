@@ -29,6 +29,7 @@ public class CafeServiceImpl implements CafeService {
     public Cafe createCafe(CafeRequest cafeRequest, User user){
         Cafe cafe = cafeRequest.toEntity();
         log.info("created cafe");
+        cafeRepository.save(cafe);
         CafeUser cafeUser = cafeUserRepository.save(CafeUser.builder().cafe(cafe).user(user).build());
         log.info("added user to cafe user");
 

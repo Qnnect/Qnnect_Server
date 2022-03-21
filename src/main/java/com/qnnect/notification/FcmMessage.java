@@ -8,15 +8,16 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class FcmMessage {
-    private boolean validateOnly;
+//    private boolean validateOnly;
     private Message message;
 
     @Builder
     @AllArgsConstructor
     @Getter
     public static class Message {
-        private Notification notification;
         private String token;
+        private Notification notification;
+
     }
 
     @Builder
