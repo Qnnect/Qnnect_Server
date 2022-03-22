@@ -32,12 +32,14 @@ public enum ErrorCode {
     POINT_NOT_ENOUGH(HttpStatus.NOT_ACCEPTABLE, "포인트가 부족합니다"),
     COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "답변을 찾을 수 없습니다"),
     CAFE_QUESTION_DATE_PASSED( HttpStatus.LOCKED , "질문을 답변할 수 있는 기간이 지났습니다"),
-    WRONG_INGREDIENT_SAME_LEVEL( HttpStatus.NOT_ACCEPTABLE , "잘못 넣었어요! 레시피를 한번 더 확인해보세요!"),
+    WRONG_INGREDIENT_SAME_LEVEL( HttpStatus.NOT_ACCEPTABLE , "앗! 잘못 넣었어요. 레시피를 한번 더 확인해보세요."),
     WRONG_INGREDIENT_DIFFERENT_LEVEL( HttpStatus.NOT_ACCEPTABLE , "해당 주재료의 단계가 아닙니다!"),
+    WRONG_INGREDIENT_HIGHER_LEVEL(HttpStatus.NOT_ACCEPTABLE, "을 넣을 단계에요"),
     CAFE_NOT_FOUND(HttpStatus.NOT_FOUND,"해당 코드를 가진 카페를 찾을 수 없습니다.");
 
 
     private final HttpStatus httpStatus;
     private final String detail;
 }
+
 
