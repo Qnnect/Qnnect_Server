@@ -6,6 +6,8 @@ import com.qnnect.auth.dto.AuthRequest;
 import com.qnnect.auth.dto.TokenReissue;
 import com.qnnect.auth.token.*;
 import com.qnnect.auth.dto.AuthResponse;
+import com.qnnect.common.exception.CustomException;
+import com.qnnect.common.exception.ErrorCode;
 import com.qnnect.user.domain.User;
 import com.qnnect.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -133,7 +135,7 @@ public class AuthUserService {
 
     public void logout(User user){
         RefreshToken refreshToken = refreshTokenRepository
-                .findById(user.getSocialId()).orElseThrow();
+                .findById(user.getSocialId()).orElseThrow(()-> new CustomException(ErrorCode.USER_NOT_FOUND));
 
         refreshToken.setToken(null);
         refreshTokenRepository.save(refreshToken);
