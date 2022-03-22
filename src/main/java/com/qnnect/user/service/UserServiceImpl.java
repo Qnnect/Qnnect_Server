@@ -8,7 +8,9 @@ import com.qnnect.cafe.repository.CafeUserRepository;
 import com.qnnect.common.S3Uploader;
 import com.qnnect.questions.domain.CafeQuestion;
 import com.qnnect.questions.domain.Question;
+import com.qnnect.questions.dto.QuestionResponse;
 import com.qnnect.questions.repository.CafeQuestionRepository;
+import com.qnnect.questions.repository.QuestionRepository;
 import com.qnnect.user.domain.User;
 import com.qnnect.user.dtos.MainResponse;
 import com.qnnect.user.dtos.ProfileResponse;
@@ -16,6 +18,7 @@ import com.qnnect.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,6 +38,7 @@ public class UserServiceImpl implements UserService{
     private final CafeUserRepository cafeUserRepository;
     private final CafeQuestionRepository cafeQuestionRepository;
     private final String defaultImage = "https://dev-qnnect-profile.s3.ap-northeast-2.amazonaws.com/profileDefault.png";
+    private final QuestionRepository questionRepository;
 
     @Override
     public void enableNotification(User user, boolean enabledNotification) {
@@ -103,6 +107,15 @@ public class UserServiceImpl implements UserService{
         List<CafeUser> cafeUserList = cafeUserRepository.findAllByUser_Id(user.getId());
         List<Cafe> cafeList = cafeUserList.stream().map(CafeUser::getCafe).collect(Collectors.toList());
         return CafeScrapResponse.listFrom(cafeList);
+    }
+
+    @Override
+    @Transactional
+    public List<QuestionResponse> getQuestionAllList(User user, Pageable pageable){
+        List<Question> questions = questionRepository.findByUser_Id(user.getId(),pageable);
+        List<CafeQuestion> cafeQuestionList = questions.stream().map(question -> cafeQuestionRepository.
+                findByQuestions_Id(question.getId())).collect(Collectors.toList());
+        return QuestionResponse.listFromCafeQuestion(cafeQuestionList);
     }
 }
 

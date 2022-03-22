@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-@ApiModel(value="전체 스크랩 리스트")
 @Getter
 @Builder
 public class QuestionResponse {
@@ -39,7 +38,9 @@ public class QuestionResponse {
     }
 
     public static QuestionResponse from(CafeQuestion cafeQuestion) {
-
+        if(cafeQuestion == null){
+            return null;
+        }
         return QuestionResponse.builder()
                 .cafeQuestionId(cafeQuestion.getId())
                 .createdAt(cafeQuestion.getCreatedAt().toLocalDate())

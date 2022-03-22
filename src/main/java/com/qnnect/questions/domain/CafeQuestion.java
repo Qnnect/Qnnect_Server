@@ -29,4 +29,5 @@ public class CafeQuestion extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "cafeQuestion")
     private List<Comment> comments = new ArrayList<>();
+
 }

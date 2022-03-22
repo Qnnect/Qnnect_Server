@@ -2,6 +2,7 @@ package com.qnnect.user.api;
 
 import com.qnnect.cafe.dto.CafeScrapResponse;
 import com.qnnect.common.CurrentUser;
+import com.qnnect.questions.dto.QuestionResponse;
 import com.qnnect.user.dtos.MainResponse;
 import com.qnnect.user.service.UserService;
 import com.qnnect.user.domain.User;
@@ -9,6 +10,9 @@ import com.qnnect.user.dtos.ProfileResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -65,4 +69,18 @@ public class UserController {
         List<CafeScrapResponse> cafeList = userService.getCafeList(user);
         return ResponseEntity.ok(cafeList);
     }
+
+    @ApiOperation(value = "사용자 질문 리스트")
+    @GetMapping("/user/question/all")
+    public ResponseEntity<List<QuestionResponse>> getAllUserQuestionList (@PageableDefault(sort="id", direction = Sort.Direction.DESC)final Pageable pageable, @ApiIgnore @CurrentUser User user) {
+        List<QuestionResponse> questionResponse = userService.getQuestionAllList(user, pageable);
+        return ResponseEntity.ok(questionResponse);
+    }
+
+//    @ApiOperation(value = "사용자 질문 리스트")
+//    @GetMapping("/user/question/")
+//    public ResponseEntity<List<CafeScrapResponse>> getAllUserQuestionList (@ApiIgnore @CurrentUser User user) {
+//        List<CafeScrapResponse> cafeList = userService.getCafeList(user);
+//        return ResponseEntity.ok(cafeList);
+//    }
 }

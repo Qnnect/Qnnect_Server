@@ -24,5 +24,5 @@ public interface CafeQuestionRepository extends JpaRepository<CafeQuestion, Long
     List<CafeQuestion> findByCafe_IdAndWord(@Param(value="cafeId") Long cafeId
             , @Param(value = "word") String word, Pageable pageable);
 
-
+    CafeQuestion findByQuestions_Id(@Param(value = "questionId")long questionID);
 }
