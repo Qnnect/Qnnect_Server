@@ -26,8 +26,8 @@ public enum ErrorCode {
 
     QUESTION_NOT_SCRAPPED(HttpStatus.NOT_FOUND, "스크랩된 질문이 아닙니다."),
     INGREDIENT_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 재료를 찾을 수 없습니다."),
-    INCORRECT_CAFE_CODE_EXCEPTION(HttpStatus.UNAUTHORIZED, "유효한 사용자 코드가 아닙니다."),
-    CAFE_MEMBER_EXCEED_EXCEPTION(HttpStatus.NOT_ACCEPTABLE, "이미 꽉찬 카페입니다."),
+    INCORRECT_CAFE_CODE_EXCEPTION(HttpStatus.UNAUTHORIZED, "존재하지 않는 카페 코드입니다."),
+    CAFE_MEMBER_EXCEED_EXCEPTION(HttpStatus.NOT_ACCEPTABLE, "카페가 이미 다 찼어요! 5명까지 카페 참여가 가능합니다."),
     CAFE_QUESTION_NOT_FOUND(HttpStatus.NOT_FOUND, "카페에서 찾을 수 없는 질문입니다."),
     POINT_NOT_ENOUGH(HttpStatus.NOT_ACCEPTABLE, "포인트가 부족합니다"),
     COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "답변을 찾을 수 없습니다"),

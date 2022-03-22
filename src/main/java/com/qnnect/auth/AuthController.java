@@ -3,12 +3,21 @@ package com.qnnect.auth;
 import com.qnnect.auth.dto.AuthRequest;
 import com.qnnect.auth.dto.AuthResponse;
 import com.qnnect.auth.dto.TokenReissue;
+import com.qnnect.common.CurrentUser;
+import com.qnnect.questions.dto.QuestionResponse;
+import com.qnnect.user.domain.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -31,5 +40,12 @@ public class AuthController {
     public ResponseEntity<TokenReissue> reissue(@RequestBody TokenReissue tokenReissueRequest) {
         TokenReissue tokenReissueResponse = authUserService.reissue(tokenReissueRequest);
         return ResponseEntity.ok(tokenReissueResponse);
+    }
+
+    @ApiOperation(value = "로그아웃")
+    @GetMapping("/logout")
+    public ResponseEntity<Void> logOut (@ApiIgnore @CurrentUser User user) {
+        authUserService.logout(user);
+        return ResponseEntity.ok().build();
     }
 }

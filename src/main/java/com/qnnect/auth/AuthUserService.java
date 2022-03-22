@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 @RequiredArgsConstructor
@@ -123,5 +122,19 @@ public class AuthUserService {
                     .build();
         }
         return tokenReissueResponse;
+    }
+//
+//    public User getKakaoProfile(String oauthToken) {
+//        User kakaoUser = clientKakao.getUserData(oauthToken);
+//        System.out.println("getKakao");
+//        return kakaoUser;
+//    }
+
+    public void logout(User user){
+        RefreshToken refreshToken = refreshTokenRepository
+                .findById(user.getSocialId()).orElseThrow();
+
+        refreshToken.setToken(null);
+        refreshTokenRepository.save(refreshToken);
     }
 }

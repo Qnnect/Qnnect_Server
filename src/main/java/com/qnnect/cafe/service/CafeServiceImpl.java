@@ -38,7 +38,7 @@ public class CafeServiceImpl implements CafeService {
 
     @Transactional
     public CafeDetailResponse joinCafe(String code, User user){
-        Cafe cafe = cafeRepository.findByCode(code).orElseThrow(()-> new CustomException(ErrorCode.CAFE_NOT_FOUND));
+        Cafe cafe = cafeRepository.findByCode(code).orElseThrow(()-> new CustomException(ErrorCode.INCORRECT_CAFE_CODE_EXCEPTION));
         long memberNum = cafeUserRepository.countByCafe_Id(cafe.getId());
 
         System.out.println(memberNum);
