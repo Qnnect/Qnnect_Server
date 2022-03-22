@@ -3,6 +3,7 @@ package com.qnnect.comments.service;
 import com.qnnect.comments.domain.Comment;
 import com.qnnect.comments.domain.Reply;
 import com.qnnect.comments.dtos.CommentDetailResponse;
+import com.qnnect.comments.dtos.CommentUpdateRequest;
 import com.qnnect.comments.repository.CommentRepository;
 import com.qnnect.comments.repository.ReplyRepository;
 import com.qnnect.common.S3Uploader;
@@ -22,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -41,7 +43,7 @@ public class CommentServiceImpl implements CommentService {
     private final CafeQuestionRepository cafeQuestionRepository;
     private final UserRepository userRepository;
     private final ReplyRepository replyRepository;
-//    private final FirebaseCloudMessageService firebaseCloudMessageService;
+    //    private final FirebaseCloudMessageService firebaseCloudMessageService;
     private final FcmTokenRepository fcmTokenRepository;
 
     @Override
@@ -49,17 +51,17 @@ public class CommentServiceImpl implements CommentService {
     public Long create(Long cafeQuestionId, User user, String content, MultipartFile image1,
                        MultipartFile image2, MultipartFile image3, MultipartFile image4,
                        MultipartFile image5) {
-        String [] image = new String[5];
+        String[] image = new String[5];
 
         System.out.println(cafeQuestionId);
         CafeQuestion cafeQuestion = cafeQuestionRepository.findById(cafeQuestionId)
                 .orElseThrow(() -> new CustomException(CAFE_QUESTION_NOT_FOUND));
         LocalDateTime now = LocalDateTime.now();
-        if(now.isAfter(cafeQuestion.getCreatedAt().plusDays(7))){
+        if (now.isAfter(cafeQuestion.getCreatedAt().plusDays(7))) {
             throw new CustomException(ErrorCode.CAFE_QUESTION_DATE_PASSED);
         }
 
-        image = imageUploader(image1,image2, image3, image4, image5, image);
+        image = imageUploader(image1, image2, image3, image4, image5, image);
 
         Comment comment = commentRepository.save(Comment.builder().content(content)
                 .imageUrl1(image[0]).imageUrl2(image[1]).imageUrl3(image[2])
@@ -69,13 +71,13 @@ public class CommentServiceImpl implements CommentService {
         user.addPoint(5);
         userRepository.save(user);
 
-        if(cafeQuestion.getQuestions().getQuestionerType() == EQuestionerType.user){
+        if (cafeQuestion.getQuestions().getQuestionerType() == EQuestionerType.user) {
             sendCommentNotification(cafeQuestion.getQuestions().getUser(), comment);
         }
         return comment.getId();
     }
 
-    public void sendCommentNotification(User user, Comment comment){
+    public void sendCommentNotification(User user, Comment comment) {
 //        FcmToken fcmToken = fcmTokenRepository.findByUserId(user.getId())
 ////                .orElseThrow(()-> new CustomException(ErrorCode.INVALID_AUTH_TOKEN));
 //        try{
@@ -90,8 +92,9 @@ public class CommentServiceImpl implements CommentService {
     }
 
     public String[] imageUploader(MultipartFile image1, MultipartFile image2,
-                                 MultipartFile image3, MultipartFile image4,
-                                 MultipartFile image5, String[] image){
+                                  MultipartFile image3, MultipartFile image4,
+                                  MultipartFile image5, String[] image) {
+        System.out.println("imageUploader");
         if (image1 != null) {
             image[0] = uploadImage(image1);
         }
@@ -124,28 +127,33 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional
     @Override
-    public void deleteComment(Long commentId){
+    public void deleteComment(Long commentId) {
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(()-> new CustomException(COMMENT_NOT_FOUND));
+                .orElseThrow(() -> new CustomException(COMMENT_NOT_FOUND));
         imageDeleter(comment);
         commentRepository.deleteById(commentId);
     }
 
-    public void imageDeleter(Comment comment){
+    public void imageDeleter(Comment comment) {
         if (comment.getImageUrl1() != null) {
             s3Uploader.deleteS3(comment.getImageUrl1(), "comment");
+            comment.setImageUrl1(null);
         }
         if (comment.getImageUrl2() != null) {
             s3Uploader.deleteS3(comment.getImageUrl2(), "comment");
+            comment.setImageUrl2(null);
         }
         if (comment.getImageUrl3() != null) {
             s3Uploader.deleteS3(comment.getImageUrl3(), "comment");
+            comment.setImageUrl3(null);
         }
         if (comment.getImageUrl4() != null) {
             s3Uploader.deleteS3(comment.getImageUrl4(), "comment");
+            comment.setImageUrl4(null);
         }
         if (comment.getImageUrl5() != null) {
             s3Uploader.deleteS3(comment.getImageUrl5(), "comment");
+            comment.setImageUrl5(null);
         }
     }
 
@@ -154,7 +162,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public CommentDetailResponse getComment(Long commentId, User user) {
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(()-> new CustomException(COMMENT_NOT_FOUND));
+                .orElseThrow(() -> new CustomException(COMMENT_NOT_FOUND));
         List<Reply> reply = replyRepository.findAllByComment_Id(comment.getId());
         return CommentDetailResponse.from(comment, user, reply);
     }
@@ -173,12 +181,76 @@ public class CommentServiceImpl implements CommentService {
 
         comment.setContent(content);
         imageDeleter(comment);
-        imageUrl = imageUploader(image1, image2,image3,image4,image5,imageUrl);
+        imageUrl = imageUploader(image1, image2, image3, image4, image5, imageUrl);
         comment.setImageUrl1(imageUrl[0]);
         comment.setImageUrl2(imageUrl[1]);
         comment.setImageUrl3(imageUrl[2]);
         comment.setImageUrl4(imageUrl[3]);
         comment.setImageUrl5(imageUrl[4]);
+
+        commentRepository.save(comment);
+    }
+
+    @Override
+    @Transactional
+    public void update(Long commentId, String content) {
+        System.out.println("update content");
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new CustomException(COMMENT_NOT_FOUND));
+        if (content != null) {
+            comment.setContent(content);
+        }
+        commentRepository.save(comment);
+    }
+
+    @Override
+    @Transactional
+    public void update(Long commentId, MultipartFile image1, MultipartFile image2, MultipartFile image3
+            , MultipartFile image4, MultipartFile image5, String isImageEmpty1, String isImageEmpty2
+            , String isImageEmpty3,String isImageEmpty4, String isImageEmpty5) {
+        String imageUrl[] = new String[5];
+        System.out.println("update image");
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new CustomException(COMMENT_NOT_FOUND));
+
+        imageUrl = imageUploader(image1, image2, image3, image4, image5, imageUrl);
+
+        if(imageUrl[0] != null){
+            comment.setImageUrl1(imageUrl[0]);
+        }
+        if(imageUrl[1] != null){
+            comment.setImageUrl2(imageUrl[1]);
+        }
+        if(imageUrl[2] != null){
+            comment.setImageUrl3(imageUrl[2]);
+        }
+        if(imageUrl[3] != null){
+            comment.setImageUrl4(imageUrl[3]);
+        }
+        if(imageUrl[4] != null){
+            comment.setImageUrl5(imageUrl[4]);
+        }
+
+        if (isImageEmpty1.equals("1")) {
+            s3Uploader.deleteS3(comment.getImageUrl1(), "comment");
+            comment.setImageUrl1(null);
+        }
+        if (isImageEmpty2.equals("1")) {
+            s3Uploader.deleteS3(comment.getImageUrl2(), "comment");
+            comment.setImageUrl2(null);
+        }
+        if (isImageEmpty3.equals("1")) {
+            s3Uploader.deleteS3(comment.getImageUrl3(), "comment");
+            comment.setImageUrl3(null);
+        }
+        if (isImageEmpty4.equals("1")) {
+            s3Uploader.deleteS3(comment.getImageUrl4(), "comment");
+            comment.setImageUrl4(null);
+        }
+        if (isImageEmpty5.equals("1")) {
+            s3Uploader.deleteS3(comment.getImageUrl5(), "comment");
+            comment.setImageUrl5(null);
+        }
 
         commentRepository.save(comment);
     }
