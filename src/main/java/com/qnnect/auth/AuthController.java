@@ -48,4 +48,11 @@ public class AuthController {
         authUserService.logout(user);
         return ResponseEntity.ok().build();
     }
+
+    @ApiOperation(value = "회원탈퇴")
+    @GetMapping("/withdrawl")
+    public ResponseEntity<Void> withdrawl (@ApiIgnore @CurrentUser User user) {
+        authUserService.withdrawl(user);
+        return ResponseEntity.ok().build();
+    }
 }

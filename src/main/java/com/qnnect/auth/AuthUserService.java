@@ -11,6 +11,7 @@ import com.qnnect.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.Optional;
@@ -136,5 +137,12 @@ public class AuthUserService {
 
         refreshToken.setToken(null);
         refreshTokenRepository.save(refreshToken);
+    }
+
+    @Transactional
+    public void withdrawl(User user){
+        refreshTokenRepository.deleteById(user.getSocialId());
+        user.setSocialId(null);
+        userRepository.save(user);
     }
 }
