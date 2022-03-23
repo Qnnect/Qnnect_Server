@@ -9,4 +9,6 @@ import java.util.UUID;
 
 public interface ReportRepository extends JpaRepository<Report, Long> {
     List<Report> findAllByUserId(@Param(value = "user_Id") UUID user_Id);
+    Report findByUserIdAndReportedId(@Param(value = "userId") UUID userId,
+                                   @Param(value = "reportedId")long reportedId);
 }

@@ -4,6 +4,7 @@ import com.qnnect.cafe.dto.CafeScrapResponse;
 import com.qnnect.common.CurrentUser;
 import com.qnnect.questions.dto.QuestionResponse;
 import com.qnnect.user.dtos.MainResponse;
+import com.qnnect.user.dtos.ReportResponse;
 import com.qnnect.user.service.UserService;
 import com.qnnect.user.domain.User;
 import com.qnnect.user.dtos.ProfileResponse;
@@ -79,9 +80,22 @@ public class UserController {
 
     @ApiOperation(value = "사용자 신고하기")
     @PostMapping("/user/report")
-    public ResponseEntity<Void> reportUser (long userId, @ApiIgnore @CurrentUser User user) {
-        userService.reportUser(userId, user);
+    public ResponseEntity<Void> reportUser (long reportId, @ApiIgnore @CurrentUser User user) {
+        userService.reportUser(reportId, user);
         return ResponseEntity.ok().build();
+    }
+
+    @ApiOperation(value = "사용자 신고해제")
+    @DeleteMapping("/user/report")
+    public ResponseEntity<Void> unreportUser (long reportId, @ApiIgnore @CurrentUser User user) {
+        userService.unReportUser(reportId, user);
+        return ResponseEntity.ok().build();
+    }
+
+    @ApiOperation(value = "사용자 신고리스트")
+    @GetMapping("/user/report")
+    public ResponseEntity<List<ReportResponse>> getReportUser (@ApiIgnore @CurrentUser User user) {
+        return ResponseEntity.ok(userService.getReportUser(user));
     }
 
 //    @ApiOperation(value = "사용자 질문 리스트")

@@ -15,6 +15,8 @@ import com.qnnect.user.domain.Report;
 import com.qnnect.user.domain.User;
 import com.qnnect.user.dtos.MainResponse;
 import com.qnnect.user.dtos.ProfileResponse;
+import com.qnnect.user.dtos.ReportResponse;
+
 import com.qnnect.user.repositories.ReportRepository;
 import com.qnnect.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -127,5 +129,23 @@ public class UserServiceImpl implements UserService{
         Report report = Report.builder().user_id(user.getId()).reported_id(userId).build();
         reportRepository.save(report);
     }
+
+    @Override
+    @Transactional
+    public void unReportUser(long userId, User user){
+        Report report = reportRepository.findByUserIdAndReportedId(user.getId(), userId);
+        reportRepository.delete(report);
+    }
+
+    @Override
+    @Transactional
+    public List<ReportResponse> getReportUser(User user){
+        List<Report> reports = reportRepository.findAllByUserId(user.getId());
+        List<User> reportedUsers = reports.stream().map(Report::getReportedId)
+                .map(id-> userRepository.findByReportId(id)).collect(Collectors.toList());
+        return ReportResponse.listFrom(reportedUsers);
+    }
+
+
 }
 
