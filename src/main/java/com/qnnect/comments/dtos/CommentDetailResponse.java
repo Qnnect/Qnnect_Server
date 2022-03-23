@@ -29,7 +29,7 @@ public class CommentDetailResponse {
     boolean isWriter;
     private List<ReplyResponse> replies;
 
-    public static CommentDetailResponse from(Comment comment, User user, List<Reply> reply) {
+    public static CommentDetailResponse from(Comment comment, User user, List<Reply> reply, List<Long>reportedUser) {
 
         return CommentDetailResponse.builder()
                 .commentId(comment.getId())
@@ -42,7 +42,7 @@ public class CommentDetailResponse {
                 .imageUrl4(comment.getImageUrl4())
                 .imageUrl5(comment.getImageUrl5())
                 .isWriter(isWriter(comment, user))
-                .replies(ReplyResponse.listFrom(reply, user))
+                .replies(ReplyResponse.listFrom(reply, user, reportedUser))
                 .build();
     }
 

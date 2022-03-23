@@ -16,7 +16,9 @@ import com.qnnect.questions.domain.CafeQuestion;
 import com.qnnect.questions.domain.EQuestionerType;
 import com.qnnect.questions.dto.CafeQuestionResponse;
 import com.qnnect.questions.repository.CafeQuestionRepository;
+import com.qnnect.user.domain.Report;
 import com.qnnect.user.domain.User;
+import com.qnnect.user.repositories.ReportRepository;
 import com.qnnect.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.qnnect.common.exception.ErrorCode.CAFE_QUESTION_NOT_FOUND;
 import static com.qnnect.common.exception.ErrorCode.COMMENT_NOT_FOUND;
@@ -43,6 +46,7 @@ public class CommentServiceImpl implements CommentService {
     private final CafeQuestionRepository cafeQuestionRepository;
     private final UserRepository userRepository;
     private final ReplyRepository replyRepository;
+    private final ReportRepository reportRepository;
     //    private final FirebaseCloudMessageService firebaseCloudMessageService;
     private final FcmTokenRepository fcmTokenRepository;
 
@@ -164,7 +168,10 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CustomException(COMMENT_NOT_FOUND));
         List<Reply> reply = replyRepository.findAllByComment_Id(comment.getId());
-        return CommentDetailResponse.from(comment, user, reply);
+        List<Report> report = reportRepository.findAllByUserId(user.getId());
+        List<Long> reportedUser = report.stream().map(Report::getReportedId).collect(Collectors.toList());
+
+        return CommentDetailResponse.from(comment, user, reply, reportedUser);
     }
 
     @Override

@@ -43,11 +43,12 @@ public class ReplyResponse {
         return reply.getUser().getId().equals(user.getId());
     }
 
-    public static List<ReplyResponse> listFrom(List<Reply> replyList, User user) {
+    public static List<ReplyResponse> listFrom(List<Reply> replyList, User user,List<Long> reportedUser) {
         if(replyList == null){
             return null;
         }
         return replyList.stream()
+                .filter(reply -> !reportedUser.contains(reply.getUser().getReportId()))
                 .map(reply -> from(reply, user))
                 .collect(Collectors.toList());
     }
