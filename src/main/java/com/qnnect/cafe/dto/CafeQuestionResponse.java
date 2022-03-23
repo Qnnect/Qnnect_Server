@@ -72,7 +72,8 @@ public class CafeQuestionResponse {
             return null;
         }
         return cafeQuestionList.stream()
-                .filter(cafeQuestion -> !reportId.contains(cafeQuestion.getQuestions().getUser().getReportId()))
+                .filter(cafeQuestion -> cafeQuestion.getQuestions().getQuestionerType()==EQuestionerType.admin ||
+                        !reportId.contains(cafeQuestion.getQuestions().getUser().getReportId()))
                 .map((cafeQuestion) -> CafeQuestionResponse.from(cafeQuestion, user))
                 .collect(Collectors.toList());
     }
