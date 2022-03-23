@@ -11,9 +11,11 @@ import com.qnnect.questions.domain.Question;
 import com.qnnect.questions.dto.QuestionResponse;
 import com.qnnect.questions.repository.CafeQuestionRepository;
 import com.qnnect.questions.repository.QuestionRepository;
+import com.qnnect.user.domain.Report;
 import com.qnnect.user.domain.User;
 import com.qnnect.user.dtos.MainResponse;
 import com.qnnect.user.dtos.ProfileResponse;
+import com.qnnect.user.repositories.ReportRepository;
 import com.qnnect.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +41,7 @@ public class UserServiceImpl implements UserService{
     private final CafeQuestionRepository cafeQuestionRepository;
     private final String defaultImage = "https://dev-qnnect-profile.s3.ap-northeast-2.amazonaws.com/profileDefault.png";
     private final QuestionRepository questionRepository;
+    private final ReportRepository reportRepository;
 
     @Override
     public void enableNotification(User user, boolean enabledNotification) {
@@ -116,6 +119,13 @@ public class UserServiceImpl implements UserService{
         List<CafeQuestion> cafeQuestionList = questions.stream().map(question -> cafeQuestionRepository.
                 findByQuestions_Id(question.getId())).collect(Collectors.toList());
         return QuestionResponse.listFromCafeQuestion(cafeQuestionList);
+    }
+
+    @Override
+    @Transactional
+    public void reportUser(String userId, User user){
+//        Report report = Report.builder().user_id(user.getId()).reported_id(userId).build();
+//        reportRepository.save(report);
     }
 }
 

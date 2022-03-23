@@ -77,6 +77,13 @@ public class UserController {
         return ResponseEntity.ok(questionResponse);
     }
 
+    @ApiOperation(value = "사용자 신고하기")
+    @PostMapping("/user/report")
+    public ResponseEntity<Void> reportUser (String userId, @ApiIgnore @CurrentUser User user) {
+        userService.reportUser(userId, user);
+        return ResponseEntity.ok().build();
+    }
+
 //    @ApiOperation(value = "사용자 질문 리스트")
 //    @GetMapping("/user/question/")
 //    public ResponseEntity<List<CafeScrapResponse>> getAllUserQuestionList (@ApiIgnore @CurrentUser User user) {

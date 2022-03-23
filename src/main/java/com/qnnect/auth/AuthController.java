@@ -43,14 +43,14 @@ public class AuthController {
     }
 
     @ApiOperation(value = "로그아웃")
-    @GetMapping("/logout")
+    @PatchMapping("/logout")
     public ResponseEntity<Void> logOut (@ApiIgnore @CurrentUser User user) {
         authUserService.logout(user);
         return ResponseEntity.ok().build();
     }
 
     @ApiOperation(value = "회원탈퇴")
-    @GetMapping("/withdrawl")
+    @PatchMapping("/withdrawl")
     public ResponseEntity<Void> withdrawl (@ApiIgnore @CurrentUser User user) {
         authUserService.withdrawl(user);
         return ResponseEntity.ok().build();

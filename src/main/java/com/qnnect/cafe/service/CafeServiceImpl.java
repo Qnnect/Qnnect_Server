@@ -8,13 +8,17 @@ import com.qnnect.cafe.repository.CafeRepository;
 import com.qnnect.cafe.repository.CafeUserRepository;
 import com.qnnect.common.exception.CustomException;
 import com.qnnect.common.exception.ErrorCode;
+import com.qnnect.user.domain.Report;
 import com.qnnect.user.domain.User;
+import com.qnnect.user.repositories.ReportRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -24,6 +28,7 @@ public class CafeServiceImpl implements CafeService {
 
     private final CafeRepository cafeRepository;
     private final CafeUserRepository cafeUserRepository;
+    private final ReportRepository reportRepository;
 
     @Transactional
     public Cafe createCafe(CafeRequest cafeRequest, User user){
@@ -55,7 +60,9 @@ public class CafeServiceImpl implements CafeService {
     public CafeDetailResponse getCafe(Long cafeId, User user){
         CafeUser currentCafeUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafeId, user.getId());
         Cafe cafe = cafeRepository.getById(cafeId);
-        return new CafeDetailResponse(cafe, currentCafeUser, user);
+//        List<Report> report = reportRepository.findByUserId(user.getId());
+//        List<UUID> reportedUser = report.stream().map(Report::getUser_id).collect(Collectors.toList());
+        return new CafeDetailResponse(cafe, currentCafeUser, user);//, reportedUser
     }
 
     @Transactional
