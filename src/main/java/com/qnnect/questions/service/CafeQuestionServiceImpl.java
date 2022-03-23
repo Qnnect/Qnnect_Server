@@ -16,7 +16,9 @@ import com.qnnect.questions.repository.CafeQuestionRepository;
 import com.qnnect.questions.repository.CafeQuestionWaitingListRespository;
 import com.qnnect.questions.repository.QuestionRepository;
 import com.qnnect.scrap.repository.ScrapRepository;
+import com.qnnect.user.domain.Report;
 import com.qnnect.user.domain.User;
+import com.qnnect.user.repositories.ReportRepository;
 import com.qnnect.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -40,6 +43,7 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
     private final CommentRepository commentRepository;
     private final ScrapRepository scrapRepository;
     private final UserLikeQuestionRepository likeRepository;
+    private final ReportRepository reportRepository;
 
     @Override
     public Question findQuestionToday(Cafe cafe) {
@@ -94,7 +98,9 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
         boolean isLiked = likeRepository.existsByUser_IdAndQuestion_Id(user.getId(),
                 cafeQuestion.getQuestions().getId());
         Comment currentUserComment = commentRepository.findByUser_IdAndCafeQuestion_Id( user.getId(), cafeQuestionId);
-        return new QuestionDetailResponse(cafeQuestion, comments, user, isScraped,isLiked, currentUserComment);
+        List<Report> report = reportRepository.findAllByUserId(user.getId());
+        List<Long> reportedUser = report.stream().map(Report::getReportedId).collect(Collectors.toList());
+        return new QuestionDetailResponse(cafeQuestion, comments, user, isScraped,isLiked, currentUserComment, reportedUser);
     }
 
     @Override

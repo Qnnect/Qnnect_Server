@@ -44,12 +44,13 @@ public class CommentResponse {
                 .build();
     }
 
-    public static List<CommentResponse> listFrom(List<Comment> commentList, User user) {
+    public static List<CommentResponse> listFrom(List<Comment> commentList, User user, List<Long> reportId) {
         if(commentList == null){
             return null;
         }
         return commentList.stream()
                 .filter(comment -> !comment.getUser().getId().equals(user.getId()))
+                .filter(comment -> !reportId.contains(comment.getUser().getReportId()))
                 .map(CommentResponse::from)
                 .collect(Collectors.toList());
     }

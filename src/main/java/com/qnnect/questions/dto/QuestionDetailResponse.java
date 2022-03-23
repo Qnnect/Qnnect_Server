@@ -30,11 +30,11 @@ public class QuestionDetailResponse {
     private List<CommentResponse> comments = new ArrayList<>();
 
     public QuestionDetailResponse(CafeQuestion cafeQuestion, List<Comment> comments, User user, boolean isScraped,
-                                  boolean isLiked, Comment currentUserComment){
+                                  boolean isLiked, Comment currentUserComment, List<Long> reportId){
         this.questionMainResponse = CafeQuestionResponse.from(cafeQuestion, user);
         this.isLiked = isLiked;
         this.isScraped = isScraped;
         this.currentUserComment = CommentResponse.from(currentUserComment);
-        this.comments = CommentResponse.listFrom(comments, user);
+        this.comments = CommentResponse.listFrom(comments, user, reportId);
     }
 }
