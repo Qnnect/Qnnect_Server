@@ -40,10 +40,11 @@ public class CafeUserResponse {
 
 
     public static List<CafeUserResponse> listFrom(List<CafeUser> cafeUsers,
-                                                  CafeUser currentCafeUser) {
+                                                  CafeUser currentCafeUser, List<Long> reportedId) {
         
         return cafeUsers.stream()
                 .filter(cafeUser -> cafeUser.getUser() != currentCafeUser.getUser())
+                .filter(cafeUser ->  !reportedId.contains(cafeUser.getUser().getReportId()))
                 .map(CafeUserResponse::from)
                 .collect(Collectors.toList());
     }

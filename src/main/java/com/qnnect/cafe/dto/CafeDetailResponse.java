@@ -45,6 +45,6 @@ public class CafeDetailResponse {
         this.diaryColor = entity.getDiaryColor();
         this.currentUserResponse = CafeUserResponse.from(currentCafeUser);
         this.cafeQuestionResponseList = CafeQuestionResponse.listFrom(entity.getCafeQuestions(), user, reportedId);
-        this.cafeUserResponseList = CafeUserResponse.listFrom(entity.getCafeUsers(), currentCafeUser);
+        this.cafeUserResponseList = CafeUserResponse.listFrom(entity.getCafeUsers(), currentCafeUser, reportedId);
     }
 }
