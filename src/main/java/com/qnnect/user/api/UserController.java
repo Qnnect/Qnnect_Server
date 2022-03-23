@@ -79,7 +79,7 @@ public class UserController {
 
     @ApiOperation(value = "사용자 신고하기")
     @PostMapping("/user/report")
-    public ResponseEntity<Void> reportUser (String userId, @ApiIgnore @CurrentUser User user) {
+    public ResponseEntity<Void> reportUser (long userId, @ApiIgnore @CurrentUser User user) {
         userService.reportUser(userId, user);
         return ResponseEntity.ok().build();
     }

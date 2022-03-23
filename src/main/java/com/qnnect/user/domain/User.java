@@ -44,15 +44,8 @@ public class User extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private ELoginType loginType;
 
-//    @OneToMany(mappedBy="user")
-//    private List<UserDrinkSelected> userDrinkSelectedList = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "user")
-//    private List<UserIngredient> userIngredientsList = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "user")
-//    private List<QuestionUserMade> questionUserMadeList = new ArrayList<>();
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long reportId;
 
     @Builder
     public User(String socialId, String profilePicture, ELoginType loginType, UUID id, String nickName) {

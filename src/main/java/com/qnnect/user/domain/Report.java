@@ -23,7 +23,13 @@ public class Report {
     private Long id;
 
     @Type(type = "uuid-char")
-    private UUID user_id;
+    private UUID userId;
 
-    private String reported_id;
+    private long reportedId;
+
+    @Builder
+    public Report(UUID user_id, long reported_id){
+        this.userId = user_id;
+        this.reportedId = reported_id;
+    }
 }

@@ -4,6 +4,7 @@ import com.qnnect.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+
 @Getter
 @AllArgsConstructor
 public class ProfileResponse {
@@ -14,7 +15,10 @@ public class ProfileResponse {
 
     private int point;
 
+    private long reportId;
+
     public static ProfileResponse from(User user){
-        return new ProfileResponse(user.getProfilePicture(),user.getNickName(), user.getPoint());
+        return new ProfileResponse(user.getProfilePicture(),user.getNickName(), user.getPoint(),
+                user.getReportId());
     }
 }

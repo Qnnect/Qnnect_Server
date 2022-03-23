@@ -53,16 +53,18 @@ public class CafeServiceImpl implements CafeService {
 
         cafeUserRepository.save(CafeUser.builder().cafe(cafe).user(user).build());
         CafeUser currentCafeUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafe.getId(), user.getId());
-        return new CafeDetailResponse(cafe, currentCafeUser, user);
+        List<Report> report = reportRepository.findAllByUserId(user.getId());
+        List<Long> reportedUser = report.stream().map(Report::getReportedId).collect(Collectors.toList());
+        return new CafeDetailResponse(cafe, currentCafeUser,user, reportedUser);
     }
 
     @Transactional(readOnly=true)
     public CafeDetailResponse getCafe(Long cafeId, User user){
         CafeUser currentCafeUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafeId, user.getId());
         Cafe cafe = cafeRepository.getById(cafeId);
-//        List<Report> report = reportRepository.findByUserId(user.getId());
-//        List<UUID> reportedUser = report.stream().map(Report::getUser_id).collect(Collectors.toList());
-        return new CafeDetailResponse(cafe, currentCafeUser, user);//, reportedUser
+        List<Report> report = reportRepository.findAllByUserId(user.getId());
+        List<Long> reportedUser = report.stream().map(Report::getReportedId).collect(Collectors.toList());
+        return new CafeDetailResponse(cafe, currentCafeUser,user, reportedUser);
     }
 
     @Transactional

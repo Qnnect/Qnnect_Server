@@ -17,5 +17,5 @@ public interface UserService {
     public List<CafeScrapResponse> getCafeList(User user);
     public void updateToDefaultImage(User user);
     public List<QuestionResponse> getQuestionAllList(User user, Pageable pageable);
-    public void reportUser(String userId, User user);
+    public void reportUser(long userId, User user);
 }

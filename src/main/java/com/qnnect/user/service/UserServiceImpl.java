@@ -123,9 +123,9 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public void reportUser(String userId, User user){
-//        Report report = Report.builder().user_id(user.getId()).reported_id(userId).build();
-//        reportRepository.save(report);
+    public void reportUser(long userId, User user){
+        Report report = Report.builder().user_id(user.getId()).reported_id(userId).build();
+        reportRepository.save(report);
     }
 }
 

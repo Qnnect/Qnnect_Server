@@ -66,11 +66,13 @@ public class CafeQuestionResponse {
         return daysLeft;
     }
 
-    public static List<CafeQuestionResponse> listFrom(List<CafeQuestion> cafeQuestionList, User user) {
+    public static List<CafeQuestionResponse> listFrom(List<CafeQuestion> cafeQuestionList,
+                                                      User user, List<Long> reportId) {
         if(cafeQuestionList == null){
             return null;
         }
         return cafeQuestionList.stream()
+                .filter(cafeQuestion -> !reportId.contains(cafeQuestion.getQuestions().getUser().getReportId()))
                 .map((cafeQuestion) -> CafeQuestionResponse.from(cafeQuestion, user))
                 .collect(Collectors.toList());
     }

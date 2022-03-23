@@ -36,7 +36,7 @@ public class CafeDetailResponse {
 
     private List<CafeQuestionResponse> cafeQuestionResponseList;
 
-    public CafeDetailResponse(Cafe entity, CafeUser currentCafeUser, User user){
+    public CafeDetailResponse(Cafe entity, CafeUser currentCafeUser, User user, List<Long> reportedId){
         this.createdAt = entity.getCreatedAt().toLocalDate();
         this.title = entity.getTitle();
         this.code = entity.getCode();
@@ -44,7 +44,7 @@ public class CafeDetailResponse {
         this.cafeUserId = currentCafeUser.getId();
         this.diaryColor = entity.getDiaryColor();
         this.currentUserResponse = CafeUserResponse.from(currentCafeUser);
-        this.cafeQuestionResponseList = CafeQuestionResponse.listFrom(entity.getCafeQuestions(), user);
+        this.cafeQuestionResponseList = CafeQuestionResponse.listFrom(entity.getCafeQuestions(), user, reportedId);
         this.cafeUserResponseList = CafeUserResponse.listFrom(entity.getCafeUsers(), currentCafeUser);
     }
 }

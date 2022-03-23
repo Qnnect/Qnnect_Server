@@ -46,8 +46,6 @@ public class CafeController {
         return ResponseEntity.ok(cafeResponse);
     }
 
-
-
     @ApiOperation(value = "카페 업데이트 api")
     @PatchMapping("/cafes/{cafeId}")
     public ResponseEntity<Void> updateCafe(@PathVariable Long cafeId,
