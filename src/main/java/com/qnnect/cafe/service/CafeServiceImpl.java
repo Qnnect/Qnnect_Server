@@ -8,6 +8,11 @@ import com.qnnect.cafe.repository.CafeRepository;
 import com.qnnect.cafe.repository.CafeUserRepository;
 import com.qnnect.common.exception.CustomException;
 import com.qnnect.common.exception.ErrorCode;
+import com.qnnect.questions.domain.CafeQuestion;
+import com.qnnect.questions.domain.EQuestionType;
+import com.qnnect.questions.domain.Question;
+import com.qnnect.questions.repository.CafeQuestionRepository;
+import com.qnnect.questions.repository.QuestionRepository;
 import com.qnnect.user.domain.Report;
 import com.qnnect.user.domain.User;
 import com.qnnect.user.repositories.ReportRepository;
@@ -29,6 +34,8 @@ public class CafeServiceImpl implements CafeService {
     private final CafeRepository cafeRepository;
     private final CafeUserRepository cafeUserRepository;
     private final ReportRepository reportRepository;
+    private final CafeQuestionRepository cafeQuestionRepository;
+    private final QuestionRepository questionRepository;
 
     @Transactional
     public Cafe createCafe(CafeRequest cafeRequest, User user){
@@ -37,6 +44,8 @@ public class CafeServiceImpl implements CafeService {
         cafeRepository.save(cafe);
         CafeUser cafeUser = cafeUserRepository.save(CafeUser.builder().cafe(cafe).user(user).build());
         log.info("added user to cafe user");
+        Question question = questionRepository.findByQuestionTypeRand(EQuestionType.공통.toString());
+        cafeQuestionRepository.save(CafeQuestion.builder().cafe(cafe).question(question).build());
 
         return cafe;
     }

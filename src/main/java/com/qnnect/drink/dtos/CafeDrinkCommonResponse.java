@@ -38,6 +38,7 @@ public class CafeDrinkCommonResponse {
             this.topping = drinkRecipes.get(3).getNumber();
             System.out.println(drinkOwner.getUser().getNickName() + drinkIngredientsFilled.size());
             size = drinkIngredientsFilled.size();
+
             if (size > ice) {
                 iceFilled = ice;
                 size -= ice;
