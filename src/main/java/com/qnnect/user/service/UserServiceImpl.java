@@ -7,9 +7,12 @@ import com.qnnect.cafe.dto.CafeScrapResponse;
 import com.qnnect.cafe.repository.CafeUserRepository;
 import com.qnnect.common.S3Uploader;
 import com.qnnect.questions.domain.CafeQuestion;
+import com.qnnect.questions.domain.CafeQuestionWaitingList;
 import com.qnnect.questions.domain.Question;
+import com.qnnect.questions.dto.MyQuestionResponse;
 import com.qnnect.questions.dto.QuestionResponse;
 import com.qnnect.questions.repository.CafeQuestionRepository;
+import com.qnnect.questions.repository.CafeQuestionWaitingListRespository;
 import com.qnnect.questions.repository.QuestionRepository;
 import com.qnnect.user.domain.Report;
 import com.qnnect.user.domain.User;
@@ -44,6 +47,7 @@ public class UserServiceImpl implements UserService{
     private final String defaultImage = "https://dev-qnnect-profile.s3.ap-northeast-2.amazonaws.com/profileDefault.png";
     private final QuestionRepository questionRepository;
     private final ReportRepository reportRepository;
+    private final CafeQuestionWaitingListRespository cafeQuestionWaitingListRespository;
 
     @Override
     public void enableNotification(User user, boolean enabledNotification) {
@@ -116,11 +120,20 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public List<QuestionResponse> getQuestionAllList(User user, Pageable pageable){
+    public List<MyQuestionResponse> getQuestionAllList(User user, Pageable pageable){
         List<Question> questions = questionRepository.findByUser_Id(user.getId(),pageable);
-        List<CafeQuestion> cafeQuestionList = questions.stream().map(question -> cafeQuestionRepository.
-                findByQuestions_Id(question.getId())).collect(Collectors.toList());
-        return QuestionResponse.listFromCafeQuestion(cafeQuestionList);
+
+        List<CafeQuestion> cafeQuestionList = questions.stream()
+                .filter(question -> cafeQuestionRepository.existsByQuestions_Id(question.getId()))
+                .map(question -> cafeQuestionRepository.findByQuestions_Id(question.getId()))
+                .collect(Collectors.toList());
+
+        List<CafeQuestionWaitingList> cafeQuestionWaitingLists = questions.stream()
+                .filter(question -> cafeQuestionWaitingListRespository.existsByQuestion_Id(question.getId()))
+                .map(question -> cafeQuestionWaitingListRespository.findByQuestion_Id(question.getId()))
+                .collect(Collectors.toList());
+
+        return MyQuestionResponse.listFromAllQuestions(cafeQuestionList, cafeQuestionWaitingLists);
     }
 
     @Override

@@ -117,4 +117,12 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
 
         return CafeQuestionResponse.from(cafeQuestion);
     }
+
+    //여기서 질문을 보내는데
+    //waiting list있냐 없냐에 분기 처리 & waiting list비워주기
+    //없을 시에는 갯수 % 4가 0일때 만 공통이외에는 questionType별로
+    //중복검사 후
+    public void sendCafeQuestions(List<Cafe> filteredCafe){
+//        filteredCafe.stream().forEach(cafe -> );
+    }
 }

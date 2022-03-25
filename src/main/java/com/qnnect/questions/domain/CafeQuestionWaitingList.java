@@ -15,7 +15,6 @@ import java.util.Objects;
 @Entity
 public class CafeQuestionWaitingList extends BaseTimeEntity {
     @Id
-    @Column(name="CAFE_QUESTION_WAITING_LIST_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

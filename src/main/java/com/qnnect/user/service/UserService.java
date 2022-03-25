@@ -1,6 +1,7 @@
 package com.qnnect.user.service;
 
 import com.qnnect.cafe.dto.CafeScrapResponse;
+import com.qnnect.questions.dto.MyQuestionResponse;
 import com.qnnect.questions.dto.QuestionResponse;
 import com.qnnect.user.domain.User;
 import com.qnnect.user.dtos.MainResponse;
@@ -17,7 +18,7 @@ public interface UserService {
     public MainResponse getMain(User user);
     public List<CafeScrapResponse> getCafeList(User user);
     public void updateToDefaultImage(User user);
-    public List<QuestionResponse> getQuestionAllList(User user, Pageable pageable);
+    public List<MyQuestionResponse> getQuestionAllList(User user, Pageable pageable);
     public void reportUser(long userId, User user);
     public void unReportUser(long userId, User user);
     public List<ReportResponse> getReportUser(User user);

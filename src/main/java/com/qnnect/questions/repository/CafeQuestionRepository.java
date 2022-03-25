@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,9 +21,15 @@ public interface CafeQuestionRepository extends JpaRepository<CafeQuestion, Long
     CafeQuestion findTop1ByCafe_IdOrderByCreatedAtDesc(@Param(value="cafeId") long cafeId);
     public List<CafeQuestion> findAllByCafe_Id(@Param(value = "cafeId") long cafeId, Pageable pageable);
 
+//    User findTopByOrderByAgeDesc();
+
+//    CafeQuestion findTop1ByCafe_IdOrderByIdAtDesc(@Param(value = "cafeId")long cafeId);
+
     @Query("SELECT m FROM CafeQuestion m INNER JOIN m.questions c WHERE m.cafe.id=:cafeId AND c.content LIKE %:word%")
     List<CafeQuestion> findByCafe_IdAndWord(@Param(value="cafeId") Long cafeId
             , @Param(value = "word") String word, Pageable pageable);
 
     CafeQuestion findByQuestions_Id(@Param(value = "questionId")long questionID);
+
+    boolean existsByQuestions_Id(@Param(value = "questionId") long questionId);
 }

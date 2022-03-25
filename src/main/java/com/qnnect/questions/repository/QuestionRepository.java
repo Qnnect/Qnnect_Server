@@ -15,6 +15,7 @@ import java.util.UUID;
 
 public interface QuestionRepository extends JpaRepository<Question, Long> {
     List<Question> findByUser_Id(@Param(value="userId") UUID userId, Pageable pageable);
+
     @Query(value="SELECT *  FROM question where question_type=:questionType ORDER BY rand() LIMIT 1"
             ,nativeQuery=true)
     Question findByQuestionTypeRand(@Param(value = "questionType") String questionType);

@@ -9,8 +9,11 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Getter
@@ -65,16 +68,6 @@ public class QuestionResponse {
         }
 
         return cafeQuestionList.stream()
-                .map(QuestionResponse::from)
-                .collect(Collectors.toList());
-    }
-
-    public static List<QuestionResponse> listFromCafeQuestionWaitingList(List<CafeQuestionWaitingList> cafeQuestionWaitingList) {
-        if(cafeQuestionWaitingList == null){
-            return null;
-        }
-
-        return cafeQuestionWaitingList.stream()
                 .map(QuestionResponse::from)
                 .collect(Collectors.toList());
     }

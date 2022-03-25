@@ -2,6 +2,7 @@ package com.qnnect.user.api;
 
 import com.qnnect.cafe.dto.CafeScrapResponse;
 import com.qnnect.common.CurrentUser;
+import com.qnnect.questions.dto.MyQuestionResponse;
 import com.qnnect.questions.dto.QuestionResponse;
 import com.qnnect.user.dtos.MainResponse;
 import com.qnnect.user.dtos.ReportResponse;
@@ -73,8 +74,8 @@ public class UserController {
 
     @ApiOperation(value = "사용자 질문 리스트")
     @GetMapping("/user/question/all")
-    public ResponseEntity<List<QuestionResponse>> getAllUserQuestionList (@PageableDefault(sort="id", direction = Sort.Direction.DESC)final Pageable pageable, @ApiIgnore @CurrentUser User user) {
-        List<QuestionResponse> questionResponse = userService.getQuestionAllList(user, pageable);
+    public ResponseEntity<List<MyQuestionResponse>> getAllUserQuestionList (@PageableDefault(sort="id", direction = Sort.Direction.DESC)final Pageable pageable, @ApiIgnore @CurrentUser User user) {
+        List<MyQuestionResponse> questionResponse = userService.getQuestionAllList(user, pageable);
         return ResponseEntity.ok(questionResponse);
     }
 

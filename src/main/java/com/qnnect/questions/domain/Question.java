@@ -1,5 +1,6 @@
 package com.qnnect.questions.domain;
 
+import com.qnnect.common.domain.BaseTimeEntity;
 import com.qnnect.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Question {
+public class Question extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

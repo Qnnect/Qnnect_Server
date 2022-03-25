@@ -19,4 +19,5 @@ public interface CafeQuestionService {
     QuestionDetailResponse getQuestion(Long cafeQuestionId, User user);
     CafeQuestionResponse getCafeQuestions(Long cafeId, Pageable pageable);
     CafeQuestionResponse searchCafeQuestions(Long cafeId, String word,Pageable pageable);
+    public void sendCafeQuestions(List<Cafe> filteredCafe);
 }
