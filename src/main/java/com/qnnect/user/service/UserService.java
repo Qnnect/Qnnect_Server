@@ -22,4 +22,5 @@ public interface UserService {
     public void reportUser(long userId, User user);
     public void unReportUser(long userId, User user);
     public List<ReportResponse> getReportUser(User user);
+    public List<MyQuestionResponse> getQuestionListByGroup(User user, Pageable pageable, long cafeId);
 }

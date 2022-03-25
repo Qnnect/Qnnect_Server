@@ -31,5 +31,7 @@ public interface CafeQuestionRepository extends JpaRepository<CafeQuestion, Long
 
     CafeQuestion findByQuestions_Id(@Param(value = "questionId")long questionID);
 
+    CafeQuestion findByQuestions_IdAndCafe_Id(@Param(value = "questionId")long questionID, @Param(value = "cafeId")long cafeId);
+
     boolean existsByQuestions_Id(@Param(value = "questionId") long questionId);
 }

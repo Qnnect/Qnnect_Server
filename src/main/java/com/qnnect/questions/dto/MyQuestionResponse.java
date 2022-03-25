@@ -26,6 +26,9 @@ public class MyQuestionResponse {
 
 
     public static MyQuestionResponse fromCafeQuestion(CafeQuestion cafeQuestion){
+        if(cafeQuestion == null){
+            return null;
+        }
         return MyQuestionResponse.builder()
                 .cafeQuestionId(cafeQuestion.getId())
                 .createdAt(cafeQuestion.getQuestions().getCreatedAt().toLocalDate())

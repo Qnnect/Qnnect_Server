@@ -1,5 +1,6 @@
 package com.qnnect.user.api;
 
+import com.qnnect.cafe.domain.EGroupType;
 import com.qnnect.cafe.dto.CafeScrapResponse;
 import com.qnnect.common.CurrentUser;
 import com.qnnect.questions.dto.MyQuestionResponse;
@@ -72,10 +73,17 @@ public class UserController {
         return ResponseEntity.ok(cafeList);
     }
 
-    @ApiOperation(value = "사용자 질문 리스트")
+    @ApiOperation(value = "사용자 질문 리스트 전체")
     @GetMapping("/user/question/all")
     public ResponseEntity<List<MyQuestionResponse>> getAllUserQuestionList (@PageableDefault(sort="id", direction = Sort.Direction.DESC)final Pageable pageable, @ApiIgnore @CurrentUser User user) {
         List<MyQuestionResponse> questionResponse = userService.getQuestionAllList(user, pageable);
+        return ResponseEntity.ok(questionResponse);
+    }
+
+    @ApiOperation(value = "사용자 질문 리스트 그룹별로")
+    @GetMapping("/user/question/{cafeId}")
+    public ResponseEntity<List<MyQuestionResponse>> getUserQuestionListByGroup (@PageableDefault(sort="id", direction = Sort.Direction.DESC)final Pageable pageable, @ApiIgnore @CurrentUser User user, @PathVariable long cafeId) {
+        List<MyQuestionResponse> questionResponse = userService.getQuestionListByGroup(user, pageable, cafeId);
         return ResponseEntity.ok(questionResponse);
     }
 

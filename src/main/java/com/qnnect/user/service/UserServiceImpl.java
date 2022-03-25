@@ -138,6 +138,24 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
+    public List<MyQuestionResponse> getQuestionListByGroup(User user, Pageable pageable, long cafeId){
+        List<Question> questions = questionRepository.findByUser_Id(user.getId(),pageable);
+
+        List<CafeQuestion> cafeQuestionList = questions.stream()
+                .filter(question -> cafeQuestionRepository.existsByQuestions_Id(question.getId()))
+                .map(question -> cafeQuestionRepository.findByQuestions_IdAndCafe_Id(question.getId(), cafeId))
+                .collect(Collectors.toList());
+
+        List<CafeQuestionWaitingList> cafeQuestionWaitingLists = questions.stream()
+                .filter(question -> cafeQuestionWaitingListRespository.existsByQuestion_Id(question.getId()))
+                .map(question -> cafeQuestionWaitingListRespository.findByQuestion_IdAndCafe_Id(question.getId(),cafeId))
+                .collect(Collectors.toList());
+
+        return MyQuestionResponse.listFromAllQuestions(cafeQuestionList, cafeQuestionWaitingLists);
+    }
+
+    @Override
+    @Transactional
     public void reportUser(long userId, User user){
         Report report = Report.builder().user_id(user.getId()).reported_id(userId).build();
         reportRepository.save(report);
