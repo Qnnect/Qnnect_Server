@@ -6,6 +6,7 @@ import com.qnnect.questions.repository.CafeQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
+@Component
 @RequiredArgsConstructor
 public class Schedule {
 
@@ -20,18 +22,21 @@ public class Schedule {
     private final CafeQuestionRepository cafeQuestionRepository;
     private final CafeQuestionService cafeQuestionService;
 
-//    @Scheduled(cron = "0 0 0 1/1 * * *")
-//    public void sendQuestion() throws Exception {
-//
-//        LocalDateTime now = LocalDateTime.now();
-//
-//        List<Cafe> cafeList = cafeRepository.findAll();
-//        List<Cafe> filteredCafe = cafeList.stream().filter(cafe -> cafe.getQuestionCycle().getValue()
-//                == Duration.between(cafeQuestionRepository.findTop1ByCafe_IdOrderByIdAtDesc(cafe.getId())
-//                .getCreatedAt(), now).toDays()).collect(Collectors.toList());
-//
-//        cafeQuestionService.sendCafeQuestions(filteredCafe);
-//        log.info("질문 돌리기");
-//    }
+
+
+
+    @Scheduled(cron ="0 0 20 * * *")
+    public void sendQuestion() throws Exception {
+
+        LocalDateTime now = LocalDateTime.now();
+
+        List<Cafe> cafeList = cafeRepository.findAll();
+        List<Cafe> filteredCafe = cafeList.stream().filter(cafe -> cafe.getQuestionCycle().getValue()
+                <= Duration.between(cafeQuestionRepository.findTop1ByCafe_IdOrderByIdDesc(cafe.getId())
+                .getCreatedAt(), now).toDays()).collect(Collectors.toList());
+
+
+        cafeQuestionService.sendCafeQuestions(filteredCafe);
+    }
 
 }

@@ -20,4 +20,6 @@ public interface CafeQuestionWaitingListRespository extends
     CafeQuestionWaitingList findByQuestion_IdAndCafe_Id(@Param(value = "questionId")long questionID, @Param(value = "cafeId") long cafeId);
 
     boolean existsByQuestion_Id(@Param(value = "questionId") long questionId);
+
+    boolean existsByCafe_Id(@Param(value = "cafeId")long cafeId);
 }

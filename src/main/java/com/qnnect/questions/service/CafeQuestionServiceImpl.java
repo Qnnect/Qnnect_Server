@@ -6,9 +6,7 @@ import com.qnnect.comments.domain.Comment;
 import com.qnnect.comments.repository.CommentRepository;
 import com.qnnect.likes.UserLikeQuestion;
 import com.qnnect.likes.UserLikeQuestionRepository;
-import com.qnnect.questions.domain.CafeQuestion;
-import com.qnnect.questions.domain.CafeQuestionWaitingList;
-import com.qnnect.questions.domain.Question;
+import com.qnnect.questions.domain.*;
 import com.qnnect.questions.dto.CafeQuestionResponse;
 import com.qnnect.questions.dto.QuestionDetailResponse;
 import com.qnnect.questions.dto.QuestionResponse;
@@ -92,15 +90,15 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
         log.info("getting cafeQuestion");
         List<Comment> comments = commentRepository.findAllByCafeQuestion_Id(cafeQuestionId);
         boolean isScraped = scrapRepository.existsByUser_IdAndCafeQuestion_Id(user.getId()
-                ,cafeQuestion.getId());
+                , cafeQuestion.getId());
         System.out.println(user.getNickName());
         System.out.println("isScraped" + isScraped);
         boolean isLiked = likeRepository.existsByUser_IdAndQuestion_Id(user.getId(),
                 cafeQuestion.getQuestions().getId());
-        Comment currentUserComment = commentRepository.findByUser_IdAndCafeQuestion_Id( user.getId(), cafeQuestionId);
+        Comment currentUserComment = commentRepository.findByUser_IdAndCafeQuestion_Id(user.getId(), cafeQuestionId);
         List<Report> report = reportRepository.findAllByUserId(user.getId());
         List<Long> reportedUser = report.stream().map(Report::getReportedId).collect(Collectors.toList());
-        return new QuestionDetailResponse(cafeQuestion, comments, user, isScraped,isLiked, currentUserComment, reportedUser);
+        return new QuestionDetailResponse(cafeQuestion, comments, user, isScraped, isLiked, currentUserComment, reportedUser);
     }
 
     @Override
@@ -112,8 +110,8 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
 
     @Override
     @Transactional
-    public CafeQuestionResponse searchCafeQuestions(Long cafeId, String word,Pageable pageable) {
-        List<CafeQuestion> cafeQuestion = cafeQuestionRepository.findByCafe_IdAndWord(cafeId, word,pageable);
+    public CafeQuestionResponse searchCafeQuestions(Long cafeId, String word, Pageable pageable) {
+        List<CafeQuestion> cafeQuestion = cafeQuestionRepository.findByCafe_IdAndWord(cafeId, word, pageable);
 
         return CafeQuestionResponse.from(cafeQuestion);
     }
@@ -122,7 +120,31 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
     //waiting list있냐 없냐에 분기 처리 & waiting list비워주기
     //없을 시에는 갯수 % 4가 0일때 만 공통이외에는 questionType별로
     //중복검사 후
-    public void sendCafeQuestions(List<Cafe> filteredCafe){
-//        filteredCafe.stream().forEach(cafe -> );
+    @Transactional
+    public void sendCafeQuestions(List<Cafe> filteredCafe) {
+        for (int i = 0; i < filteredCafe.size(); i++) {
+            if (cafeQuestionWaitingListRespository.existsByCafe_Id(filteredCafe.get(i).getId())) {
+                List<CafeQuestionWaitingList> cafeQuestionWaitingLists = cafeQuestionWaitingListRespository
+                        .findAllByCafe_Id(filteredCafe.get(i).getId());
+                for (int j = 0; j < cafeQuestionWaitingLists.size(); j++) {
+                    CafeQuestion cafeQuestion = CafeQuestion.builder().question(cafeQuestionWaitingLists.get(j).getQuestion())
+                            .cafe(filteredCafe.get(i)).build();
+                    cafeQuestionRepository.save(cafeQuestion);
+                    cafeQuestionWaitingListRespository.delete(cafeQuestionWaitingLists.get(j));
+                }
+
+            } else {
+                EQuestionType questionType = EQuestionType.공통;
+                if (cafeQuestionRepository.countByCafe_Id(filteredCafe.get(i).getId()) % 4 != 0) {
+                    questionType = EQuestionType.valueOf(filteredCafe.get(i).getGroupType().toString());
+                }
+                Question question = questionRepository.findByQuestionTypeRand(questionType.toString());
+                while (cafeQuestionRepository.existsByCafe_IdAndQuestions_Id(filteredCafe.get(i).getId(), question.getId())) {
+                    question = questionRepository.findByQuestionTypeRand(questionType.toString());
+                }
+                cafeQuestionRepository.save(CafeQuestion.builder().cafe(filteredCafe.get(i)).question(question).build());
+            }
+        }
+        System.out.println("Done+++++++++++++");
     }
 }

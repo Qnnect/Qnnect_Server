@@ -1,5 +1,6 @@
 package com.qnnect.questions.repository;
 
+import com.qnnect.cafe.domain.Cafe;
 import com.qnnect.questions.domain.CafeQuestion;
 import com.qnnect.scrap.domain.Scrap;
 import org.springframework.data.domain.Page;
@@ -18,20 +19,27 @@ public interface CafeQuestionRepository extends JpaRepository<CafeQuestion, Long
 //    CafeQuestion findByCafe_IdTop1ById(@Param(value="cafeId") long cafeId);
 //AaaEntity findTop1ByFlagEqualsOrderByCreatedAtDesc(Integer flag);
 
-    CafeQuestion findTop1ByCafe_IdOrderByCreatedAtDesc(@Param(value="cafeId") long cafeId);
+    CafeQuestion findTop1ByCafe_IdOrderByCreatedAtDesc(@Param(value = "cafeId") long cafeId);
+
     public List<CafeQuestion> findAllByCafe_Id(@Param(value = "cafeId") long cafeId, Pageable pageable);
 
 //    User findTopByOrderByAgeDesc();
 
-//    CafeQuestion findTop1ByCafe_IdOrderByIdAtDesc(@Param(value = "cafeId")long cafeId);
+    CafeQuestion findTop1ByCafe_IdOrderByIdDesc(@Param(value = "cafeId") long cafeId);
 
     @Query("SELECT m FROM CafeQuestion m INNER JOIN m.questions c WHERE m.cafe.id=:cafeId AND c.content LIKE %:word%")
-    List<CafeQuestion> findByCafe_IdAndWord(@Param(value="cafeId") Long cafeId
+    List<CafeQuestion> findByCafe_IdAndWord(@Param(value = "cafeId") Long cafeId
             , @Param(value = "word") String word, Pageable pageable);
 
-    CafeQuestion findByQuestions_Id(@Param(value = "questionId")long questionID);
+    CafeQuestion findByQuestions_Id(@Param(value = "questionId") long questionID);
 
-    CafeQuestion findByQuestions_IdAndCafe_Id(@Param(value = "questionId")long questionID, @Param(value = "cafeId")long cafeId);
+    CafeQuestion findByQuestions_IdAndCafe_Id(@Param(value = "questionId") long questionID, @Param(value = "cafeId") long cafeId);
 
     boolean existsByQuestions_Id(@Param(value = "questionId") long questionId);
+
+    boolean existsByCafe_Id(@Param(value = "cafeId") long cafeId);
+
+    boolean existsByCafe_IdAndQuestions_Id(@Param(value = "cafeId") long cafeId, @Param(value = "questionId") long questionId);
+
+    int countByCafe_Id(@Param(value = "cafeId") long cafeId);
 }

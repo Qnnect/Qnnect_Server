@@ -10,8 +10,11 @@ import com.qnnect.common.S3Uploader;
 import com.qnnect.common.exception.CustomException;
 import com.qnnect.common.exception.ErrorCode;
 //import com.qnnect.notification.FirebaseCloudMessageService;
+import com.qnnect.notification.domain.ENotificationType;
 import com.qnnect.notification.domain.FcmToken;
+import com.qnnect.notification.domain.Notification;
 import com.qnnect.notification.repository.FcmTokenRepository;
+import com.qnnect.notification.repository.NotificationRepository;
 import com.qnnect.questions.domain.CafeQuestion;
 import com.qnnect.questions.domain.EQuestionerType;
 import com.qnnect.questions.dto.CafeQuestionResponse;
@@ -49,6 +52,7 @@ public class CommentServiceImpl implements CommentService {
     private final ReportRepository reportRepository;
     //    private final FirebaseCloudMessageService firebaseCloudMessageService;
     private final FcmTokenRepository fcmTokenRepository;
+    private final NotificationRepository notificationRepository;
 
     @Override
     @Transactional
@@ -81,7 +85,14 @@ public class CommentServiceImpl implements CommentService {
         return comment.getId();
     }
 
-    public void sendCommentNotification(User user, Comment comment) {
+    public void sendCommentNotification(User questioner, Comment comment) {
+        if(questioner.getId() != comment.getUser().getId()){
+            Notification notification = Notification.builder().notificationType(ENotificationType.comment)
+                    .contentId(comment.getId()).user(questioner).content(comment.getContent())
+                    .senderName(comment.getUser().getNickName())
+                    .groupName(comment.getCafeQuestion().getCafe().getTitle()).build();
+            notificationRepository.save(notification);
+        }
 //        FcmToken fcmToken = fcmTokenRepository.findByUserId(user.getId())
 ////                .orElseThrow(()-> new CustomException(ErrorCode.INVALID_AUTH_TOKEN));
 //        try{
