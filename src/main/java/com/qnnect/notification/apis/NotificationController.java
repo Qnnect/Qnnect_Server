@@ -29,7 +29,7 @@ public class NotificationController {
     private final NotificationService notificationService;
 
     @GetMapping("/notification")
-    @ApiOperation(value = "질문 가져오기(댓글 함께) api")
+    @ApiOperation(value = "알림 가져오기 api")
     public ResponseEntity<List<NotificationResponse>> getNotificationList(@ApiIgnore @CurrentUser User user, @PageableDefault(sort="id", direction = Sort.Direction.DESC)final Pageable pageable){
         List<NotificationResponse> notificationResponse = notificationService.getNotification(user, pageable);
         return ResponseEntity.ok(notificationResponse);
