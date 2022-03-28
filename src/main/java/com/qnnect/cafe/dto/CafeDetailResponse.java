@@ -43,7 +43,11 @@ public class CafeDetailResponse {
         this.cafeId = entity.getId();
         this.cafeUserId = currentCafeUser.getId();
         this.diaryColor = entity.getDiaryColor();
-        this.currentUserResponse = CafeUserResponse.from(currentCafeUser, currentCafeUser.getUserDrinkSelected().get(currentCafeUser.getUserDrinkSelected().size()-1));
+        if(currentCafeUser.getUserDrinkSelected().size() != 0){
+            this.currentUserResponse = CafeUserResponse.from(currentCafeUser, currentCafeUser.getUserDrinkSelected().get(currentCafeUser.getUserDrinkSelected().size()-1));
+        }else{
+            this.currentUserResponse = CafeUserResponse.from(currentCafeUser,null);
+        }
         this.cafeQuestionResponseList = CafeQuestionResponse.listFrom(entity.getCafeQuestions(), user, reportedId);
         this.cafeUserResponseList = CafeUserResponse.listFrom(entity.getCafeUsers(), currentCafeUser, reportedId);
     }

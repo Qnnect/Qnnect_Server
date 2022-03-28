@@ -29,10 +29,6 @@ public class UserDrinkSelected {
     @JoinColumn(name = "DRINK_ID")
     private Drink drink;
 
-//    @ManyToOne
-//    @JoinColumn(name = "USER_ID")
-//    private User user;
-
     @ManyToOne
     @JoinColumn(name = "CAFE_USER_ID")
     private CafeUser cafeUser;
