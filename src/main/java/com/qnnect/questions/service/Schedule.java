@@ -23,9 +23,7 @@ public class Schedule {
     private final CafeQuestionService cafeQuestionService;
 
 
-
-
-    @Scheduled(cron ="0 0 20 * * *")
+    @Scheduled(cron ="0 10 20 * * *")
     public void sendQuestion() throws Exception {
 
         LocalDateTime now = LocalDateTime.now();

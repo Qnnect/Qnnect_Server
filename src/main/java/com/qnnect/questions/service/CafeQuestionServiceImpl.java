@@ -129,6 +129,7 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
                 for (int j = 0; j < cafeQuestionWaitingLists.size(); j++) {
                     CafeQuestion cafeQuestion = CafeQuestion.builder().question(cafeQuestionWaitingLists.get(j).getQuestion())
                             .cafe(filteredCafe.get(i)).build();
+
                     cafeQuestionRepository.save(cafeQuestion);
                     cafeQuestionWaitingListRespository.delete(cafeQuestionWaitingLists.get(j));
                 }
@@ -144,7 +145,11 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
                 }
                 cafeQuestionRepository.save(CafeQuestion.builder().cafe(filteredCafe.get(i)).question(question).build());
             }
+            sendCafeQuestionNotification();
         }
         System.out.println("Done+++++++++++++");
+    }
+
+    public void sendCafeQuestionNotification(){
     }
 }

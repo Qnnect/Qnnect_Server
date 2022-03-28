@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 @Builder
 public class NotificationResponse {
 
+    private long notificationId;
+
     private ENotificationType notificationType;
 
     private String content;
@@ -41,7 +43,8 @@ public class NotificationResponse {
         return NotificationResponse.builder().notificationType(notification.getNotificationType())
                 .content(content).groupName(notification.getGroupName())
                 .createdAt(notification.getCreatedAt().toLocalDate())
-                .userRead(notification.isUserChecked()).build();
+                .userRead(notification.isUserChecked())
+                .notificationId(notification.getId()).build();
     }
     public static List<NotificationResponse> listFrom(List<Notification> notificationList){
         return notificationList.stream().map(NotificationResponse::from)
