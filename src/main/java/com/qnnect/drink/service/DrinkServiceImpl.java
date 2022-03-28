@@ -54,9 +54,8 @@ public class DrinkServiceImpl implements DrinkService {
     public CafeDrinkRecipeResponse getDrinkRecipes(User user, long userSelectedDrinkId, long cafeId) {
         CafeUser currentUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafeId, user.getId());
         UserDrinkSelected userDrinkSelected = userDrinkSelectedRepository.getById(userSelectedDrinkId);
-        System.out.println(userDrinkSelected.getDrink().getId());
         List<DrinkRecipe> drinkRecipes = drinkRecipeRepository.findAllByDrink_Id(userDrinkSelected.getDrink().getId());
-        int size = currentUser.getUserDrinkSelected().get(0).getDrinkIngredientsFilled().size();
+        int size = currentUser.getUserDrinkSelected().get(currentUser.getUserDrinkSelected().size()-1).getDrinkIngredientsFilled().size();
         return new CafeDrinkRecipeResponse(currentUser, drinkRecipes, size);
     }
 
@@ -69,12 +68,18 @@ public class DrinkServiceImpl implements DrinkService {
         int recipecount = 0;
         int idx = -1;
 
-        while (count >= recipecount) {
+        if(userDrinkSelected.isFilled()){
+            throw new CustomException(ErrorCode.WRONG_INGREDIENT_DIFFERENT_LEVEL);
+        }
+
+        while (count >= recipecount && idx < 3) {
             idx++;
             System.out.println(drinkRecipe.get(idx).getIngredient().getName());
             recipecount += drinkRecipe.get(idx).getNumber();
         }
+
         Ingredient currIngredientLevel = drinkRecipe.get(idx).getIngredient();
+
         Pageable pageable = PageRequest.of(0, 1);
         List<UserIngredient> userIngredient = userIngredientRepository.getByUser_IdAndIngredient_Id(user.getId(), ingredientsId, pageable);
         System.out.println(userIngredient.size());
