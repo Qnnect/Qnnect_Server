@@ -23,25 +23,22 @@ public class NotificationResponse {
 
     public static NotificationResponse from(Notification notification){
         String name = "";
-        final String questionBase = "질문이 도착했습니다: ";
-        final String commentBase = "내 질문에 " + name + "님이 답글을 남겼습니다.";
-        final String replyBase = "내 질문에 " + name + "님이 답글을 남겼습니다.";
         String content;
 
         if(notification.getNotificationType() == ENotificationType.comment){
             name = notification.getSenderName();
-            content = commentBase;
+            content = "내 질문에 " + name + "님이 답글을 남겼습니다.";
         }else if (notification.getNotificationType() == ENotificationType.question){
-            content = questionBase;
+            content = "질문이 도착했습니다: ";
         }else{
             name = notification.getSenderName();
-            content = replyBase;
+            content = "내 질문에 " + name + "님이 댓글을 남겼습니다.";
         }
-
-        name = notification.getSenderName();
+        content += notification.getContent();
 
         return NotificationResponse.builder().notificationType(notification.getNotificationType())
-                .content(content).groupName(notification.getGroupName()).build();
+                .content(content).groupName(notification.getGroupName())
+                .createdAt(notification.getCreatedAt().toLocalDate()).build();
     }
     public static List<NotificationResponse> listFrom(List<Notification> notificationList){
         return notificationList.stream().map(NotificationResponse::from)
