@@ -21,6 +21,8 @@ public class NotificationResponse {
 
     private LocalDate createdAt;
 
+    private boolean userRead;
+
     public static NotificationResponse from(Notification notification){
         String name = "";
         String content;
@@ -38,7 +40,8 @@ public class NotificationResponse {
 
         return NotificationResponse.builder().notificationType(notification.getNotificationType())
                 .content(content).groupName(notification.getGroupName())
-                .createdAt(notification.getCreatedAt().toLocalDate()).build();
+                .createdAt(notification.getCreatedAt().toLocalDate())
+                .userRead(notification.isUserChecked()).build();
     }
     public static List<NotificationResponse> listFrom(List<Notification> notificationList){
         return notificationList.stream().map(NotificationResponse::from)
