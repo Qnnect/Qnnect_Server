@@ -14,7 +14,7 @@ public class CafeDrinkIngredientResponse {
 
     public CafeDrinkIngredientResponse(CafeUser drinkOwner, List<DrinkRecipe> drinkRecipes,
                                        int size, List<Object[]> ingredients ){
-        this.currentDrinkInfo = new CafeDrinkCommonResponse(drinkOwner, drinkRecipes, size);
+        this.currentDrinkInfo = new CafeDrinkCommonResponse(drinkOwner.getUserDrinkSelected().get(0), drinkRecipes, size);
         this.myIngredient = MyIngredientResponse.listfrom(ingredients);
     }
 }

@@ -32,25 +32,27 @@ public class CafeDrinkServiceImpl implements CafeDrinkService{
     @Transactional
     @Override
     public void addCafeDrinks(User user,Long cafeId, Long drinkId){
+
+        CafeUser cafeUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafeId,user.getId());
         //우선 userDrinkselected를 생성
         UserDrinkSelected userDrinkSelected = userDrinkSelectedRepository.save(UserDrinkSelected.builder()
-                .user(user).drink(drinkRepository.getById(drinkId)).build());
-        //이후 해당 정보를 cafeUser에 저장해준다.
-        CafeUser cafeUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafeId,
-                user.getId());
-        cafeUser.setUserDrinkSelected(userDrinkSelected);
-        cafeUserRepository.save(cafeUser);
+                .cafeUser(cafeUser).drink(drinkRepository.getById(drinkId)).build());
+//        //이후 해당 정보를 cafeUser에 저장해준다.
+//        CafeUser cafeUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafeId,
+//                user.getId());
+//        cafeUser.setUserDrinkSelected(userDrinkSelected);
+//        cafeUserRepository.save(cafeUser);
     }
 
     @Transactional
     @Override
     public CafeDrinkResponse getCurrentDrink(User user, long cafeUserId, long cafeId){
         CafeUser drinkOwner = cafeUserRepository.getById(cafeUserId);
+        List<UserDrinkSelected> drinkSelected = userDrinkSelectedRepository.findAllByCafeUser_Id(drinkOwner.getId());
         List<CafeUser> cafeUsers = cafeUserRepository.findAllByCafe_Id(drinkOwner.getCafe().getId());
-        List<DrinkRecipe> drinkRecipe = drinkRecipeRepository.findAllByDrink_Id(drinkOwner.getUserDrinkSelected()
-                .getDrink().getId());
-        int size = drinkOwner.getUserDrinkSelected().getDrinkIngredientsFilled().size();
-        return new CafeDrinkResponse(drinkOwner,cafeUsers , user, drinkRecipe, size);
+        List<DrinkRecipe> drinkRecipe = drinkRecipeRepository.findAllByDrink_Id(drinkSelected.get(0).getDrink().getId());
+        int size = drinkSelected.get(0).getDrinkIngredientsFilled().size();
+        return new CafeDrinkResponse(drinkOwner.getUserDrinkSelected().get(0),cafeUsers , user, drinkRecipe, size);
     }
 
     @Transactional
@@ -58,9 +60,9 @@ public class CafeDrinkServiceImpl implements CafeDrinkService{
     public CafeDrinkIngredientResponse getDrinkIngredient(User user, long cafeId){
         CafeUser currentUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafeId,user.getId());
         List<DrinkRecipe> drinkRecipe = drinkRecipeRepository.findAllByDrink_Id(currentUser.getUserDrinkSelected()
-                .getDrink().getId());
+                .get(0).getId());
         List<Object[]> ingredients = userIngredientRepository.countByIngredientWhereUser_Id(user.getId());
-        int size = currentUser.getUserDrinkSelected().getDrinkIngredientsFilled().size();
+        int size = currentUser.getUserDrinkSelected().get(0).getDrinkIngredientsFilled().size();
         return new CafeDrinkIngredientResponse(currentUser, drinkRecipe, size, ingredients);
     }
 }

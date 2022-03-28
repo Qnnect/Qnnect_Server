@@ -6,6 +6,7 @@ import com.qnnect.drink.domain.DrinkRecipe;
 import com.qnnect.drink.domain.UserDrinkSelected;
 import com.qnnect.drink.dtos.CafeDrinkCommonResponse;
 import com.qnnect.drink.dtos.DrinkIngredientsFilledResponse;
+import com.qnnect.drink.repository.UserDrinkSelectedRepository;
 import com.qnnect.user.domain.User;
 import com.qnnect.user.dtos.ProfileResponse;
 import lombok.Builder;
@@ -24,17 +25,16 @@ public class CafeUserResponse {
 //    private List<DrinkIngredientsFilledResponse> drinkIngredientsFilledResponseList;
     private CafeDrinkCommonResponse cafeDrinkCommonResponse;
 
-    public static CafeUserResponse from(CafeUser cafeUser) {
+    public static CafeUserResponse from(CafeUser cafeUser, UserDrinkSelected userDrinkSelected) {
         List<DrinkIngredientsFilled> drinkIngredientsFilled = new ArrayList<>();
-        UserDrinkSelected userDrinkSelected = cafeUser.getUserDrinkSelected();
         List<DrinkRecipe> drinkRecipe = null;
         if(userDrinkSelected != null){
-            drinkRecipe = cafeUser.getUserDrinkSelected().getDrink().getDrinkRecipeList();
+            drinkRecipe = userDrinkSelected.getDrink().getDrinkRecipeList();
         }
 
         return CafeUserResponse.builder()
                 .user(ProfileResponse.from(cafeUser.getUser()))
-                .cafeDrinkCommonResponse(new CafeDrinkCommonResponse(cafeUser, drinkRecipe, drinkIngredientsFilled.size()))
+                .cafeDrinkCommonResponse(new CafeDrinkCommonResponse(userDrinkSelected, drinkRecipe, drinkIngredientsFilled.size()))
                 .build();
     }
 
@@ -45,7 +45,8 @@ public class CafeUserResponse {
         return cafeUsers.stream()
                 .filter(cafeUser -> cafeUser.getUser() != currentCafeUser.getUser())
                 .filter(cafeUser ->  !reportedId.contains(cafeUser.getUser().getReportId()))
-                .map(CafeUserResponse::from)
+                .filter(cafeUser -> cafeUser.getUserDrinkSelected().size() != 0)
+                .map(cafeUser -> from(cafeUser,cafeUser.getUserDrinkSelected().get(cafeUser.getUserDrinkSelected().size()-1)))
                 .collect(Collectors.toList());
     }
 }

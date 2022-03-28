@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -27,15 +28,13 @@ public class CafeUser extends BaseTimeEntity {
     @JoinColumn(name = "CAFE_ID")
     private Cafe cafe;
 
-    @OneToOne
-    @JoinColumn(name = "USER_DRINK_SELECTED_ID", nullable = true)
-    private UserDrinkSelected userDrinkSelected;
+    @OneToMany(mappedBy = "cafeUser")
+    private List<UserDrinkSelected> userDrinkSelected;
 
     @Builder
     public CafeUser(User user, Cafe cafe, UserDrinkSelected userDrinkSelected){
         setUser(user);
         setCafe(cafe);
-        setUserDrinkSelected(userDrinkSelected);
     }
 
 
@@ -48,12 +47,6 @@ public class CafeUser extends BaseTimeEntity {
     public void setCafe(Cafe cafe){
         if (Objects.isNull(this.cafe)) {
             this.cafe = cafe;
-        }
-    }
-
-    public void setUserDrinkSelected(UserDrinkSelected userDrinkSelected){
-        if (Objects.isNull(this.userDrinkSelected)) {
-            this.userDrinkSelected = userDrinkSelected;
         }
     }
 }

@@ -56,7 +56,7 @@ public class DrinkServiceImpl implements DrinkService {
         UserDrinkSelected userDrinkSelected = userDrinkSelectedRepository.getById(userSelectedDrinkId);
         System.out.println(userDrinkSelected.getDrink().getId());
         List<DrinkRecipe> drinkRecipes = drinkRecipeRepository.findAllByDrink_Id(userDrinkSelected.getDrink().getId());
-        int size = currentUser.getUserDrinkSelected().getDrinkIngredientsFilled().size();
+        int size = currentUser.getUserDrinkSelected().get(0).getDrinkIngredientsFilled().size();
         return new CafeDrinkRecipeResponse(currentUser, drinkRecipes, size);
     }
 
@@ -85,6 +85,7 @@ public class DrinkServiceImpl implements DrinkService {
             System.out.println(currIngredientLevel.getId());
             wrongIngredients(currIngredientLevel, ingredientsId, userIngredient);
         }
+
     }
 
     @Transactional
@@ -94,6 +95,9 @@ public class DrinkServiceImpl implements DrinkService {
         drinkIngredientsFilledRepository.save(DrinkIngredientsFilled.builder()
                 .ingredient(currIngredientLevel)
                 .userDrinkSelected(userDrinkSelected).build());
+        if(drinkIngredientsFilledRepository.countByUserDrinkSelected_Id(userDrinkSelected.getId()) == 10){
+            userDrinkSelected.setFilled(true);
+        }
         userIngredientRepository.deleteById(userIngredient.get(0).getId());
 
         log.info("SUCCEED on adding ingredients");

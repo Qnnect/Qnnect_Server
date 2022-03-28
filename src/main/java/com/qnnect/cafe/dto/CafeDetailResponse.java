@@ -43,7 +43,7 @@ public class CafeDetailResponse {
         this.cafeId = entity.getId();
         this.cafeUserId = currentCafeUser.getId();
         this.diaryColor = entity.getDiaryColor();
-        this.currentUserResponse = CafeUserResponse.from(currentCafeUser);
+        this.currentUserResponse = CafeUserResponse.from(currentCafeUser, currentCafeUser.getUserDrinkSelected().get(currentCafeUser.getUserDrinkSelected().size()-1));
         this.cafeQuestionResponseList = CafeQuestionResponse.listFrom(entity.getCafeQuestions(), user, reportedId);
         this.cafeUserResponseList = CafeUserResponse.listFrom(entity.getCafeUsers(), currentCafeUser, reportedId);
     }

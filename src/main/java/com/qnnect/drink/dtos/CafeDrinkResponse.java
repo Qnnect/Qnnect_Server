@@ -19,12 +19,12 @@ public class CafeDrinkResponse {
     CafeDrinkCommonResponse currentDrinkInfo;
     boolean currentUser;
 
-    public CafeDrinkResponse(CafeUser drinkOwner, List<CafeUser> cafeUsers,
+    public CafeDrinkResponse(UserDrinkSelected userDrinkSelected, List<CafeUser> cafeUsers,
                              User user, List<DrinkRecipe> drinkRecipes, int size) {
 
         this.cafeUsers = CafeProfileResponse.listFrom(cafeUsers);
-        this.currentDrinkInfo = new CafeDrinkCommonResponse(drinkOwner, drinkRecipes, size);
-        this.currentUser = isOwner(drinkOwner, user);
+        this.currentDrinkInfo = new CafeDrinkCommonResponse(userDrinkSelected, drinkRecipes, size);
+        this.currentUser = isOwner(userDrinkSelected.getCafeUser(), user);
     }
 
     public static boolean isOwner(CafeUser drinkOwner , User user){
