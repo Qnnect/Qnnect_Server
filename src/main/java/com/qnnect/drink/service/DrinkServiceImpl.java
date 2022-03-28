@@ -9,6 +9,7 @@ import com.qnnect.drink.domain.DrinkRecipe;
 import com.qnnect.drink.domain.UserDrinkSelected;
 import com.qnnect.drink.dtos.CafeDrinkRecipeResponse;
 import com.qnnect.drink.dtos.DrinkResponse;
+import com.qnnect.drink.dtos.StampResponse;
 import com.qnnect.drink.repository.DrinkIngredientsFilledRepository;
 import com.qnnect.drink.repository.DrinkRecipeRepository;
 import com.qnnect.drink.repository.DrinkRepository;
@@ -27,7 +28,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -57,6 +60,23 @@ public class DrinkServiceImpl implements DrinkService {
         List<DrinkRecipe> drinkRecipes = drinkRecipeRepository.findAllByDrink_Id(userDrinkSelected.getDrink().getId());
         int size = currentUser.getUserDrinkSelected().get(currentUser.getUserDrinkSelected().size()-1).getDrinkIngredientsFilled().size();
         return new CafeDrinkRecipeResponse(currentUser, drinkRecipes, size);
+    }
+
+
+
+    @Override
+    public List<StampResponse> getStampUser(User user) {
+        List<CafeUser> cafeUsers = cafeUserRepository.findAllByUser_Id(user.getId());
+        List<UserDrinkSelected> userDrinkSelectedList = new ArrayList<UserDrinkSelected>();
+        for(int i=0; i < cafeUsers.size(); i++){
+            if(cafeUsers.get(i).getUserDrinkSelected().size() != 0){
+                userDrinkSelectedList.addAll(cafeUsers.get(i).getUserDrinkSelected()
+                        .stream().filter(cafeUser-> cafeUser.isFilled())
+                        .collect(Collectors.toList()));
+            }
+
+        }
+        return StampResponse.listFrom(userDrinkSelectedList);
     }
 
     @Override

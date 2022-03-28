@@ -176,5 +176,6 @@ public class UserServiceImpl implements UserService{
                 .map(id-> userRepository.findByReportId(id)).collect(Collectors.toList());
         return ReportResponse.listFrom(reportedUsers);
     }
+
 }
 

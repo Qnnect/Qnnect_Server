@@ -3,6 +3,8 @@ package com.qnnect.user.api;
 import com.qnnect.cafe.domain.EGroupType;
 import com.qnnect.cafe.dto.CafeScrapResponse;
 import com.qnnect.common.CurrentUser;
+import com.qnnect.drink.dtos.StampResponse;
+import com.qnnect.drink.service.DrinkService;
 import com.qnnect.questions.dto.MyQuestionResponse;
 import com.qnnect.questions.dto.QuestionResponse;
 import com.qnnect.user.dtos.MainResponse;
@@ -30,6 +32,7 @@ import java.util.List;
 @Api(tags = {"사용자 API 정보를 제공"})
 public class UserController {
     private final UserService userService;
+    private final DrinkService drinkService;
 
     @ApiOperation(value = "프로필 설정")
     @PatchMapping(path = "/user/profile")
@@ -105,6 +108,13 @@ public class UserController {
     @GetMapping("/user/report")
     public ResponseEntity<List<ReportResponse>> getReportUser (@ApiIgnore @CurrentUser User user) {
         return ResponseEntity.ok(userService.getReportUser(user));
+    }
+
+
+    @ApiOperation(value = "내 음료 스탬프")
+    @GetMapping("/user/stamp")
+    public ResponseEntity<List<StampResponse>> getStampUser (@ApiIgnore @CurrentUser User user) {
+        return ResponseEntity.ok(drinkService.getStampUser(user));
     }
 
 //    @ApiOperation(value = "사용자 질문 리스트")
