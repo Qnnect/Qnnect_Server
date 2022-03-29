@@ -34,8 +34,8 @@ public class NotificationController {
 
     @PatchMapping("/notification")
     @ApiOperation(value = "알림 읽기 api")
-    public ResponseEntity<Void> setNotification(@RequestParam long questionId){
-        notificationService.setNotificationRead(questionId);
+    public ResponseEntity<Void> setNotification(@RequestParam long notificationId){
+        notificationService.setNotificationRead(notificationId);
         return ResponseEntity.ok().build();
     }
 }

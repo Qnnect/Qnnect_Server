@@ -23,23 +23,23 @@ public class Schedule {
     private final CafeQuestionService cafeQuestionService;
 
 
-    @Scheduled(cron ="0 45 20 * * *")
+    @Scheduled(cron ="0 50 19 * * *")
     public void sendQuestion() throws Exception {
 
         LocalDateTime now = LocalDateTime.now();
 
-        Cafe cafe = cafeRepository.findById(118L).orElseThrow();
-//        List<Cafe> cafeList = cafeRepository.findAll();
-//        List<Cafe> filteredCafe = cafeList.stream().filter(cafe -> cafe.getQuestionCycle().getValue()
-//                <= Duration.between(cafeQuestionRepository.findTop1ByCafe_IdOrderByIdDesc(cafe.getId())
-//                .getCreatedAt(), now).toDays()).collect(Collectors.toList());
+//        Cafe cafe = cafeRepository.findById(118L).orElseThrow();
+        List<Cafe> cafeList = cafeRepository.findAll();
+        List<Cafe> filteredCafe = cafeList.stream().filter(cafe -> cafe.getQuestionCycle().getValue()
+                <= Duration.between(cafeQuestionRepository.findTop1ByCafe_IdOrderByIdDesc(cafe.getId())
+                .getCreatedAt(), now).toDays()).collect(Collectors.toList());
 
-        List<Long> day = cafeQuestionRepository.findAllByCafe_Id(118L).stream().map(question-> Duration.between(question.getCreatedAt(),now).toDays()).collect(Collectors.toList());
+//        List<Long> day = cafeQuestionRepository.findAllByCafe_Id(118L).stream().map(question-> Duration.between(question.getCreatedAt(),now).toDays()).collect(Collectors.toList());
 
-        System.out.println(day.get(0));
+//        System.out.println(day.get(0));
 
         System.out.println("+++++++++++++++++++++"+now);
-//        cafeQuestionService.sendCafeQuestions(filteredCafe);
+        cafeQuestionService.sendCafeQuestions(filteredCafe);
     }
 
 }
