@@ -50,19 +50,22 @@ public class CafeDrinkServiceImpl implements CafeDrinkService{
         CafeUser drinkOwner = cafeUserRepository.getById(cafeUserId);
         List<UserDrinkSelected> drinkSelected = userDrinkSelectedRepository.findAllByCafeUser_Id(drinkOwner.getId());
         List<CafeUser> cafeUsers = cafeUserRepository.findAllByCafe_Id(drinkOwner.getCafe().getId());
-        List<DrinkRecipe> drinkRecipe = drinkRecipeRepository.findAllByDrink_Id(drinkSelected.get(0).getDrink().getId());
-        int size = drinkSelected.get(0).getDrinkIngredientsFilled().size();
-        return new CafeDrinkResponse(drinkOwner.getUserDrinkSelected().get(0),cafeUsers , user, drinkRecipe, size);
+        List<DrinkRecipe> drinkRecipe = drinkRecipeRepository.findAllByDrink_Id(drinkSelected.get(drinkOwner.getUserDrinkSelected().size()-1).getDrink().getId());
+        int size = drinkSelected.get(drinkOwner.getUserDrinkSelected().size()-1).getDrinkIngredientsFilled().size();
+        return new CafeDrinkResponse(drinkOwner.getUserDrinkSelected().get(drinkOwner.getUserDrinkSelected().size()-1),cafeUsers , user, drinkRecipe, size);
     }
 
     @Transactional
     @Override
     public CafeDrinkIngredientResponse getDrinkIngredient(User user, long cafeId){
         CafeUser currentUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafeId,user.getId());
+
+        List<UserDrinkSelected> drinkSelected = userDrinkSelectedRepository.findAllByCafeUser_Id(currentUser.getId());
+
         List<DrinkRecipe> drinkRecipe = drinkRecipeRepository.findAllByDrink_Id(currentUser.getUserDrinkSelected()
-                .get(0).getId());
+                .get(currentUser.getUserDrinkSelected().size()-1).getDrink().getId());
         List<Object[]> ingredients = userIngredientRepository.countByIngredientWhereUser_Id(user.getId());
-        int size = currentUser.getUserDrinkSelected().get(0).getDrinkIngredientsFilled().size();
+        int size = currentUser.getUserDrinkSelected().get(currentUser.getUserDrinkSelected().size()-1).getDrinkIngredientsFilled().size();
         return new CafeDrinkIngredientResponse(currentUser, drinkRecipe, size, ingredients);
     }
 }

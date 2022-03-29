@@ -9,5 +9,6 @@ import java.util.List;
 public interface NotificationService {
 
     public List<NotificationResponse> getNotification(User user, Pageable pageable);
+    public void setNotificationRead(long notificationId);
 
 }

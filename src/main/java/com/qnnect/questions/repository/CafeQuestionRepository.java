@@ -23,6 +23,8 @@ public interface CafeQuestionRepository extends JpaRepository<CafeQuestion, Long
 
     public List<CafeQuestion> findAllByCafe_Id(@Param(value = "cafeId") long cafeId, Pageable pageable);
 
+    public List<CafeQuestion> findAllByCafe_Id(@Param(value = "cafeId") long cafeId);
+
 //    User findTopByOrderByAgeDesc();
 
     CafeQuestion findTop1ByCafe_IdOrderByIdDesc(@Param(value = "cafeId") long cafeId);

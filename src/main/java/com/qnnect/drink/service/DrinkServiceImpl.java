@@ -56,9 +56,14 @@ public class DrinkServiceImpl implements DrinkService {
     @Override
     public CafeDrinkRecipeResponse getDrinkRecipes(User user, long userSelectedDrinkId, long cafeId) {
         CafeUser currentUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafeId, user.getId());
-        UserDrinkSelected userDrinkSelected = userDrinkSelectedRepository.getById(userSelectedDrinkId);
-        List<DrinkRecipe> drinkRecipes = drinkRecipeRepository.findAllByDrink_Id(userDrinkSelected.getDrink().getId());
-        int size = currentUser.getUserDrinkSelected().get(currentUser.getUserDrinkSelected().size()-1).getDrinkIngredientsFilled().size();
+        List<UserDrinkSelected> userDrinkSelected = userDrinkSelectedRepository.findAllByCafeUser_Id(currentUser.getId());
+        List<DrinkRecipe> drinkRecipes = null;
+        int size = 0;
+
+        if(userDrinkSelected.size()!=0){
+            drinkRecipes = drinkRecipeRepository.findAllByDrink_Id(userDrinkSelected.get(userDrinkSelected.size()-1).getDrink().getId());
+            size = currentUser.getUserDrinkSelected().get(currentUser.getUserDrinkSelected().size()-1).getDrinkIngredientsFilled().size();
+        }
         return new CafeDrinkRecipeResponse(currentUser, drinkRecipes, size);
     }
 

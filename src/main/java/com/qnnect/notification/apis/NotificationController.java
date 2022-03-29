@@ -12,10 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
@@ -33,5 +30,12 @@ public class NotificationController {
     public ResponseEntity<List<NotificationResponse>> getNotificationList(@ApiIgnore @CurrentUser User user, @PageableDefault(sort="id", direction = Sort.Direction.DESC)final Pageable pageable){
         List<NotificationResponse> notificationResponse = notificationService.getNotification(user, pageable);
         return ResponseEntity.ok(notificationResponse);
+    }
+
+    @PatchMapping("/notification")
+    @ApiOperation(value = "알림 읽기 api")
+    public ResponseEntity<Void> setNotification(@RequestParam long questionId){
+        notificationService.setNotificationRead(questionId);
+        return ResponseEntity.ok().build();
     }
 }

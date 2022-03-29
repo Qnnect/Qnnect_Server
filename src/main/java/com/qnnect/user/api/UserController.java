@@ -57,7 +57,7 @@ public class UserController {
 
     @ApiOperation(value = "알림 설정")
     @PatchMapping("/user/enablenotification")
-    public ResponseEntity<Void> enableNotification(@CurrentUser User user, boolean enableNotification) {
+    public ResponseEntity<Void> enableNotification(@ApiIgnore @CurrentUser User user, boolean enableNotification) {
         userService.enableNotification(user, enableNotification);
         return ResponseEntity.ok().build();
     }

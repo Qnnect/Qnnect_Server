@@ -19,6 +19,8 @@ public class NotificationResponse {
 
     private String content;
 
+    private long contentId;
+
     private String groupName;
 
     private LocalDate createdAt;
@@ -44,6 +46,7 @@ public class NotificationResponse {
                 .content(content).groupName(notification.getGroupName())
                 .createdAt(notification.getCreatedAt().toLocalDate())
                 .userRead(notification.isUserChecked())
+                .contentId(notification.getContentId())
                 .notificationId(notification.getId()).build();
     }
     public static List<NotificationResponse> listFrom(List<Notification> notificationList){

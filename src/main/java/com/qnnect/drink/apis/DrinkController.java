@@ -55,7 +55,7 @@ public class DrinkController {
         return ResponseEntity.ok().build();
     }
 
-    @ApiOperation(value = "음료에 레시피 가져오기 api")
+    @ApiOperation(value = "음료와 레시피 가져오기 api")
     @GetMapping("/drinks/{userDrinkSelectedId}/recipe")
     public ResponseEntity<CafeDrinkRecipeResponse> getDrinkRecipe(@PathVariable Long userDrinkSelectedId,
                                                                   @RequestParam Long cafeId,

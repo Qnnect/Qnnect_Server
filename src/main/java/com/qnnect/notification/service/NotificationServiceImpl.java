@@ -24,4 +24,11 @@ public class NotificationServiceImpl implements NotificationService{
         List<Notification> notificationList = notificationRepository.findAllByUser_Id(user.getId(), pageable);
         return NotificationResponse.listFrom(notificationList);
     }
+
+    @Override
+    public void setNotificationRead(long notificationId){
+        Notification notification = notificationRepository.findById(notificationId).orElseThrow();
+        notification.setUserChecked(true);
+        notificationRepository.save(notification);
+    }
 }
