@@ -1,6 +1,8 @@
 package com.qnnect.notification.service;
 
 
+import com.qnnect.common.exception.CustomException;
+import com.qnnect.common.exception.ErrorCode;
 import com.qnnect.notification.domain.Notification;
 import com.qnnect.notification.dto.NotificationResponse;
 import com.qnnect.notification.repository.NotificationRepository;
@@ -27,7 +29,8 @@ public class NotificationServiceImpl implements NotificationService{
 
     @Override
     public void setNotificationRead(long notificationId){
-        Notification notification = notificationRepository.findById(notificationId).orElseThrow();
+        Notification notification = notificationRepository.findById(notificationId)
+                .orElseThrow(()-> new CustomException(ErrorCode.NOTIFICATION_NOT_FOUND));
         notification.setUserChecked(true);
         notificationRepository.save(notification);
     }
