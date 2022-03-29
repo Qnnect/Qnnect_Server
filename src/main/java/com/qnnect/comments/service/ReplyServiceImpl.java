@@ -7,6 +7,7 @@ import com.qnnect.comments.repository.CommentRepository;
 import com.qnnect.comments.repository.ReplyRepository;
 import com.qnnect.notification.domain.ENotificationType;
 import com.qnnect.notification.domain.Notification;
+import com.qnnect.notification.repository.NotificationRepository;
 import com.qnnect.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -19,6 +20,7 @@ public class ReplyServiceImpl implements ReplyService{
 
     private final ReplyRepository replyRepository;
     private final CommentRepository commentRepository;
+    private final NotificationRepository notificationRepository;
 
     public Reply createReply(Long commentId, String content, User user){
         Comment comment = commentRepository.getById(commentId);
@@ -29,11 +31,11 @@ public class ReplyServiceImpl implements ReplyService{
     }
 
     public void sendReplyNotification(User commentUser, Reply reply) {
-        if (reply.getComment().getUser().getId() != reply.getUser().getId()) {
+        if (commentUser.getId() != reply.getUser().getId()) {
             Notification notification = Notification.builder().notificationType(ENotificationType.reply)
-                    .contentId(reply.getComment().getId()).user(reply.getComment().getUser()).content(comment.getContent())
-                    .senderName(comment.getUser().getNickName())
-                    .groupName(comment.getCafeQuestion().getCafe().getTitle()).build();
+                    .contentId(reply.getComment().getId()).user(commentUser).content(reply.getContent())
+                    .senderName(reply.getUser().getNickName())
+                    .groupName(reply.getComment().getCafeQuestion().getCafe().getTitle()).build();
             notificationRepository.save(notification);
         }
     }
