@@ -16,11 +16,13 @@ import java.util.stream.Stream;
 @Builder
 public class MyQuestionResponse {
 
-    private Long cafeQuestionId;
+    private Long questionId;
 
     private LocalDate createdAt;
 
     private String question;
+
+    private boolean isQuestionWaiting;
 
     private String cafeTitle;
 
@@ -30,7 +32,8 @@ public class MyQuestionResponse {
             return null;
         }
         return MyQuestionResponse.builder()
-                .cafeQuestionId(cafeQuestion.getId())
+                .isQuestionWaiting(false)
+                .questionId(cafeQuestion.getId())
                 .createdAt(cafeQuestion.getQuestions().getCreatedAt().toLocalDate())
                 .question(cafeQuestion.getQuestions().getContent())
                 .cafeTitle(cafeQuestion.getCafe().getTitle())
@@ -39,6 +42,8 @@ public class MyQuestionResponse {
 
     public static MyQuestionResponse fromWaitingList(CafeQuestionWaitingList cafeQuestionListWaitingList){
         return MyQuestionResponse.builder()
+                .isQuestionWaiting(true)
+                .questionId(cafeQuestionListWaitingList.getQuestion().getId())
                 .createdAt(cafeQuestionListWaitingList.getCreatedAt().toLocalDate())
                 .question(cafeQuestionListWaitingList.getQuestion().getContent())
                 .cafeTitle(cafeQuestionListWaitingList.getCafe().getTitle())
