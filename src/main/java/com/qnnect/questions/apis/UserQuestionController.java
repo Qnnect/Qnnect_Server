@@ -1,7 +1,10 @@
 package com.qnnect.questions.apis;
 
 import com.qnnect.common.CurrentUser;
+import com.qnnect.questions.domain.Question;
+import com.qnnect.questions.dto.WaitingListQuestionResponse;
 import com.qnnect.questions.service.CafeQuestionService;
+import com.qnnect.questions.service.QuestionService;
 import com.qnnect.user.domain.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,6 +20,7 @@ import springfox.documentation.annotations.ApiIgnore;
 public class UserQuestionController {
 
     private final CafeQuestionService cafeQuestionService;
+    private final QuestionService questionService;
 
     @PostMapping("/cafes/{cafeId}/question/")
     @ApiOperation(value = "사용자 질문 생성 api")
@@ -37,5 +41,12 @@ public class UserQuestionController {
     public ResponseEntity<Void> deleteQuestion(@PathVariable Long cafeQuestionId){
         cafeQuestionService.delete(cafeQuestionId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("my/question/{questionId}")
+    @ApiOperation(value = "생성한 질문 가져오기 api")
+    public ResponseEntity<WaitingListQuestionResponse> getQuestion(@PathVariable Long questionId){
+        WaitingListQuestionResponse questionDetail = questionService.get(questionId);
+        return ResponseEntity.ok(questionDetail);
     }
 }
