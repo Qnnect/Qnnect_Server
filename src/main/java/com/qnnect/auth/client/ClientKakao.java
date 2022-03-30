@@ -19,6 +19,8 @@ public class ClientKakao implements ClientProxy {
 
     @Autowired
     private final WebClient webClient;
+    private final String defaultImage = "https://dev-qnnect-profile.s3.ap-northeast-2.amazonaws.com/profileDefault.png";
+
 
     @Override
     public User getUserData(String accessToken) {
@@ -33,12 +35,16 @@ public class ClientKakao implements ClientProxy {
 
         System.out.println(kakaoUserResponse.getId());
 
+        String profileImage = defaultImage;
+        if (kakaoUserResponse.getKakaoAccount().getProfile() != null) {
+            profileImage = kakaoUserResponse.getKakaoAccount()
+                    .getProfile().getProfileImageUrl();
+        }
+
         return User.builder()
                 .socialId(String.valueOf(kakaoUserResponse.getId()))
                 .loginType(ELoginType.kakao)
-                .profilePicture(kakaoUserResponse.getKakaoAccount().
-                        getProfile().getProfileImageUrl() != null ? kakaoUserResponse.getKakaoAccount().
-                        getProfile().getProfileImageUrl() : "")
+                .profilePicture(profileImage)
                 .build();
     }
 }
