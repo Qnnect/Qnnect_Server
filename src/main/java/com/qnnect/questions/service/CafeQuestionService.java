@@ -4,6 +4,7 @@ import com.qnnect.cafe.domain.Cafe;
 import com.qnnect.questions.domain.Question;
 import com.qnnect.questions.dto.CafeQuestionResponse;
 import com.qnnect.questions.dto.QuestionDetailResponse;
+import com.qnnect.questions.dto.QuestionRequest;
 import com.qnnect.user.domain.User;
 import org.springframework.data.domain.Pageable;
 
@@ -20,4 +21,5 @@ public interface CafeQuestionService {
     CafeQuestionResponse getCafeQuestions(Long cafeId, Pageable pageable);
     CafeQuestionResponse searchCafeQuestions(Long cafeId, String word,Pageable pageable);
     public void sendCafeQuestions(List<Cafe> filteredCafe);
+    public void updateWaiting(Long questionId, QuestionRequest questionRequest);
 }

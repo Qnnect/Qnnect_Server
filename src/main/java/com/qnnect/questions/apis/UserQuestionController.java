@@ -1,6 +1,7 @@
 package com.qnnect.questions.apis;
 
 import com.qnnect.common.CurrentUser;
+import com.qnnect.questions.dto.QuestionRequest;
 import com.qnnect.questions.service.CafeQuestionService;
 import com.qnnect.user.domain.User;
 import io.swagger.annotations.Api;
@@ -38,4 +39,18 @@ public class UserQuestionController {
         cafeQuestionService.delete(cafeQuestionId);
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping("/my/question/{questionId}")
+    @ApiOperation(value = "사용자 질문 수정 api[아직 보내지지 않은 질문]")
+    public ResponseEntity<Void> updateQuestionWaiting(@PathVariable Long questionId, @RequestBody QuestionRequest questionRequest){
+        cafeQuestionService.updateWaiting(questionId, questionRequest);
+        return ResponseEntity.ok().build();
+    }
+
+//    @DeleteMapping("/my/question/{questionId}")
+//    @ApiOperation(value = "사용자 질문 삭제 api")
+//    public ResponseEntity<Void> deleteQuestion(@PathVariable Long cafeQuestionId){
+//        cafeQuestionService.delete(cafeQuestionId);
+//        return ResponseEntity.noContent().build();
+//    }
 }

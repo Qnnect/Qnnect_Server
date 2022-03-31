@@ -14,6 +14,7 @@ import com.qnnect.notification.repository.NotificationRepository;
 import com.qnnect.questions.domain.*;
 import com.qnnect.questions.dto.CafeQuestionResponse;
 import com.qnnect.questions.dto.QuestionDetailResponse;
+import com.qnnect.questions.dto.QuestionRequest;
 import com.qnnect.questions.dto.QuestionResponse;
 import com.qnnect.questions.repository.CafeQuestionRepository;
 import com.qnnect.questions.repository.CafeQuestionWaitingListRespository;
@@ -80,6 +81,14 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
         CafeQuestion cafeQuestion = cafeQuestionRepository.getById(cafeQuestionId);
         Question question = cafeQuestion.getQuestions();
         question.setContent(content);
+        questionRepository.save(question);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateWaiting(Long questionId, QuestionRequest questionRequest) {
+        Question question = questionRepository.getById(questionId);
+        question.setContent(questionRequest.getContent());
         questionRepository.save(question);
     }
 
