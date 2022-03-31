@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService{
     private final S3Uploader s3Uploader;
     private final CafeUserRepository cafeUserRepository;
     private final CafeQuestionRepository cafeQuestionRepository;
-    private final String defaultImage = "https://dev-qnnect-profile.s3.ap-northeast-2.amazonaws.com/profileDefault.png";
+    private final String defaultImage = "https://dev-qnnect-profile.s3.ap-northeast-2.amazonaws.com/profileDefault.svg";
     private final QuestionRepository questionRepository;
     private final ReportRepository reportRepository;
     private final CafeQuestionWaitingListRespository cafeQuestionWaitingListRespository;
