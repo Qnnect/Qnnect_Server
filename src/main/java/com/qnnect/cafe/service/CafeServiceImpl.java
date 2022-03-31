@@ -53,14 +53,15 @@ public class CafeServiceImpl implements CafeService {
     @Transactional
     public CafeDetailResponse joinCafe(String code, User user){
         Cafe cafe = cafeRepository.findByCode(code).orElseThrow(()-> new CustomException(ErrorCode.INCORRECT_CAFE_CODE_EXCEPTION));
-        long memberNum = cafeUserRepository.countByCafe_Id(cafe.getId());
-
-        System.out.println(memberNum);
-        if(memberNum >= 5){
-            throw new CustomException(ErrorCode.CAFE_MEMBER_EXCEED_EXCEPTION);
+        if(cafeUserRepository.findByCafe_IdAndUser_Id(cafe.getId(), user.getId()) == null){
+            long memberNum = cafeUserRepository.countByCafe_Id(cafe.getId());
+            if(memberNum >= 5){
+                throw new CustomException(ErrorCode.CAFE_MEMBER_EXCEED_EXCEPTION);
+            }
+            System.out.println(memberNum);
+            cafeUserRepository.save(CafeUser.builder().cafe(cafe).user(user).build());
         }
 
-        cafeUserRepository.save(CafeUser.builder().cafe(cafe).user(user).build());
         CafeUser currentCafeUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafe.getId(), user.getId());
         List<Report> report = reportRepository.findAllByUserId(user.getId());
         List<Long> reportedUser = report.stream().map(Report::getReportedId).collect(Collectors.toList());
