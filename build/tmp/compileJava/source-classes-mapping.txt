@@ -333,11 +333,11 @@ com/qnnect/comments/domain/Comment.java
  com.qnnect.comments.domain.Comment$CommentBuilder
 com/qnnect/comments/service/ReplyService.java
  com.qnnect.comments.service.ReplyService
-com/qnnect/cafe/api/CafeController.java
- com.qnnect.cafe.api.CafeController
 com/qnnect/cafe/dto/CafeUserResponse.java
  com.qnnect.cafe.dto.CafeUserResponse
  com.qnnect.cafe.dto.CafeUserResponse$CafeUserResponseBuilder
+com/qnnect/cafe/api/CafeController.java
+ com.qnnect.cafe.api.CafeController
 com/qnnect/cafe/service/CafeService.java
  com.qnnect.cafe.service.CafeService
 com/qnnect/cafe/service/CafeServiceImpl.java
