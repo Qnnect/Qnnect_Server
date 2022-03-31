@@ -22,4 +22,5 @@ public interface CafeQuestionService {
     CafeQuestionResponse searchCafeQuestions(Long cafeId, String word,Pageable pageable);
     public void sendCafeQuestions(List<Cafe> filteredCafe);
     public void updateWaiting(Long questionId, QuestionRequest questionRequest);
+    public void deleteWaiting(Long questionId);
 }

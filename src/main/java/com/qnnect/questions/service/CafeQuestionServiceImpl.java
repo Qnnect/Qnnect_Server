@@ -100,6 +100,14 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
         questionRepository.deleteById(question.getId());
     }
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteWaiting(Long questionId) {
+        Question question = questionRepository.getById(questionId);
+        questionRepository.deleteById(question.getId());
+    }
+
+
     @Transactional
     public QuestionDetailResponse getQuestion(Long cafeQuestionId, User user) {
         CafeQuestion cafeQuestion = cafeQuestionRepository.getById(cafeQuestionId);

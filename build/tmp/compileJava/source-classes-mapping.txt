@@ -342,7 +342,7 @@ com/qnnect/questions/service/Schedule.java
  com.qnnect.questions.service.Schedule
 com/qnnect/questions/service/CafeQuestionService.java
  com.qnnect.questions.service.CafeQuestionService
-com/qnnect/questions/apis/UserQuestionController.java
- com.qnnect.questions.apis.UserQuestionController
 com/qnnect/questions/dto/TodayQuestionResponse.java
  com.qnnect.questions.dto.TodayQuestionResponse
+com/qnnect/questions/apis/UserQuestionController.java
+ com.qnnect.questions.apis.UserQuestionController

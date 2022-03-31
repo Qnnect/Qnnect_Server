@@ -47,10 +47,10 @@ public class UserQuestionController {
         return ResponseEntity.ok().build();
     }
 
-//    @DeleteMapping("/my/question/{questionId}")
-//    @ApiOperation(value = "사용자 질문 삭제 api")
-//    public ResponseEntity<Void> deleteQuestion(@PathVariable Long cafeQuestionId){
-//        cafeQuestionService.delete(cafeQuestionId);
-//        return ResponseEntity.noContent().build();
-//    }
+    @DeleteMapping("/my/question/{questionId}")
+    @ApiOperation(value = "사용자 질문 삭제 api[아직 보내지지 않은 질문]")
+    public ResponseEntity<Void> deleteQuestionWaiting(@PathVariable Long questionId){
+        cafeQuestionService.deleteWaiting(questionId);
+        return ResponseEntity.noContent().build();
+    }
 }
