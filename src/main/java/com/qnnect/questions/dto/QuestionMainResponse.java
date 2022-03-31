@@ -24,6 +24,7 @@ public class QuestionMainResponse {
     @ApiModelProperty(value = "다이어리 질문 리스트 id", example = "1")
     private Long cafeQuestionId;
 
+    //string으로 처리 하자.
     @ApiModelProperty(value = "답변 가능 날 수")
     private long daysLeft;
 
@@ -32,6 +33,8 @@ public class QuestionMainResponse {
 
     @ApiModelProperty(value="카페 이름", example = "신사고 4인방")
     private String cafeTitle;
+
+
 
     public static QuestionMainResponse from(CafeQuestion cafeQuestion) {
         if(cafeQuestion == null){

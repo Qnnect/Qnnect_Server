@@ -9,7 +9,7 @@ import com.qnnect.comments.repository.ReplyRepository;
 import com.qnnect.common.S3Uploader;
 import com.qnnect.common.exception.CustomException;
 import com.qnnect.common.exception.ErrorCode;
-import com.qnnect.notification.FirebaseCloudMessageService;
+//import com.qnnect.notification.FirebaseCloudMessageService;
 import com.qnnect.notification.domain.ENotificationType;
 import com.qnnect.notification.domain.FcmToken;
 import com.qnnect.notification.domain.Notification;
@@ -50,7 +50,7 @@ public class CommentServiceImpl implements CommentService {
     private final UserRepository userRepository;
     private final ReplyRepository replyRepository;
     private final ReportRepository reportRepository;
-    private final FirebaseCloudMessageService firebaseCloudMessageService;
+//    private final FirebaseCloudMessageService firebaseCloudMessageService;
     private final FcmTokenRepository fcmTokenRepository;
     private final NotificationRepository notificationRepository;
 

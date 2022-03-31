@@ -5,6 +5,9 @@ import com.qnnect.questions.domain.CafeQuestionWaitingList;
 import lombok.Builder;
 import lombok.Getter;
 
+
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,6 +32,7 @@ public class MyQuestionResponse {
         if(cafeQuestion == null){
             return null;
         }
+
         return MyQuestionResponse.builder()
                 .cafeQuestionId(cafeQuestion.getId())
                 .createdAt(cafeQuestion.getQuestions().getCreatedAt().toLocalDate())
@@ -38,6 +42,7 @@ public class MyQuestionResponse {
     }
 
     public static MyQuestionResponse fromWaitingList(CafeQuestionWaitingList cafeQuestionListWaitingList){
+
         return MyQuestionResponse.builder()
                 .createdAt(cafeQuestionListWaitingList.getCreatedAt().toLocalDate())
                 .question(cafeQuestionListWaitingList.getQuestion().getContent())
