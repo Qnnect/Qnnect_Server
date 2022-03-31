@@ -49,6 +49,9 @@ public class CafeDetailResponse {
             this.currentUserResponse = CafeUserResponse.from(currentCafeUser,null);
         }
         this.cafeQuestionResponseList = CafeQuestionResponse.listFrom(entity.getCafeQuestions(), user, reportedId);
+        for(int i=0; i< entity.getCafeUsers().size(); i++){
+            System.out.println(entity.getCafeUsers().get(i).getUser().getNickName());
+        }
         this.cafeUserResponseList = CafeUserResponse.listFrom(entity.getCafeUsers(), currentCafeUser, reportedId);
     }
 }

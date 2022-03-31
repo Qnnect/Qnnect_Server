@@ -41,12 +41,23 @@ public class CafeUserResponse {
 
     public static List<CafeUserResponse> listFrom(List<CafeUser> cafeUsers,
                                                   CafeUser currentCafeUser, List<Long> reportedId) {
-        
-        return cafeUsers.stream()
+
+        List<CafeUserResponse> cafeUserResponseList = new ArrayList<>();
+
+        cafeUserResponseList.addAll((cafeUsers.stream()
+                .filter(cafeUser -> cafeUser.getUser() != currentCafeUser.getUser())
+                .filter(cafeUser ->  !reportedId.contains(cafeUser.getUser().getReportId()))
+                .filter(cafeUser -> cafeUser.getUserDrinkSelected().size() == 0)
+                .map(cafeUser -> from(cafeUser,null))
+                .collect(Collectors.toList())));
+
+        cafeUserResponseList.addAll(cafeUsers.stream()
                 .filter(cafeUser -> cafeUser.getUser() != currentCafeUser.getUser())
                 .filter(cafeUser ->  !reportedId.contains(cafeUser.getUser().getReportId()))
                 .filter(cafeUser -> cafeUser.getUserDrinkSelected().size() != 0)
                 .map(cafeUser -> from(cafeUser,cafeUser.getUserDrinkSelected().get(cafeUser.getUserDrinkSelected().size()-1)))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
+
+        return cafeUserResponseList;
     }
 }
