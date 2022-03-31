@@ -105,9 +105,8 @@ com/qnnect/ingredients/domain/UserIngredient.java
  com.qnnect.ingredients.domain.UserIngredient$UserIngredientBuilder
 com/qnnect/questions/repository/CafeQuestionWaitingListRespository.java
  com.qnnect.questions.repository.CafeQuestionWaitingListRespository
-com/qnnect/questions/dto/MyQuestionResponse.java
- com.qnnect.questions.dto.MyQuestionResponse
- com.qnnect.questions.dto.MyQuestionResponse$MyQuestionResponseBuilder
+com/qnnect/questions/dto/TodayQuestionResponse.java
+ com.qnnect.questions.dto.TodayQuestionResponse
 com/qnnect/comments/dtos/CommentUpdateRequest.java
  com.qnnect.comments.dtos.CommentUpdateRequest
  com.qnnect.comments.dtos.CommentUpdateRequest$CommentUpdateRequestBuilder
@@ -165,8 +164,8 @@ com/qnnect/questions/domain/CafeQuestion.java
 com/qnnect/auth/dto/TokenReissue.java
  com.qnnect.auth.dto.TokenReissue
  com.qnnect.auth.dto.TokenReissue$TokenReissueBuilder
-com/qnnect/user/service/UserServiceImpl.java
- com.qnnect.user.service.UserServiceImpl
+com/qnnect/questions/apis/UserQuestionController.java
+ com.qnnect.questions.apis.UserQuestionController
 com/qnnect/ingredients/service/IngredientService.java
  com.qnnect.ingredients.service.IngredientService
 com/qnnect/user/domain/Report.java
@@ -342,7 +341,8 @@ com/qnnect/questions/service/Schedule.java
  com.qnnect.questions.service.Schedule
 com/qnnect/questions/service/CafeQuestionService.java
  com.qnnect.questions.service.CafeQuestionService
-com/qnnect/questions/dto/TodayQuestionResponse.java
- com.qnnect.questions.dto.TodayQuestionResponse
-com/qnnect/questions/apis/UserQuestionController.java
- com.qnnect.questions.apis.UserQuestionController
+com/qnnect/user/service/UserServiceImpl.java
+ com.qnnect.user.service.UserServiceImpl
+com/qnnect/questions/dto/MyQuestionResponse.java
+ com.qnnect.questions.dto.MyQuestionResponse
+ com.qnnect.questions.dto.MyQuestionResponse$MyQuestionResponseBuilder

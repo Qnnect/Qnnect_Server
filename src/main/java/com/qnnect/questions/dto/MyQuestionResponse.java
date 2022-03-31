@@ -27,6 +27,8 @@ public class MyQuestionResponse {
 
     private String cafeTitle;
 
+    private boolean isWaitingList;
+
 
     public static MyQuestionResponse fromCafeQuestion(CafeQuestion cafeQuestion){
         if(cafeQuestion == null){
@@ -37,6 +39,7 @@ public class MyQuestionResponse {
                 .cafeQuestionId(cafeQuestion.getId())
                 .createdAt(cafeQuestion.getQuestions().getCreatedAt().toLocalDate())
                 .question(cafeQuestion.getQuestions().getContent())
+                .isWaitingList(false)
                 .cafeTitle(cafeQuestion.getCafe().getTitle())
                 .build();
     }
@@ -45,6 +48,8 @@ public class MyQuestionResponse {
 
         return MyQuestionResponse.builder()
                 .createdAt(cafeQuestionListWaitingList.getCreatedAt().toLocalDate())
+                .isWaitingList(true)
+                .cafeQuestionId(cafeQuestionListWaitingList.getQuestion().getId())
                 .question(cafeQuestionListWaitingList.getQuestion().getContent())
                 .cafeTitle(cafeQuestionListWaitingList.getCafe().getTitle())
                 .build();
