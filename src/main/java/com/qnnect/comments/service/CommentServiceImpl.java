@@ -93,16 +93,16 @@ public class CommentServiceImpl implements CommentService {
                     .groupName(comment.getCafeQuestion().getCafe().getTitle()).build();
             notificationRepository.save(notification);
         }
-        FcmToken fcmToken = fcmTokenRepository.findByUserId(questioner.getId())
-                .orElseThrow(()-> new CustomException(ErrorCode.INVALID_AUTH_TOKEN));
-        try{
-            firebaseCloudMessageService.sendMessageTo(
-                    "eWzr9l34QcituJnZa7L7_b:APA91bEZ-UJleC9iPFL5m6DE6x5FqOuIPhgIJk4y7iRyUrUJJQ8pcq0RxsZgBfvLQwecqtF6piCcMCn7KtYIIc6hA3oZWAuizVZvl7GJjSi1cdnd3fhlhvJhtmBcpReN9wCARyAybhkL",
-                    "📮내 답변에 댓글이 달렸어요! 댓글을 보러 가볼까요?",
-                    comment.getContent());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        FcmToken fcmToken = fcmTokenRepository.findByUserId(questioner.getId())
+//                .orElseThrow(()-> new CustomException(ErrorCode.INVALID_AUTH_TOKEN));
+//        try{
+//            firebaseCloudMessageService.sendMessageTo(
+//                    "eWzr9l34QcituJnZa7L7_b:APA91bEZ-UJleC9iPFL5m6DE6x5FqOuIPhgIJk4y7iRyUrUJJQ8pcq0RxsZgBfvLQwecqtF6piCcMCn7KtYIIc6hA3oZWAuizVZvl7GJjSi1cdnd3fhlhvJhtmBcpReN9wCARyAybhkL",
+//                    "📮내 답변에 댓글이 달렸어요! 댓글을 보러 가볼까요?",
+//                    comment.getContent());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
     }
 
