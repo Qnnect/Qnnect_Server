@@ -330,8 +330,8 @@ com/qnnect/comments/dtos/ContentDto.java
 com/qnnect/drink/domain/UserDrinkSelected.java
  com.qnnect.drink.domain.UserDrinkSelected
  com.qnnect.drink.domain.UserDrinkSelected$UserDrinkSelectedBuilder
-com/qnnect/comments/service/CommentServiceImpl.java
- com.qnnect.comments.service.CommentServiceImpl
+com/qnnect/config/SecurityConfig.java
+ com.qnnect.config.SecurityConfig
 com/qnnect/auth/token/RefreshTokenRepository.java
  com.qnnect.auth.token.RefreshTokenRepository
 com/qnnect/common/S3Uploader.java
@@ -354,5 +354,5 @@ com/qnnect/version/VersionInfoRepository.java
  com.qnnect.version.VersionInfoRepository
 com/qnnect/version/VersionController.java
  com.qnnect.version.VersionController
-com/qnnect/config/SecurityConfig.java
- com.qnnect.config.SecurityConfig
+com/qnnect/comments/service/CommentServiceImpl.java
+ com.qnnect.comments.service.CommentServiceImpl
