@@ -114,8 +114,8 @@ com/qnnect/common/CurrentUser.java
  com.qnnect.common.CurrentUser
 com/qnnect/drink/repository/DrinkIngredientsFilledRepository.java
  com.qnnect.drink.repository.DrinkIngredientsFilledRepository
-com/qnnect/version/VersionService.java
- com.qnnect.version.VersionService
+com/qnnect/likes/UserLikeQuestionService.java
+ com.qnnect.likes.UserLikeQuestionService
 com/qnnect/user/dtos/ReportResponse.java
  com.qnnect.user.dtos.ReportResponse
 com/qnnect/cafe/repository/CafeRepository.java
@@ -129,8 +129,8 @@ com/qnnect/notification/FcmMessage.java
  com.qnnect.notification.FcmMessage$Message$MessageBuilder
  com.qnnect.notification.FcmMessage$Notification
  com.qnnect.notification.FcmMessage$Notification$NotificationBuilder
-com/qnnect/version/VersionInfo.java
- com.qnnect.version.VersionInfo
+com/qnnect/questions/service/QuestionServiceImpl.java
+ com.qnnect.questions.service.QuestionServiceImpl
 com/qnnect/user/dtos/ProfileResponse.java
  com.qnnect.user.dtos.ProfileResponse
 com/qnnect/cafe/service/CafeService.java
@@ -147,8 +147,8 @@ com/qnnect/notification/repository/FcmTokenRepository.java
  com.qnnect.notification.repository.FcmTokenRepository
 com/qnnect/scrap/apis/ScrapController.java
  com.qnnect.scrap.apis.ScrapController
-com/qnnect/version/VersionController.java
- com.qnnect.version.VersionController
+com/qnnect/version/VersionInfo.java
+ com.qnnect.version.VersionInfo
 com/qnnect/auth/token/TokenService.java
  com.qnnect.auth.token.TokenService
 com/qnnect/comments/dtos/CommentResponse.java
@@ -236,8 +236,8 @@ com/qnnect/questions/dto/CafeQuestionResponse.java
  com.qnnect.questions.dto.CafeQuestionResponse$CafeQuestionResponseBuilder
 com/qnnect/cafe/api/CafeController.java
  com.qnnect.cafe.api.CafeController
-com/qnnect/version/VersionRepository.java
- com.qnnect.version.VersionRepository
+com/qnnect/cafe/dto/CafeDetailResponse.java
+ com.qnnect.cafe.dto.CafeDetailResponse
 com/qnnect/cafe/domain/CafeUser.java
  com.qnnect.cafe.domain.CafeUser
  com.qnnect.cafe.domain.CafeUser$CafeUserBuilder
@@ -292,8 +292,8 @@ com/qnnect/scrap/service/ScrapServiceImpl.java
  com.qnnect.scrap.service.ScrapServiceImpl
 com/qnnect/drink/domain/DrinkRecipe.java
  com.qnnect.drink.domain.DrinkRecipe
-com/qnnect/config/SecurityConfig.java
- com.qnnect.config.SecurityConfig
+com/qnnect/version/VersionService.java
+ com.qnnect.version.VersionService
 com/qnnect/questions/dto/QuestionResponse.java
  com.qnnect.questions.dto.QuestionResponse
  com.qnnect.questions.dto.QuestionResponse$QuestionResponseBuilder
@@ -350,9 +350,9 @@ com/qnnect/config/WebClientConfig.java
  com.qnnect.config.WebClientConfig
 com/qnnect/auth/UserNotFoundException.java
  com.qnnect.auth.UserNotFoundException
-com/qnnect/likes/UserLikeQuestionService.java
- com.qnnect.likes.UserLikeQuestionService
-com/qnnect/questions/service/QuestionServiceImpl.java
- com.qnnect.questions.service.QuestionServiceImpl
-com/qnnect/cafe/dto/CafeDetailResponse.java
- com.qnnect.cafe.dto.CafeDetailResponse
+com/qnnect/version/VersionInfoRepository.java
+ com.qnnect.version.VersionInfoRepository
+com/qnnect/version/VersionController.java
+ com.qnnect.version.VersionController
+com/qnnect/config/SecurityConfig.java
+ com.qnnect.config.SecurityConfig

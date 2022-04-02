@@ -1,20 +1,16 @@
 package com.qnnect.version;
 
-import com.qnnect.ingredients.domain.Ingredient;
-import com.qnnect.ingredients.dto.IngredientResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class VersionService {
 
-    private final VersionRepository versionRepository;
+    private final VersionInfoRepository versionRepository;
 
     public Boolean checkIsVersionValid(EOs os, String currentVersion){
-        VersionInfo latestVersion = versionRepository.findTop1ByOsOrderByCreatedAtDesc(os.toString());
+        VersionInfo latestVersion = versionRepository.findTop1ByOsOrderByIdDesc(os);
         return (latestVersion.getVersion().equals(currentVersion)) ? true : false;
     }
 }

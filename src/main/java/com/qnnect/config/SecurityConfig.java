@@ -40,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .antMatchers(
                         "/api/v1/auth/**",
+                        "/api/v1/version",
                         "/auth/**",
                         "/token/**").permitAll()
                 .anyRequest().authenticated()

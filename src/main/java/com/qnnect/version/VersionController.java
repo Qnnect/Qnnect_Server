@@ -20,7 +20,7 @@ public class VersionController {
 
     private final VersionService versionService;
 
-    @ApiOperation(value = "android 버전 정보 확인 api")
+    @ApiOperation(value = "버전 정보 확인 api")
     @GetMapping("/version")
     public ResponseEntity<Boolean> checkVersionInfo(@RequestParam EOs osType, @RequestParam String currentVersion){
         return ResponseEntity.ok(versionService.checkIsVersionValid(osType, currentVersion));
