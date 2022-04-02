@@ -9,7 +9,7 @@ import com.qnnect.comments.repository.ReplyRepository;
 import com.qnnect.common.S3Uploader;
 import com.qnnect.common.exception.CustomException;
 import com.qnnect.common.exception.ErrorCode;
-//import com.qnnect.notification.FirebaseCloudMessageService;
+import com.qnnect.notification.FirebaseCloudMessageService;
 import com.qnnect.notification.domain.ENotificationType;
 import com.qnnect.notification.domain.FcmToken;
 import com.qnnect.notification.domain.Notification;
@@ -50,7 +50,7 @@ public class CommentServiceImpl implements CommentService {
     private final UserRepository userRepository;
     private final ReplyRepository replyRepository;
     private final ReportRepository reportRepository;
-//    private final FirebaseCloudMessageService firebaseCloudMessageService;
+    private final FirebaseCloudMessageService firebaseCloudMessageService;
     private final FcmTokenRepository fcmTokenRepository;
     private final NotificationRepository notificationRepository;
 
@@ -95,14 +95,14 @@ public class CommentServiceImpl implements CommentService {
         }
 //        FcmToken fcmToken = fcmTokenRepository.findByUserId(questioner.getId())
 //                .orElseThrow(()-> new CustomException(ErrorCode.INVALID_AUTH_TOKEN));
-//        try{
-//            firebaseCloudMessageService.sendMessageTo(
-//                    "eWzr9l34QcituJnZa7L7_b:APA91bEZ-UJleC9iPFL5m6DE6x5FqOuIPhgIJk4y7iRyUrUJJQ8pcq0RxsZgBfvLQwecqtF6piCcMCn7KtYIIc6hA3oZWAuizVZvl7GJjSi1cdnd3fhlhvJhtmBcpReN9wCARyAybhkL",
-//                    "📮내 답변에 댓글이 달렸어요! 댓글을 보러 가볼까요?",
-//                    comment.getContent());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try{
+            firebaseCloudMessageService.sendMessageTo(
+                    "fAhvgSmVfk79kmSSacge6G:APA91bEG6hMWWcsIfZE3vN9MMsdZfvsRJ87ia9WNvm2oPt4a6EwxhabvrA3zcT1jeL90tu3pkhr2MTL45ShA30SdSt8L5257JvDnP2o97oVskTqr2yKhTxWzPVweiLB5h3LUrtFIEV6x",
+                    "📮내 답변에 댓글이 달렸어요! 댓글을 보러 가볼까요?",
+                    comment.getContent());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
