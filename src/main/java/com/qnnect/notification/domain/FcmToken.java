@@ -1,6 +1,7 @@
 package com.qnnect.notification.domain;
 
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,4 +27,10 @@ public class FcmToken {
     private UUID userId;
 
     private String token;
+
+    @Builder
+    public FcmToken(UUID userId, String token){
+        this.userId = userId;
+        this.token = token;
+    }
 }

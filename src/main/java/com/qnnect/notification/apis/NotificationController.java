@@ -38,4 +38,11 @@ public class NotificationController {
         notificationService.setNotificationRead(notificationId);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/notification/token")
+    @ApiOperation(value = "토큰 저장 api")
+    public ResponseEntity<Void> getNotificationList(@ApiIgnore @CurrentUser User user, @RequestParam String fcmToken){
+        notificationService.saveToken(user, fcmToken);
+        return ResponseEntity.ok().build();
+    }
 }

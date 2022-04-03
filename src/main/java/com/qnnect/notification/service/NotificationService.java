@@ -10,5 +10,6 @@ public interface NotificationService {
 
     public List<NotificationResponse> getNotification(User user, Pageable pageable);
     public void setNotificationRead(long notificationId);
+    public void saveToken(User user, String token);
 
 }

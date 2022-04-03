@@ -3,8 +3,10 @@ package com.qnnect.notification.service;
 
 import com.qnnect.common.exception.CustomException;
 import com.qnnect.common.exception.ErrorCode;
+import com.qnnect.notification.domain.FcmToken;
 import com.qnnect.notification.domain.Notification;
 import com.qnnect.notification.dto.NotificationResponse;
+import com.qnnect.notification.repository.FcmTokenRepository;
 import com.qnnect.notification.repository.NotificationRepository;
 import com.qnnect.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.List;
 public class NotificationServiceImpl implements NotificationService{
 
     private final NotificationRepository notificationRepository;
+    private final FcmTokenRepository fcmTokenRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -33,5 +36,10 @@ public class NotificationServiceImpl implements NotificationService{
                 .orElseThrow(()-> new CustomException(ErrorCode.NOTIFICATION_NOT_FOUND));
         notification.setUserChecked(true);
         notificationRepository.save(notification);
+    }
+
+    public void saveToken(User user, String token){
+        fcmTokenRepository.save(FcmToken.builder().userId(user.getId())
+                .token(token).build());
     }
 }
