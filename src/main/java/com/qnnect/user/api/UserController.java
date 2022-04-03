@@ -1,12 +1,10 @@
 package com.qnnect.user.api;
 
-import com.qnnect.cafe.domain.EGroupType;
 import com.qnnect.cafe.dto.CafeScrapResponse;
 import com.qnnect.common.CurrentUser;
 import com.qnnect.drink.dtos.StampResponse;
 import com.qnnect.drink.service.DrinkService;
 import com.qnnect.questions.dto.MyQuestionResponse;
-import com.qnnect.questions.dto.QuestionResponse;
 import com.qnnect.user.dtos.MainResponse;
 import com.qnnect.user.dtos.ReportResponse;
 import com.qnnect.user.service.UserService;
@@ -60,6 +58,12 @@ public class UserController {
     public ResponseEntity<Void> enableNotification(@ApiIgnore @CurrentUser User user, boolean enableNotification) {
         userService.enableNotification(user, enableNotification);
         return ResponseEntity.ok().build();
+    }
+
+    @ApiOperation(value = "알림 설정 여부 확인 api")
+    @GetMapping("/user/enablenotification")
+    public boolean isEnableNotification(@ApiIgnore @CurrentUser User user) {
+        return user.isPushEnabled();
     }
 
     @ApiOperation(value = "메인 화면")
