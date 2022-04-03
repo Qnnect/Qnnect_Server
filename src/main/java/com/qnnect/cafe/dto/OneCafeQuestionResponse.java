@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Builder
 @Getter
 @ApiModel(value = "카페 질문")
-public class CafeQuestionResponse {
+public class OneCafeQuestionResponse {
 
     private LocalDate createdAt;
     private long daysLeft;
@@ -26,9 +26,9 @@ public class CafeQuestionResponse {
     private String question;
     private boolean isWriter;
 
-    public static CafeQuestionResponse from(CafeQuestion cafeQuestion, User user) {
+    public static OneCafeQuestionResponse from(CafeQuestion cafeQuestion, User user) {
 
-        return CafeQuestionResponse.builder()
+        return OneCafeQuestionResponse.builder()
                 .createdAt(cafeQuestion.getCreatedAt().toLocalDate())
                 .cafeQuestionId(cafeQuestion.getId())
                 .daysLeft(calculateDaysLeft(cafeQuestion))
@@ -66,15 +66,15 @@ public class CafeQuestionResponse {
         return daysLeft;
     }
 
-    public static List<CafeQuestionResponse> listFrom(List<CafeQuestion> cafeQuestionList,
-                                                      User user, List<Long> reportId) {
+    public static List<OneCafeQuestionResponse> listFrom(List<CafeQuestion> cafeQuestionList,
+                                                         User user, List<Long> reportId) {
         if(cafeQuestionList == null){
             return null;
         }
         return cafeQuestionList.stream()
                 .filter(cafeQuestion -> cafeQuestion.getQuestions().getQuestionerType()==EQuestionerType.admin ||
                         !reportId.contains(cafeQuestion.getQuestions().getUser().getReportId()))
-                .map((cafeQuestion) -> CafeQuestionResponse.from(cafeQuestion, user))
+                .map((cafeQuestion) -> OneCafeQuestionResponse.from(cafeQuestion, user))
                 .collect(Collectors.toList());
     }
 }

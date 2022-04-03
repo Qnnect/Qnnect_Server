@@ -14,9 +14,9 @@ com/qnnect/notification/FcmMessage.java
 com/qnnect/drink/dtos/DrinkResponse.java
  com.qnnect.drink.dtos.DrinkResponse
  com.qnnect.drink.dtos.DrinkResponse$DrinkResponseBuilder
-com/qnnect/cafe/dto/CafeQuestionResponse.java
- com.qnnect.cafe.dto.CafeQuestionResponse
- com.qnnect.cafe.dto.CafeQuestionResponse$CafeQuestionResponseBuilder
+com/qnnect/comments/dtos/CommentDetailResponse.java
+ com.qnnect.comments.dtos.CommentDetailResponse
+ com.qnnect.comments.dtos.CommentDetailResponse$CommentDetailResponseBuilder
 com/qnnect/comments/dtos/ReplyResponse.java
  com.qnnect.comments.dtos.ReplyResponse
  com.qnnect.comments.dtos.ReplyResponse$ReplyResponseBuilder
@@ -33,8 +33,8 @@ com/qnnect/cafe/domain/EDiaryColor.java
  com.qnnect.cafe.domain.EDiaryColor
 com/qnnect/questions/domain/EQuestionType.java
  com.qnnect.questions.domain.EQuestionType
-com/qnnect/ingredients/service/IngredientServiceImpl.java
- com.qnnect.ingredients.service.IngredientServiceImpl
+com/qnnect/auth/AuthUserService.java
+ com.qnnect.auth.AuthUserService
 com/qnnect/auth/token/TokenValidFailedException.java
  com.qnnect.auth.token.TokenValidFailedException
 com/qnnect/drink/service/DrinkServiceImpl.java
@@ -50,15 +50,14 @@ com/qnnect/questions/repository/QuestionRepository.java
 com/qnnect/ingredients/dto/IngredientResponse.java
  com.qnnect.ingredients.dto.IngredientResponse
  com.qnnect.ingredients.dto.IngredientResponse$IngredientResponseBuilder
-com/qnnect/ingredients/dto/MyIngredientResponse.java
- com.qnnect.ingredients.dto.MyIngredientResponse
- com.qnnect.ingredients.dto.MyIngredientResponse$MyIngredientResponseBuilder
+com/qnnect/comments/dtos/ContentDto.java
+ com.qnnect.comments.dtos.ContentDto
 com/qnnect/QnnectApplication.java
  com.qnnect.QnnectApplication
-com/qnnect/questions/apis/UserQuestionController.java
- com.qnnect.questions.apis.UserQuestionController
-com/qnnect/cafe/service/CafeServiceImpl.java
- com.qnnect.cafe.service.CafeServiceImpl
+com/qnnect/drink/repository/DrinkRecipeRepository.java
+ com.qnnect.drink.repository.DrinkRecipeRepository
+com/qnnect/drink/service/DrinkService.java
+ com.qnnect.drink.service.DrinkService
 com/qnnect/drink/repository/DrinkRepository.java
  com.qnnect.drink.repository.DrinkRepository
 com/qnnect/common/exception/ErrorCode.java
@@ -74,8 +73,8 @@ com/qnnect/auth/client/ClientApple.java
  com.qnnect.auth.client.ClientApple
 com/qnnect/auth/token/Token.java
  com.qnnect.auth.token.Token
-com/qnnect/questions/service/Schedule.java
- com.qnnect.questions.service.Schedule
+com/qnnect/auth/token/RefreshTokenRepository.java
+ com.qnnect.auth.token.RefreshTokenRepository
 com/qnnect/common/domain/BaseTimeEntity.java
  com.qnnect.common.domain.BaseTimeEntity
 com/qnnect/likes/UserLikeQuestionRepository.java
@@ -132,10 +131,10 @@ com/qnnect/questions/service/QuestionServiceImpl.java
  com.qnnect.questions.service.QuestionServiceImpl
 com/qnnect/user/dtos/ProfileResponse.java
  com.qnnect.user.dtos.ProfileResponse
-com/qnnect/cafe/service/CafeService.java
- com.qnnect.cafe.service.CafeService
-com/qnnect/drink/dtos/CafeDrinkIngredientResponse.java
- com.qnnect.drink.dtos.CafeDrinkIngredientResponse
+com/qnnect/auth/AuthController.java
+ com.qnnect.auth.AuthController
+com/qnnect/user/api/UserController.java
+ com.qnnect.user.api.UserController
 com/qnnect/drink/service/CafeDrinkService.java
  com.qnnect.drink.service.CafeDrinkService
 com/qnnect/ingredients/apis/IngredientController.java
@@ -150,9 +149,9 @@ com/qnnect/version/VersionInfo.java
  com.qnnect.version.VersionInfo
 com/qnnect/auth/token/TokenService.java
  com.qnnect.auth.token.TokenService
-com/qnnect/comments/dtos/CommentResponse.java
- com.qnnect.comments.dtos.CommentResponse
- com.qnnect.comments.dtos.CommentResponse$CommentResponseBuilder
+com/qnnect/drink/domain/UserDrinkSelected.java
+ com.qnnect.drink.domain.UserDrinkSelected
+ com.qnnect.drink.domain.UserDrinkSelected$UserDrinkSelectedBuilder
 com/qnnect/cafe/dto/CafeScrapResponse.java
  com.qnnect.cafe.dto.CafeScrapResponse
  com.qnnect.cafe.dto.CafeScrapResponse$CafeScrapResponseBuilder
@@ -203,8 +202,8 @@ com/qnnect/user/dtos/CafeProfileResponse.java
  com.qnnect.user.dtos.CafeProfileResponse
 com/qnnect/auth/ELoginType.java
  com.qnnect.auth.ELoginType
-com/qnnect/questions/apis/QuestionController.java
- com.qnnect.questions.apis.QuestionController
+com/qnnect/config/SecurityConfig.java
+ com.qnnect.config.SecurityConfig
 com/qnnect/questions/domain/EQuestionerType.java
  com.qnnect.questions.domain.EQuestionerType
 com/qnnect/cafe/domain/Cafe.java
@@ -215,11 +214,10 @@ com/qnnect/drink/dtos/DrinkIngredientsFilledResponse.java
  com.qnnect.drink.dtos.DrinkIngredientsFilledResponse$DrinkIngredientsFilledResponseBuilder
 com/qnnect/drink/service/CafeDrinkServiceImpl.java
  com.qnnect.drink.service.CafeDrinkServiceImpl
-com/qnnect/questions/dto/QuestionMainResponse.java
- com.qnnect.questions.dto.QuestionMainResponse
- com.qnnect.questions.dto.QuestionMainResponse$QuestionMainResponseBuilder
-com/qnnect/questions/dto/QuestionDetailResponse.java
- com.qnnect.questions.dto.QuestionDetailResponse
+com/qnnect/comments/service/CommentService.java
+ com.qnnect.comments.service.CommentService
+com/qnnect/comments/service/CommentServiceImpl.java
+ com.qnnect.comments.service.CommentServiceImpl
 com/qnnect/auth/token/RefreshToken.java
  com.qnnect.auth.token.RefreshToken
  com.qnnect.auth.token.RefreshToken$RefreshTokenBuilder
@@ -233,10 +231,11 @@ com/qnnect/auth/client/ClientKakao.java
 com/qnnect/questions/dto/CafeQuestionResponse.java
  com.qnnect.questions.dto.CafeQuestionResponse
  com.qnnect.questions.dto.CafeQuestionResponse$CafeQuestionResponseBuilder
-com/qnnect/cafe/api/CafeController.java
- com.qnnect.cafe.api.CafeController
-com/qnnect/cafe/dto/CafeDetailResponse.java
- com.qnnect.cafe.dto.CafeDetailResponse
+com/qnnect/common/S3Uploader.java
+ com.qnnect.common.S3Uploader
+com/qnnect/scrap/domain/Scrap.java
+ com.qnnect.scrap.domain.Scrap
+ com.qnnect.scrap.domain.Scrap$ScrapBuilder
 com/qnnect/cafe/domain/CafeUser.java
  com.qnnect.cafe.domain.CafeUser
  com.qnnect.cafe.domain.CafeUser$CafeUserBuilder
@@ -257,22 +256,22 @@ com/qnnect/user/service/UserServiceImpl.java
 com/qnnect/notification/domain/Notification.java
  com.qnnect.notification.domain.Notification
  com.qnnect.notification.domain.Notification$NotificationBuilder
-com/qnnect/questions/dto/TodayQuestionResponse.java
- com.qnnect.questions.dto.TodayQuestionResponse
+com/qnnect/drink/repository/UserDrinkSelectedRepository.java
+ com.qnnect.drink.repository.UserDrinkSelectedRepository
 com/qnnect/user/repositories/ReportRepository.java
  com.qnnect.user.repositories.ReportRepository
 com/qnnect/cafe/dto/DiaryMemberDrinks.java
  com.qnnect.cafe.dto.DiaryMemberDrinks
 com/qnnect/likes/UserLikeQuestionServiceImpl.java
  com.qnnect.likes.UserLikeQuestionServiceImpl
-com/qnnect/user/dtos/MainResponse.java
- com.qnnect.user.dtos.MainResponse
+com/qnnect/comments/api/CommentController.java
+ com.qnnect.comments.api.CommentController
 com/qnnect/likes/LikeRankingResponse.java
  com.qnnect.likes.LikeRankingResponse
 com/qnnect/version/EOs.java
  com.qnnect.version.EOs
-com/qnnect/questions/service/CafeQuestionService.java
- com.qnnect.questions.service.CafeQuestionService
+com/qnnect/user/repositories/UserRepository.java
+ com.qnnect.user.repositories.UserRepository
 com/qnnect/cafe/dto/CafeUserResponse.java
  com.qnnect.cafe.dto.CafeUserResponse
  com.qnnect.cafe.dto.CafeUserResponse$CafeUserResponseBuilder
@@ -317,42 +316,43 @@ com/qnnect/likes/UserLikeQuestion.java
 com/qnnect/questions/domain/Question.java
  com.qnnect.questions.domain.Question
  com.qnnect.questions.domain.Question$QuestionBuilder
-com/qnnect/scrap/domain/Scrap.java
- com.qnnect.scrap.domain.Scrap
- com.qnnect.scrap.domain.Scrap$ScrapBuilder
-com/qnnect/drink/repository/UserDrinkSelectedRepository.java
- com.qnnect.drink.repository.UserDrinkSelectedRepository
-com/qnnect/drink/service/DrinkService.java
- com.qnnect.drink.service.DrinkService
-com/qnnect/drink/repository/DrinkRecipeRepository.java
- com.qnnect.drink.repository.DrinkRecipeRepository
-com/qnnect/comments/dtos/ContentDto.java
- com.qnnect.comments.dtos.ContentDto
-com/qnnect/drink/domain/UserDrinkSelected.java
- com.qnnect.drink.domain.UserDrinkSelected
- com.qnnect.drink.domain.UserDrinkSelected$UserDrinkSelectedBuilder
-com/qnnect/config/SecurityConfig.java
- com.qnnect.config.SecurityConfig
-com/qnnect/auth/token/RefreshTokenRepository.java
- com.qnnect.auth.token.RefreshTokenRepository
-com/qnnect/common/S3Uploader.java
- com.qnnect.common.S3Uploader
-com/qnnect/user/repositories/UserRepository.java
- com.qnnect.user.repositories.UserRepository
-com/qnnect/user/api/UserController.java
- com.qnnect.user.api.UserController
-com/qnnect/auth/AuthController.java
- com.qnnect.auth.AuthController
+com/qnnect/questions/dto/QuestionMainResponse.java
+ com.qnnect.questions.dto.QuestionMainResponse
+ com.qnnect.questions.dto.QuestionMainResponse$QuestionMainResponseBuilder
+com/qnnect/questions/dto/QuestionDetailResponse.java
+ com.qnnect.questions.dto.QuestionDetailResponse
+com/qnnect/user/dtos/MainResponse.java
+ com.qnnect.user.dtos.MainResponse
+com/qnnect/ingredients/service/IngredientServiceImpl.java
+ com.qnnect.ingredients.service.IngredientServiceImpl
+com/qnnect/questions/service/Schedule.java
+ com.qnnect.questions.service.Schedule
+com/qnnect/cafe/service/CafeService.java
+ com.qnnect.cafe.service.CafeService
+com/qnnect/drink/dtos/CafeDrinkIngredientResponse.java
+ com.qnnect.drink.dtos.CafeDrinkIngredientResponse
+com/qnnect/questions/service/CafeQuestionService.java
+ com.qnnect.questions.service.CafeQuestionService
+com/qnnect/cafe/api/CafeController.java
+ com.qnnect.cafe.api.CafeController
 com/qnnect/questions/service/CafeQuestionServiceImpl.java
  com.qnnect.questions.service.CafeQuestionServiceImpl
-com/qnnect/auth/AuthUserService.java
- com.qnnect.auth.AuthUserService
-com/qnnect/comments/api/CommentController.java
- com.qnnect.comments.api.CommentController
-com/qnnect/comments/service/CommentServiceImpl.java
- com.qnnect.comments.service.CommentServiceImpl
-com/qnnect/comments/service/CommentService.java
- com.qnnect.comments.service.CommentService
-com/qnnect/comments/dtos/CommentDetailResponse.java
- com.qnnect.comments.dtos.CommentDetailResponse
- com.qnnect.comments.dtos.CommentDetailResponse$CommentDetailResponseBuilder
+com/qnnect/questions/apis/QuestionController.java
+ com.qnnect.questions.apis.QuestionController
+com/qnnect/cafe/dto/OneCafeQuestionResponse.java
+ com.qnnect.cafe.dto.OneCafeQuestionResponse
+ com.qnnect.cafe.dto.OneCafeQuestionResponse$OneCafeQuestionResponseBuilder
+com/qnnect/comments/dtos/CommentResponse.java
+ com.qnnect.comments.dtos.CommentResponse
+ com.qnnect.comments.dtos.CommentResponse$CommentResponseBuilder
+com/qnnect/ingredients/dto/MyIngredientResponse.java
+ com.qnnect.ingredients.dto.MyIngredientResponse
+ com.qnnect.ingredients.dto.MyIngredientResponse$MyIngredientResponseBuilder
+com/qnnect/questions/apis/UserQuestionController.java
+ com.qnnect.questions.apis.UserQuestionController
+com/qnnect/cafe/service/CafeServiceImpl.java
+ com.qnnect.cafe.service.CafeServiceImpl
+com/qnnect/questions/dto/TodayQuestionResponse.java
+ com.qnnect.questions.dto.TodayQuestionResponse
+com/qnnect/cafe/dto/CafeDetailResponse.java
+ com.qnnect.cafe.dto.CafeDetailResponse

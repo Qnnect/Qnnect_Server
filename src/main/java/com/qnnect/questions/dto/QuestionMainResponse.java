@@ -1,8 +1,5 @@
 package com.qnnect.questions.dto;
 
-import com.qnnect.cafe.domain.Cafe;
-import com.qnnect.cafe.dto.CafeMainResponse;
-import com.qnnect.cafe.dto.CafeQuestionResponse;
 import com.qnnect.questions.domain.CafeQuestion;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,7 +8,6 @@ import lombok.Getter;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -1,15 +1,11 @@
 package com.qnnect.questions.dto;
 
-import com.qnnect.cafe.domain.Cafe;
-import com.qnnect.cafe.domain.CafeUser;
-import com.qnnect.cafe.dto.CafeQuestionResponse;
-import com.qnnect.cafe.dto.CafeUserResponse;
+import com.qnnect.cafe.dto.OneCafeQuestionResponse;
 import com.qnnect.comments.domain.Comment;
 import com.qnnect.comments.dtos.CommentResponse;
 import com.qnnect.questions.domain.CafeQuestion;
 import com.qnnect.user.domain.User;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -19,7 +15,7 @@ import java.util.List;
 @Getter
 public class QuestionDetailResponse {
 
-    private CafeQuestionResponse questionMainResponse;
+    private OneCafeQuestionResponse questionMainResponse;
 
     private boolean isLiked;
 
@@ -31,7 +27,7 @@ public class QuestionDetailResponse {
 
     public QuestionDetailResponse(CafeQuestion cafeQuestion, List<Comment> comments, User user, boolean isScraped,
                                   boolean isLiked, Comment currentUserComment, List<Long> reportId){
-        this.questionMainResponse = CafeQuestionResponse.from(cafeQuestion, user);
+        this.questionMainResponse = OneCafeQuestionResponse.from(cafeQuestion, user);
         this.isLiked = isLiked;
         this.isScraped = isScraped;
         this.currentUserComment = CommentResponse.from(currentUserComment);

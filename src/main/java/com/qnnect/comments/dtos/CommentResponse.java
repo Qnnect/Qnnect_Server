@@ -1,8 +1,6 @@
 package com.qnnect.comments.dtos;
 
-import com.qnnect.cafe.dto.CafeQuestionResponse;
 import com.qnnect.comments.domain.Comment;
-import com.qnnect.questions.domain.CafeQuestion;
 import com.qnnect.user.domain.User;
 import com.qnnect.user.dtos.ProfileResponse;
 import lombok.Builder;

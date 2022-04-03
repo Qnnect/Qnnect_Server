@@ -1,10 +1,7 @@
 package com.qnnect.ingredients.dto;
 
-import com.qnnect.cafe.dto.CafeQuestionResponse;
 import com.qnnect.ingredients.domain.EIngredientType;
 import com.qnnect.ingredients.domain.UserIngredient;
-import com.qnnect.questions.domain.CafeQuestion;
-import com.qnnect.user.domain.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;

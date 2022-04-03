@@ -2,6 +2,7 @@ package com.qnnect.questions.service;
 
 import com.qnnect.cafe.domain.Cafe;
 import com.qnnect.cafe.domain.CafeUser;
+import com.qnnect.cafe.dto.OneCafeQuestionResponse;
 import com.qnnect.cafe.repository.CafeRepository;
 import com.qnnect.cafe.repository.CafeUserRepository;
 import com.qnnect.comments.domain.Comment;
@@ -123,6 +124,12 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
         List<Report> report = reportRepository.findAllByUserId(user.getId());
         List<Long> reportedUser = report.stream().map(Report::getReportedId).collect(Collectors.toList());
         return new QuestionDetailResponse(cafeQuestion, comments, user, isScraped, isLiked, currentUserComment, reportedUser);
+    }
+
+    @Transactional
+    public OneCafeQuestionResponse getOneQuestion(Long cafeQuestionId, User user) {
+        CafeQuestion cafeQuestion = cafeQuestionRepository.getById(cafeQuestionId);
+        return OneCafeQuestionResponse.from(cafeQuestion, user);
     }
 
     @Override

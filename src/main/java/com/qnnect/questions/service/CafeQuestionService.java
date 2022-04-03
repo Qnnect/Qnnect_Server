@@ -1,6 +1,7 @@
 package com.qnnect.questions.service;
 
 import com.qnnect.cafe.domain.Cafe;
+import com.qnnect.cafe.dto.OneCafeQuestionResponse;
 import com.qnnect.questions.domain.Question;
 import com.qnnect.questions.dto.CafeQuestionResponse;
 import com.qnnect.questions.dto.QuestionDetailResponse;
@@ -23,4 +24,5 @@ public interface CafeQuestionService {
     public void sendCafeQuestions(List<Cafe> filteredCafe);
     public void updateWaiting(Long questionId, QuestionRequest questionRequest);
     public void deleteWaiting(Long questionId);
+    public OneCafeQuestionResponse getOneQuestion(Long cafeQuestionId, User user);
 }

@@ -1,6 +1,7 @@
 package com.qnnect.questions.apis;
 
 
+import com.qnnect.cafe.dto.OneCafeQuestionResponse;
 import com.qnnect.common.CurrentUser;
 import com.qnnect.questions.dto.CafeQuestionResponse;
 import com.qnnect.questions.dto.QuestionDetailResponse;
@@ -41,6 +42,14 @@ public class QuestionController {
             , @ApiIgnore @CurrentUser User user){
         QuestionDetailResponse questionDetailRespose = cafeQuestionService.getQuestion(cafeQuestionId,user);
         return ResponseEntity.ok(questionDetailRespose);
+    }
+
+    @GetMapping("/question/one/{cafeQuestionId}")
+    @ApiOperation(value = "질문 가져오기 api")
+    public ResponseEntity<OneCafeQuestionResponse> getOnlyQuestion(@PathVariable Long cafeQuestionId
+            , @ApiIgnore @CurrentUser User user){
+        OneCafeQuestionResponse cafeQuestionResponse = cafeQuestionService.getOneQuestion(cafeQuestionId,user);
+        return ResponseEntity.ok(cafeQuestionResponse);
     }
 
     @GetMapping("/question/cafes/{cafeId}/all")
