@@ -18,6 +18,7 @@ import java.util.List;
 public class CommentDetailResponse {
 
     Long commentId;
+    Long cafeQuestionId;
     LocalDate createdAt;
     ProfileResponse writerInfo;
     String content;
@@ -33,6 +34,7 @@ public class CommentDetailResponse {
 
         return CommentDetailResponse.builder()
                 .commentId(comment.getId())
+                .cafeQuestionId(comment.getCafeQuestion().getId())
                 .createdAt(comment.getCreatedAt().toLocalDate())
                 .writerInfo(ProfileResponse.from(comment.getUser()))
                 .content(comment.getContent())

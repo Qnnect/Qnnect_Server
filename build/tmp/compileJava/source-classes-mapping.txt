@@ -33,9 +33,8 @@ com/qnnect/cafe/domain/EDiaryColor.java
  com.qnnect.cafe.domain.EDiaryColor
 com/qnnect/questions/domain/EQuestionType.java
  com.qnnect.questions.domain.EQuestionType
-com/qnnect/comments/dtos/CommentDetailResponse.java
- com.qnnect.comments.dtos.CommentDetailResponse
- com.qnnect.comments.dtos.CommentDetailResponse$CommentDetailResponseBuilder
+com/qnnect/ingredients/service/IngredientServiceImpl.java
+ com.qnnect.ingredients.service.IngredientServiceImpl
 com/qnnect/auth/token/TokenValidFailedException.java
  com.qnnect.auth.token.TokenValidFailedException
 com/qnnect/drink/service/DrinkServiceImpl.java
@@ -180,8 +179,8 @@ com/qnnect/user/domain/Report.java
 com/qnnect/auth/dto/AuthResponse.java
  com.qnnect.auth.dto.AuthResponse
  com.qnnect.auth.dto.AuthResponse$AuthResponseBuilder
-com/qnnect/comments/api/CommentController.java
- com.qnnect.comments.api.CommentController
+com/qnnect/auth/UserDetailServiceImpl.java
+ com.qnnect.auth.UserDetailServiceImpl
 com/qnnect/ingredients/domain/Ingredient.java
  com.qnnect.ingredients.domain.Ingredient
 com/qnnect/common/exception/ErrorResponse.java
@@ -253,8 +252,8 @@ com/qnnect/notification/domain/ENotificationType.java
  com.qnnect.notification.domain.ENotificationType
 com/qnnect/auth/client/ClientProxy.java
  com.qnnect.auth.client.ClientProxy
-com/qnnect/comments/service/CommentService.java
- com.qnnect.comments.service.CommentService
+com/qnnect/user/service/UserServiceImpl.java
+ com.qnnect.user.service.UserServiceImpl
 com/qnnect/notification/domain/Notification.java
  com.qnnect.notification.domain.Notification
  com.qnnect.notification.domain.Notification$NotificationBuilder
@@ -348,11 +347,12 @@ com/qnnect/questions/service/CafeQuestionServiceImpl.java
  com.qnnect.questions.service.CafeQuestionServiceImpl
 com/qnnect/auth/AuthUserService.java
  com.qnnect.auth.AuthUserService
-com/qnnect/ingredients/service/IngredientServiceImpl.java
- com.qnnect.ingredients.service.IngredientServiceImpl
-com/qnnect/user/service/UserServiceImpl.java
- com.qnnect.user.service.UserServiceImpl
-com/qnnect/auth/UserDetailServiceImpl.java
- com.qnnect.auth.UserDetailServiceImpl
+com/qnnect/comments/api/CommentController.java
+ com.qnnect.comments.api.CommentController
 com/qnnect/comments/service/CommentServiceImpl.java
  com.qnnect.comments.service.CommentServiceImpl
+com/qnnect/comments/service/CommentService.java
+ com.qnnect.comments.service.CommentService
+com/qnnect/comments/dtos/CommentDetailResponse.java
+ com.qnnect.comments.dtos.CommentDetailResponse
+ com.qnnect.comments.dtos.CommentDetailResponse$CommentDetailResponseBuilder
