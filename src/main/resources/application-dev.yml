@@ -1,0 +1,3 @@
+firebase:
+  key:
+    "file:///home/ec2-user/app/firebase_server_key.json"

@@ -6,6 +6,7 @@ import com.qnnect.cafe.dto.CafeMainResponse;
 import com.qnnect.cafe.dto.CafeScrapResponse;
 import com.qnnect.cafe.repository.CafeUserRepository;
 import com.qnnect.common.S3Uploader;
+import com.qnnect.notification.repository.NotificationRepository;
 import com.qnnect.questions.domain.CafeQuestion;
 import com.qnnect.questions.domain.CafeQuestionWaitingList;
 import com.qnnect.questions.domain.Question;
@@ -48,6 +49,7 @@ public class UserServiceImpl implements UserService{
     private final QuestionRepository questionRepository;
     private final ReportRepository reportRepository;
     private final CafeQuestionWaitingListRespository cafeQuestionWaitingListRespository;
+    private final NotificationRepository notificationRepository;
 
     @Override
     public void enableNotification(User user, boolean enabledNotification) {
@@ -96,6 +98,7 @@ public class UserServiceImpl implements UserService{
         List<Cafe> cafeList = cafeUserList.stream().map(CafeUser::getCafe).collect(Collectors.toList());
         List<Long> cafeIdList = cafeList.stream().map(Cafe::getId).collect(Collectors.toList());
         List<CafeQuestion> todayQuestionList = getLatestQuestion(cafeIdList);
+//        boolean hasUnreadNotification = notificationRepository.existsByUserIdAndUserChecked(user, true);
 
         if(cafeUserList == null){
             return new MainResponse(user, null, null);

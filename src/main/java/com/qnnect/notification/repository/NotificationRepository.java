@@ -12,4 +12,5 @@ import java.util.UUID;
 @Repository
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
     List<Notification> findAllByUser_Id(@Param(value = "userId") UUID userId, Pageable pageable);
+    boolean existsByUserIdAndUserChecked(user, true);
 }

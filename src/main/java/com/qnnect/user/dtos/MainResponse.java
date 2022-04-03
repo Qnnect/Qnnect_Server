@@ -15,10 +15,12 @@ public class MainResponse {
     private ProfileResponse user;
     private List<QuestionMainResponse> questionTodayList;
     private List<CafeMainResponse> cafeMainResponseList;
+    private boolean hasUnreadNotification;
 
     public MainResponse(User user, List<Cafe> cafe, List<CafeQuestion> todayQuestionList){
 
         this.user = ProfileResponse.from(user);
+//        this.hasUnreadNotification =
 
         if(cafe == null){
             this.cafeMainResponseList = null;
