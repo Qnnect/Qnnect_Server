@@ -131,8 +131,8 @@ com/qnnect/ingredients/apis/IngredientController.java
  com.qnnect.ingredients.apis.IngredientController
 com/qnnect/auth/token/CurrentUserDetails.java
  com.qnnect.auth.token.CurrentUserDetails
-com/qnnect/notification/repository/FcmTokenRepository.java
- com.qnnect.notification.repository.FcmTokenRepository
+com/qnnect/cafe/dto/CafeDetailResponse.java
+ com.qnnect.cafe.dto.CafeDetailResponse
 com/qnnect/scrap/apis/ScrapController.java
  com.qnnect.scrap.apis.ScrapController
 com/qnnect/version/VersionController.java
@@ -297,8 +297,8 @@ com/qnnect/questions/service/CafeQuestionServiceImpl.java
  com.qnnect.questions.service.CafeQuestionServiceImpl
 com/qnnect/comments/repository/CommentRepository.java
  com.qnnect.comments.repository.CommentRepository
-com/qnnect/notification/service/NotificationServiceImpl.java
- com.qnnect.notification.service.NotificationServiceImpl
+com/qnnect/questions/service/QuestionServiceImpl.java
+ com.qnnect.questions.service.QuestionServiceImpl
 com/qnnect/drink/apis/DrinkController.java
  com.qnnect.drink.apis.DrinkController
 com/qnnect/user/api/UserController.java
@@ -322,8 +322,8 @@ com/qnnect/comments/dtos/ContentDto.java
 com/qnnect/drink/domain/UserDrinkSelected.java
  com.qnnect.drink.domain.UserDrinkSelected
  com.qnnect.drink.domain.UserDrinkSelected$UserDrinkSelectedBuilder
-com/qnnect/comments/service/CommentServiceImpl.java
- com.qnnect.comments.service.CommentServiceImpl
+com/qnnect/likes/UserLikeQuestionService.java
+ com.qnnect.likes.UserLikeQuestionService
 com/qnnect/auth/token/RefreshTokenRepository.java
  com.qnnect.auth.token.RefreshTokenRepository
 com/qnnect/common/S3Uploader.java
@@ -342,9 +342,9 @@ com/qnnect/config/WebClientConfig.java
  com.qnnect.config.WebClientConfig
 com/qnnect/auth/UserNotFoundException.java
  com.qnnect.auth.UserNotFoundException
-com/qnnect/likes/UserLikeQuestionService.java
- com.qnnect.likes.UserLikeQuestionService
-com/qnnect/questions/service/QuestionServiceImpl.java
- com.qnnect.questions.service.QuestionServiceImpl
-com/qnnect/cafe/dto/CafeDetailResponse.java
- com.qnnect.cafe.dto.CafeDetailResponse
+com/qnnect/notification/repository/FcmTokenRepository.java
+ com.qnnect.notification.repository.FcmTokenRepository
+com/qnnect/notification/service/NotificationServiceImpl.java
+ com.qnnect.notification.service.NotificationServiceImpl
+com/qnnect/comments/service/CommentServiceImpl.java
+ com.qnnect.comments.service.CommentServiceImpl

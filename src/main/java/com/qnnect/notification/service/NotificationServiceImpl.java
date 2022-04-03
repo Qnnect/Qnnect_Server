@@ -39,7 +39,13 @@ public class NotificationServiceImpl implements NotificationService{
     }
 
     public void saveToken(User user, String token){
-        fcmTokenRepository.save(FcmToken.builder().userId(user.getId())
-                .token(token).build());
+        if(fcmTokenRepository.existsByUserId(user.getId())){
+            FcmToken fcmToken = fcmTokenRepository.findByUserId(user.getId()).orElseThrow();
+            fcmToken.setToken(token);
+            fcmTokenRepository.save(fcmToken);
+        }else{
+            fcmTokenRepository.save(FcmToken.builder().userId(user.getId())
+                    .token(token).build());
+        }
     }
 }

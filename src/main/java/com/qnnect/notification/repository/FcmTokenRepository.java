@@ -12,4 +12,5 @@ import java.util.UUID;
 public interface FcmTokenRepository extends JpaRepository<FcmToken, Long> {
     Optional<FcmToken> findByUserId(@Param(value = "userId") UUID userId);
 
+    boolean existsByUserId(@Param(value = "userId") UUID userId);
 }
