@@ -37,7 +37,8 @@ public enum ErrorCode {
     WRONG_INGREDIENT_HIGHER_LEVEL(HttpStatus.NOT_ACCEPTABLE, "을 넣을 단계에요"),
     CAFE_NOT_FOUND(HttpStatus.NOT_FOUND,"해당 코드를 가진 카페를 찾을 수 없습니다."),
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 사용자를 찾을 수 없습니다."),
-    NOTIFICATION_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 알림을 찾을 수 없습니다.");
+    NOTIFICATION_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 알림을 찾을 수 없습니다."),
+    FCM_TOKEN_NOT_FOUND(HttpStatus.NOT_FOUND, "FCM 토큰을 찾을 수 없습니다.");
 
     private final HttpStatus httpStatus;
     private final String detail;

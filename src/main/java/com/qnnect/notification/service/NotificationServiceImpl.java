@@ -40,7 +40,7 @@ public class NotificationServiceImpl implements NotificationService{
 
     public void saveToken(User user, String token){
         if(fcmTokenRepository.existsByUserId(user.getId())){
-            FcmToken fcmToken = fcmTokenRepository.findByUserId(user.getId()).orElseThrow();
+            FcmToken fcmToken = fcmTokenRepository.findByUserId(user.getId()).orElseThrow(()-> new CustomException(ErrorCode.FCM_TOKEN_NOT_FOUND));
             fcmToken.setToken(token);
             fcmTokenRepository.save(fcmToken);
         }else{
