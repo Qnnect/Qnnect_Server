@@ -69,6 +69,7 @@ public class FirebaseCloudMessageService {
 //        String firebaseConfigPath = "/firebase/firebase_server_key.json";
         String firebaseConfigPath = "file:///home/ec2-user/app/firebase_server_key.json";
 
+
         GoogleCredentials googleCredentials = GoogleCredentials
                 .fromStream(new ClassPathResource(firebaseConfigPath).getInputStream())
                 .createScoped(List.of("https://www.googleapis.com/auth/cloud-platform"));
