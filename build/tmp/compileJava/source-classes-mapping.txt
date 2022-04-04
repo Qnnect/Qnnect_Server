@@ -54,8 +54,9 @@ com/qnnect/auth/token/RefreshTokenRepository.java
  com.qnnect.auth.token.RefreshTokenRepository
 com/qnnect/drink/repository/DrinkRepository.java
  com.qnnect.drink.repository.DrinkRepository
-com/qnnect/notification/FirebaseCloudMessageService.java
- com.qnnect.notification.FirebaseCloudMessageService
+com/qnnect/common/exception/ErrorResponse.java
+ com.qnnect.common.exception.ErrorResponse
+ com.qnnect.common.exception.ErrorResponse$ErrorResponseBuilder
 com/qnnect/auth/dto/AuthRequest.java
  com.qnnect.auth.dto.AuthRequest
 com/qnnect/drink/domain/DrinkIngredientsFilled.java
@@ -119,13 +120,8 @@ com/qnnect/cafe/repository/CafeRepository.java
  com.qnnect.cafe.repository.CafeRepository
 com/qnnect/drink/service/CafeDrinkService.java
  com.qnnect.drink.service.CafeDrinkService
-com/qnnect/notification/FcmMessage.java
- com.qnnect.notification.FcmMessage
- com.qnnect.notification.FcmMessage$FcmMessageBuilder
- com.qnnect.notification.FcmMessage$Message
- com.qnnect.notification.FcmMessage$Message$MessageBuilder
- com.qnnect.notification.FcmMessage$Notification
- com.qnnect.notification.FcmMessage$Notification$NotificationBuilder
+com/qnnect/cafe/service/CafeServiceImpl.java
+ com.qnnect.cafe.service.CafeServiceImpl
 com/qnnect/version/VersionInfo.java
  com.qnnect.version.VersionInfo
 com/qnnect/user/dtos/ProfileResponse.java
@@ -167,8 +163,8 @@ com/qnnect/questions/domain/CafeQuestion.java
 com/qnnect/auth/dto/TokenReissue.java
  com.qnnect.auth.dto.TokenReissue
  com.qnnect.auth.dto.TokenReissue$TokenReissueBuilder
-com/qnnect/user/service/UserServiceImpl.java
- com.qnnect.user.service.UserServiceImpl
+com/qnnect/notification/FirebaseCloudMessageService.java
+ com.qnnect.notification.FirebaseCloudMessageService
 com/qnnect/ingredients/service/IngredientService.java
  com.qnnect.ingredients.service.IngredientService
 com/qnnect/user/domain/Report.java
@@ -350,10 +346,16 @@ com/qnnect/ingredients/service/IngredientServiceImpl.java
  com.qnnect.ingredients.service.IngredientServiceImpl
 com/qnnect/notification/service/NotificationServiceImpl.java
  com.qnnect.notification.service.NotificationServiceImpl
-com/qnnect/common/exception/ErrorResponse.java
- com.qnnect.common.exception.ErrorResponse
- com.qnnect.common.exception.ErrorResponse$ErrorResponseBuilder
-com/qnnect/cafe/service/CafeServiceImpl.java
- com.qnnect.cafe.service.CafeServiceImpl
+com/qnnect/notification/FcmMessage.java
+ com.qnnect.notification.FcmMessage
+ com.qnnect.notification.FcmMessage$Data
+ com.qnnect.notification.FcmMessage$Data$DataBuilder
+ com.qnnect.notification.FcmMessage$FcmMessageBuilder
+ com.qnnect.notification.FcmMessage$Message
+ com.qnnect.notification.FcmMessage$Message$MessageBuilder
+ com.qnnect.notification.FcmMessage$Notification
+ com.qnnect.notification.FcmMessage$Notification$NotificationBuilder
 com/qnnect/comments/service/CommentServiceImpl.java
  com.qnnect.comments.service.CommentServiceImpl
+com/qnnect/user/service/UserServiceImpl.java
+ com.qnnect.user.service.UserServiceImpl

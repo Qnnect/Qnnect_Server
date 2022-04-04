@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService{
         List<Cafe> cafeList = cafeUserList.stream().map(CafeUser::getCafe).collect(Collectors.toList());
         List<Long> cafeIdList = cafeList.stream().map(Cafe::getId).collect(Collectors.toList());
         List<CafeQuestion> todayQuestionList = getLatestQuestion(cafeIdList);
-        boolean hasUnreadNotification = notificationRepository.existsByUserIdAndUserChecked(user.getId(), true);
+        boolean hasUnreadNotification = notificationRepository.existsByUserIdAndUserChecked(user.getId(), false);
 
         if(cafeUserList == null){
             return new MainResponse(user, null, null, hasUnreadNotification);

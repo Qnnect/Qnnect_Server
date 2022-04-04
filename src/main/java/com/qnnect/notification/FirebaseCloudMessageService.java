@@ -25,8 +25,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FirebaseCloudMessageService {
 
-    @Value("${firebase.key}")
-    private String firebaseConfigPath;
+//    @Value("${firebase.key}")
+//    private String firebaseConfigPath;
 
     private final String API_URL = "https://fcm.googleapis.com/v1/projects/qnnect-d6ecc/messages:send";
     private final ObjectMapper objectMapper;
@@ -57,6 +57,13 @@ public class FirebaseCloudMessageService {
         FcmMessage fcmMessage = FcmMessage.builder()
                 .message(FcmMessage.Message.builder()
                         .token(targetToken)
+//                        .data(FcmMessage.Data.builder()
+//                                .title(title)
+//                                .link("https://iame.page.link/Fc4u")
+//                                .body(body)
+//                                .image(null)
+//                                .build()
+//                        )
                         .notification(FcmMessage.Notification.builder()
                                 .title(title)
                                 .body(body)
@@ -69,7 +76,7 @@ public class FirebaseCloudMessageService {
 
     private String getAccessToken() throws IOException {
 
-//        String firebaseConfigPath = "/firebase/firebase_server_key.json";
+        String firebaseConfigPath = "/firebase/firebase_server_key.json";
 
         GoogleCredentials googleCredentials = GoogleCredentials
                 .fromStream(new ClassPathResource(firebaseConfigPath).getInputStream())
