@@ -1,5 +1,7 @@
 package com.qnnect.comments.service;
 
+import com.qnnect.cafe.domain.CafeUser;
+import com.qnnect.cafe.repository.CafeUserRepository;
 import com.qnnect.comments.domain.Comment;
 import com.qnnect.comments.domain.Reply;
 import com.qnnect.comments.dtos.CommentDetailResponse;
@@ -11,6 +13,7 @@ import com.qnnect.common.exception.CustomException;
 import com.qnnect.common.exception.ErrorCode;
 
 //import com.qnnect.notification.FirebaseCloudMessageService;
+import com.qnnect.drink.domain.UserDrinkSelected;
 import com.qnnect.notification.domain.ENotificationType;
 import com.qnnect.notification.domain.FcmToken;
 import com.qnnect.notification.domain.Notification;
@@ -54,6 +57,7 @@ public class CommentServiceImpl implements CommentService {
 //    private final FirebaseCloudMessageService firebaseCloudMessageService;
     private final FcmTokenRepository fcmTokenRepository;
     private final NotificationRepository notificationRepository;
+    private final CafeUserRepository cafeUserRepository;
 
     @Override
     @Transactional
@@ -62,9 +66,14 @@ public class CommentServiceImpl implements CommentService {
                        MultipartFile image5) {
         String[] image = new String[5];
 
+
         System.out.println(cafeQuestionId);
         CafeQuestion cafeQuestion = cafeQuestionRepository.findById(cafeQuestionId)
                 .orElseThrow(() -> new CustomException(CAFE_QUESTION_NOT_FOUND));
+        CafeUser cafeUser = cafeUserRepository.findByCafe_IdAndUser_Id(cafeQuestion.getCafe().getId(),user.getId());
+        if(cafeUser.getUserDrinkSelected().size() == 0){
+            throw new CustomException(ErrorCode.CAFE_DRINK_NOT_SELECTED_EXCEPTION);
+        }
         LocalDateTime now = LocalDateTime.now();
         if (now.isAfter(cafeQuestion.getCreatedAt().plusDays(7))) {
             throw new CustomException(ErrorCode.CAFE_QUESTION_DATE_PASSED);
