@@ -163,8 +163,8 @@ com/qnnect/questions/domain/CafeQuestion.java
 com/qnnect/auth/dto/TokenReissue.java
  com.qnnect.auth.dto.TokenReissue
  com.qnnect.auth.dto.TokenReissue$TokenReissueBuilder
-com/qnnect/notification/FirebaseCloudMessageService.java
- com.qnnect.notification.FirebaseCloudMessageService
+com/qnnect/user/service/UserServiceImpl.java
+ com.qnnect.user.service.UserServiceImpl
 com/qnnect/ingredients/service/IngredientService.java
  com.qnnect.ingredients.service.IngredientService
 com/qnnect/user/domain/Report.java
@@ -346,6 +346,8 @@ com/qnnect/ingredients/service/IngredientServiceImpl.java
  com.qnnect.ingredients.service.IngredientServiceImpl
 com/qnnect/notification/service/NotificationServiceImpl.java
  com.qnnect.notification.service.NotificationServiceImpl
+com/qnnect/notification/FirebaseCloudMessageService.java
+ com.qnnect.notification.FirebaseCloudMessageService
 com/qnnect/notification/FcmMessage.java
  com.qnnect.notification.FcmMessage
  com.qnnect.notification.FcmMessage$Data
@@ -357,5 +359,3 @@ com/qnnect/notification/FcmMessage.java
  com.qnnect.notification.FcmMessage$Notification$NotificationBuilder
 com/qnnect/comments/service/CommentServiceImpl.java
  com.qnnect.comments.service.CommentServiceImpl
-com/qnnect/user/service/UserServiceImpl.java
- com.qnnect.user.service.UserServiceImpl

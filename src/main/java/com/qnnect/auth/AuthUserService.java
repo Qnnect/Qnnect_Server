@@ -44,7 +44,9 @@ public class AuthUserService {
         boolean isUserSettingDone = false;
 
         if (userRepository.findBySocialId(user.getSocialId()).equals(Optional.empty())) {
+            user.setPoint(20);
             userRepository.save(user);
+
             System.out.println(user.getSocialId());
             refreshToken = RefreshToken.builder()
                     .id(user.getSocialId())

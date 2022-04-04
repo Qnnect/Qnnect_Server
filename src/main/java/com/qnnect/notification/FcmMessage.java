@@ -10,7 +10,6 @@ import lombok.Getter;
 public class FcmMessage {
     private boolean validateOnly;
     private Message message;
-    private Data data;
 
     @Builder
     @AllArgsConstructor

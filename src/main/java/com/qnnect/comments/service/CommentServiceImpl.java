@@ -107,7 +107,7 @@ public class CommentServiceImpl implements CommentService {
                 .orElseThrow(()-> new CustomException(ErrorCode.INVALID_AUTH_TOKEN));
         try{
             firebaseCloudMessageService.sendMessageTo(
-                    "c18dGCEVR9Sj9eV5CPBu3E:APA91bHDEoKpv6dv5Y2w4g_p_cnte1IG7Ok7eBYdG9_0Kal993Mr2mwzjUpA3C503bY-vZPOHqd1f3Si1CD6avH3tbrPpQClfAIUu26DJfD9PtGHx7lQF-GU_XuKN5zIRBZQZVQoRUV4",
+                    "cdrtXP-9F0JTqHonY54UTX:APA91bEIqy5MQEJ5_Jaf95D8mriuRZ5faFcVj4RVSIsuNi_0_XkURsP5Mv7MMOCeKknmkEHk4NxE0qaIeIRkFC5VDEI8wuGdbSvZSlhQo_UN_EYT8vk7izw965cBg3C-gj3XlAZsib0A",
                     "📮내 답변에 댓글이 달렸어요! 댓글을 보러 가볼까요?",
                     comment.getContent());
         } catch (IOException e) {
