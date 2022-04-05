@@ -5,7 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface VersionInfoRepository extends JpaRepository<VersionInfo, Long> {
-    VersionInfo findTop1ByOsOrderByIdDesc(@Param(value = "os") EOs os);
+    VersionInfo findByOsAndVersion(@Param(value = "os") EOs os, @Param(value = "version") String version);
 }

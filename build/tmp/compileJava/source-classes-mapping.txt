@@ -112,8 +112,8 @@ com/qnnect/common/CurrentUser.java
  com.qnnect.common.CurrentUser
 com/qnnect/drink/repository/DrinkIngredientsFilledRepository.java
  com.qnnect.drink.repository.DrinkIngredientsFilledRepository
-com/qnnect/version/VersionService.java
- com.qnnect.version.VersionService
+com/qnnect/comments/service/ReplyServiceImpl.java
+ com.qnnect.comments.service.ReplyServiceImpl
 com/qnnect/user/dtos/ReportResponse.java
  com.qnnect.user.dtos.ReportResponse
 com/qnnect/cafe/repository/CafeRepository.java
@@ -140,8 +140,8 @@ com/qnnect/notification/repository/FcmTokenRepository.java
  com.qnnect.notification.repository.FcmTokenRepository
 com/qnnect/scrap/apis/ScrapController.java
  com.qnnect.scrap.apis.ScrapController
-com/qnnect/version/VersionController.java
- com.qnnect.version.VersionController
+com/qnnect/comments/service/CommentServiceImpl.java
+ com.qnnect.comments.service.CommentServiceImpl
 com/qnnect/auth/token/TokenService.java
  com.qnnect.auth.token.TokenService
 com/qnnect/comments/dtos/CommentResponse.java
@@ -321,8 +321,8 @@ com/qnnect/drink/service/DrinkService.java
  com.qnnect.drink.service.DrinkService
 com/qnnect/drink/repository/DrinkRecipeRepository.java
  com.qnnect.drink.repository.DrinkRecipeRepository
-com/qnnect/version/VersionInfoRepository.java
- com.qnnect.version.VersionInfoRepository
+com/qnnect/questions/service/Schedule.java
+ com.qnnect.questions.service.Schedule
 com/qnnect/comments/dtos/ContentDto.java
  com.qnnect.comments.dtos.ContentDto
 com/qnnect/drink/domain/UserDrinkSelected.java
@@ -353,9 +353,9 @@ com/qnnect/ingredients/service/IngredientServiceImpl.java
  com.qnnect.ingredients.service.IngredientServiceImpl
 com/qnnect/notification/FirebaseCloudMessageService.java
  com.qnnect.notification.FirebaseCloudMessageService
-com/qnnect/questions/service/Schedule.java
- com.qnnect.questions.service.Schedule
-com/qnnect/comments/service/CommentServiceImpl.java
- com.qnnect.comments.service.CommentServiceImpl
-com/qnnect/comments/service/ReplyServiceImpl.java
- com.qnnect.comments.service.ReplyServiceImpl
+com/qnnect/version/VersionInfoRepository.java
+ com.qnnect.version.VersionInfoRepository
+com/qnnect/version/VersionController.java
+ com.qnnect.version.VersionController
+com/qnnect/version/VersionService.java
+ com.qnnect.version.VersionService

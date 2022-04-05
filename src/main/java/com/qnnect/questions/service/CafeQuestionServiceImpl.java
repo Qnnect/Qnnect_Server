@@ -187,6 +187,8 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
         Cafe cafe = cafeQuestion.getCafe();
         List<CafeUser> cafeUserList = cafeUserRepository.findAllByCafe_Id(cafe.getId());
 
+        System.out.println("cafeQuestionId=-==============" + cafeQuestion.getQuestions().getId());
+        System.out.println("cafeQuestion========" + cafeQuestion.getQuestions().getContent());
         for (int i = 0; i < cafeUserList.size(); i++) {
             notificationRepository.save(Notification.builder()
                     .notificationType(ENotificationType.question)
