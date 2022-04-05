@@ -355,7 +355,7 @@ com/qnnect/notification/FirebaseCloudMessageService.java
  com.qnnect.notification.FirebaseCloudMessageService
 com/qnnect/questions/service/Schedule.java
  com.qnnect.questions.service.Schedule
-com/qnnect/comments/service/ReplyServiceImpl.java
- com.qnnect.comments.service.ReplyServiceImpl
 com/qnnect/comments/service/CommentServiceImpl.java
  com.qnnect.comments.service.CommentServiceImpl
+com/qnnect/comments/service/ReplyServiceImpl.java
+ com.qnnect.comments.service.ReplyServiceImpl

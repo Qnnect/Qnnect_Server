@@ -49,13 +49,14 @@ public class ReplyServiceImpl implements ReplyService{
 
 
             try{
+
                 FcmToken fcmToken = fcmTokenRepository.findByUserId(commentUser.getId())
                     .orElseThrow(()-> new CustomException(ErrorCode.INVALID_AUTH_TOKEN));
                 firebaseCloudMessageService.sendMessageTo(
                         fcmToken.getToken(),
                         "📮내 답변에 댓글이 달렸어요! 댓글을 보러 가볼까요?",
                         reply.getContent());
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
