@@ -96,23 +96,24 @@ public class CommentServiceImpl implements CommentService {
     }
 
     public void sendCommentNotification(User questioner, Comment comment) {
-        if(questioner.getId() != comment.getUser().getId()){
+        if(questioner.getId().equals(comment.getUser().getId())){
             Notification notification = Notification.builder().notificationType(ENotificationType.comment)
                     .contentId(comment.getId()).user(questioner).content(comment.getContent())
                     .senderName(comment.getUser().getNickName())
                     .groupName(comment.getCafeQuestion().getCafe().getTitle()).build();
             notificationRepository.save(notification);
         }
-
-        try{
-            FcmToken fcmToken = fcmTokenRepository.findByUserId(questioner.getId())
-                .orElseThrow(()-> new CustomException(ErrorCode.INVALID_AUTH_TOKEN));
-            firebaseCloudMessageService.sendMessageTo(
-                    fcmToken.getToken(),
-                    "📮내 질문에 답변이 달렸어요! 답변을 보러 가볼까요?",
-                    comment.getContent());
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(questioner.isPushEnabled()){
+            try{
+                FcmToken fcmToken = fcmTokenRepository.findByUserId(questioner.getId())
+                        .orElseThrow(()-> new CustomException(ErrorCode.INVALID_AUTH_TOKEN));
+                firebaseCloudMessageService.sendMessageTo(
+                        fcmToken.getToken(),
+                        "📮내 질문에 답변이 달렸어요! 답변을 보러 가볼까요?",
+                        comment.getContent());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
     }

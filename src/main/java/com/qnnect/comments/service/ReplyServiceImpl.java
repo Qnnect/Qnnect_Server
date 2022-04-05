@@ -47,17 +47,17 @@ public class ReplyServiceImpl implements ReplyService{
                     .groupName(reply.getComment().getCafeQuestion().getCafe().getTitle()).build();
             notificationRepository.save(notification);
 
-
-            try{
-
-                FcmToken fcmToken = fcmTokenRepository.findByUserId(commentUser.getId())
-                    .orElseThrow(()-> new CustomException(ErrorCode.INVALID_AUTH_TOKEN));
-                firebaseCloudMessageService.sendMessageTo(
-                        fcmToken.getToken(),
-                        "📮내 답변에 댓글이 달렸어요! 댓글을 보러 가볼까요?",
-                        reply.getContent());
-            } catch (Exception e) {
-                e.printStackTrace();
+            if(commentUser.isPushEnabled()){
+                try{
+                    FcmToken fcmToken = fcmTokenRepository.findByUserId(commentUser.getId())
+                            .orElseThrow(()-> new CustomException(ErrorCode.INVALID_AUTH_TOKEN));
+                    firebaseCloudMessageService.sendMessageTo(
+                            fcmToken.getToken(),
+                            "📮내 답변에 댓글이 달렸어요! 댓글을 보러 가볼까요?",
+                            reply.getContent());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
 
