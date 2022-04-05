@@ -40,7 +40,7 @@ public class ReplyServiceImpl implements ReplyService{
     }
 
     public void sendReplyNotification(User commentUser, Reply reply) {
-        if (commentUser.getId().equals(reply.getUser().getId())) {
+        if (!commentUser.getId().equals(reply.getUser().getId())) {
             Notification notification = Notification.builder().notificationType(ENotificationType.reply)
                     .contentId(reply.getComment().getId()).user(commentUser).content(reply.getContent())
                     .senderName(reply.getUser().getNickName())
