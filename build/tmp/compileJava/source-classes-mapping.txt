@@ -4,8 +4,8 @@ com/qnnect/auth/JwtAuthenticationFilter.java
  com.qnnect.auth.JwtAuthenticationFilter
 com/qnnect/comments/service/ReplyServiceImpl.java
  com.qnnect.comments.service.ReplyServiceImpl
-com/qnnect/auth/AuthController.java
- com.qnnect.auth.AuthController
+com/qnnect/auth/AuthUserService.java
+ com.qnnect.auth.AuthUserService
 com/qnnect/drink/dtos/DrinkResponse.java
  com.qnnect.drink.dtos.DrinkResponse
  com.qnnect.drink.dtos.DrinkResponse$DrinkResponseBuilder
@@ -68,8 +68,8 @@ com/qnnect/auth/client/ClientApple.java
  com.qnnect.auth.client.ClientApple
 com/qnnect/auth/token/Token.java
  com.qnnect.auth.token.Token
-com/qnnect/questions/service/Schedule.java
- com.qnnect.questions.service.Schedule
+com/qnnect/comments/service/CommentServiceImpl.java
+ com.qnnect.comments.service.CommentServiceImpl
 com/qnnect/common/domain/BaseTimeEntity.java
  com.qnnect.common.domain.BaseTimeEntity
 com/qnnect/likes/UserLikeQuestionRepository.java
@@ -338,16 +338,6 @@ com/qnnect/drink/service/DrinkServiceImpl.java
  com.qnnect.drink.service.DrinkServiceImpl
 com/qnnect/common/exception/GlobalExceptionHandler.java
  com.qnnect.common.exception.GlobalExceptionHandler
-com/qnnect/auth/AuthUserService.java
- com.qnnect.auth.AuthUserService
-com/qnnect/scrap/service/ScrapServiceImpl.java
- com.qnnect.scrap.service.ScrapServiceImpl
-com/qnnect/ingredients/service/IngredientServiceImpl.java
- com.qnnect.ingredients.service.IngredientServiceImpl
-com/qnnect/notification/service/NotificationServiceImpl.java
- com.qnnect.notification.service.NotificationServiceImpl
-com/qnnect/notification/FirebaseCloudMessageService.java
- com.qnnect.notification.FirebaseCloudMessageService
 com/qnnect/notification/FcmMessage.java
  com.qnnect.notification.FcmMessage
  com.qnnect.notification.FcmMessage$Data
@@ -357,5 +347,15 @@ com/qnnect/notification/FcmMessage.java
  com.qnnect.notification.FcmMessage$Message$MessageBuilder
  com.qnnect.notification.FcmMessage$Notification
  com.qnnect.notification.FcmMessage$Notification$NotificationBuilder
-com/qnnect/comments/service/CommentServiceImpl.java
- com.qnnect.comments.service.CommentServiceImpl
+com/qnnect/scrap/service/ScrapServiceImpl.java
+ com.qnnect.scrap.service.ScrapServiceImpl
+com/qnnect/ingredients/service/IngredientServiceImpl.java
+ com.qnnect.ingredients.service.IngredientServiceImpl
+com/qnnect/notification/service/NotificationServiceImpl.java
+ com.qnnect.notification.service.NotificationServiceImpl
+com/qnnect/auth/AuthController.java
+ com.qnnect.auth.AuthController
+com/qnnect/notification/FirebaseCloudMessageService.java
+ com.qnnect.notification.FirebaseCloudMessageService
+com/qnnect/questions/service/Schedule.java
+ com.qnnect.questions.service.Schedule
