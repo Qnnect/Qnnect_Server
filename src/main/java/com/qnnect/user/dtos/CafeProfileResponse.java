@@ -27,14 +27,21 @@ public class CafeProfileResponse {
                 , user.getNickName(), cafeUser.getId());
     }
 
-    public static List<CafeProfileResponse> listFrom(List<CafeUser> cafeUsers) {
+    public static List<CafeProfileResponse> listFrom(List<CafeUser> cafeUsers, User user) {
         if(cafeUsers == null){
             return null;
         }
 
-        return cafeUsers.stream()
+        List<CafeProfileResponse> cafeProfileResponses = cafeUsers.stream()
+                .filter(cafeUser -> !cafeUser.getUser().getId().equals(user.getId()))
                 .map(CafeProfileResponse::from)
                 .filter(CafeProfileResponse -> CafeProfileResponse != null)
                 .collect(Collectors.toList());
+
+        CafeUser currentCafeUser = (CafeUser) cafeUsers.stream()
+                .filter(cafeUser -> cafeUser.getUser().getId().equals(user.getId()));
+
+        cafeProfileResponses.add(0,from(currentCafeUser));
+        return cafeProfileResponses;
     }
 }
