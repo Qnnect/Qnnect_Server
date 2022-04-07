@@ -33,15 +33,15 @@ public class CafeProfileResponse {
         }
 
         List<CafeProfileResponse> cafeProfileResponses = cafeUsers.stream()
-                .filter(cafeUser -> !cafeUser.getUser().getId().equals(user.getId()))
+//                .filter(cafeUser -> !cafeUser.getUser().getId().equals(user.getId()))
                 .map(CafeProfileResponse::from)
                 .filter(CafeProfileResponse -> CafeProfileResponse != null)
                 .collect(Collectors.toList());
 
-        CafeUser currentCafeUser = (CafeUser) cafeUsers.stream()
-                .filter(cafeUser -> cafeUser.getUser().getId().equals(user.getId()));
-
-        cafeProfileResponses.add(0,from(currentCafeUser));
+//        CafeUser currentCafeUser = (CafeUser) cafeUsers.stream()
+//                .filter(cafeUser -> cafeUser.getUser().getId().equals(user.getId()));
+//
+//        cafeProfileResponses.add(0,from(currentCafeUser));
         return cafeProfileResponses;
     }
 }

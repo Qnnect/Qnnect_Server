@@ -87,16 +87,23 @@ com/qnnect/drink/dtos/StampResponse.java
 com/qnnect/drink/dtos/DrinkRecipeResponse.java
  com.qnnect.drink.dtos.DrinkRecipeResponse
  com.qnnect.drink.dtos.DrinkRecipeResponse$DrinkRecipeResponseBuilder
-com/qnnect/drink/dtos/CafeDrinkResponse.java
- com.qnnect.drink.dtos.CafeDrinkResponse
+com/qnnect/version/VersionController.java
+ com.qnnect.version.VersionController
 com/qnnect/comments/service/ReplyService.java
  com.qnnect.comments.service.ReplyService
 com/qnnect/drink/dtos/CafeDrinkRecipeResponse.java
  com.qnnect.drink.dtos.CafeDrinkRecipeResponse
 com/qnnect/notification/repository/NotificationRepository.java
  com.qnnect.notification.repository.NotificationRepository
-com/qnnect/cafe/api/CafeDrinkController.java
- com.qnnect.cafe.api.CafeDrinkController
+com/qnnect/notification/FcmMessage.java
+ com.qnnect.notification.FcmMessage
+ com.qnnect.notification.FcmMessage$Data
+ com.qnnect.notification.FcmMessage$Data$DataBuilder
+ com.qnnect.notification.FcmMessage$FcmMessageBuilder
+ com.qnnect.notification.FcmMessage$Message
+ com.qnnect.notification.FcmMessage$Message$MessageBuilder
+ com.qnnect.notification.FcmMessage$Notification
+ com.qnnect.notification.FcmMessage$Notification$NotificationBuilder
 com/qnnect/ingredients/domain/UserIngredient.java
  com.qnnect.ingredients.domain.UserIngredient
  com.qnnect.ingredients.domain.UserIngredient$UserIngredientBuilder
@@ -112,14 +119,14 @@ com/qnnect/common/CurrentUser.java
  com.qnnect.common.CurrentUser
 com/qnnect/drink/repository/DrinkIngredientsFilledRepository.java
  com.qnnect.drink.repository.DrinkIngredientsFilledRepository
-com/qnnect/comments/service/ReplyServiceImpl.java
- com.qnnect.comments.service.ReplyServiceImpl
+com/qnnect/version/VersionInfoRepository.java
+ com.qnnect.version.VersionInfoRepository
 com/qnnect/user/dtos/ReportResponse.java
  com.qnnect.user.dtos.ReportResponse
 com/qnnect/cafe/repository/CafeRepository.java
  com.qnnect.cafe.repository.CafeRepository
-com/qnnect/drink/service/CafeDrinkService.java
- com.qnnect.drink.service.CafeDrinkService
+com/qnnect/ingredients/service/IngredientServiceImpl.java
+ com.qnnect.ingredients.service.IngredientServiceImpl
 com/qnnect/cafe/service/CafeServiceImpl.java
  com.qnnect.cafe.service.CafeServiceImpl
 com/qnnect/version/VersionInfo.java
@@ -140,8 +147,8 @@ com/qnnect/notification/repository/FcmTokenRepository.java
  com.qnnect.notification.repository.FcmTokenRepository
 com/qnnect/scrap/apis/ScrapController.java
  com.qnnect.scrap.apis.ScrapController
-com/qnnect/comments/service/CommentServiceImpl.java
- com.qnnect.comments.service.CommentServiceImpl
+com/qnnect/common/exception/CustomException.java
+ com.qnnect.common.exception.CustomException
 com/qnnect/auth/token/TokenService.java
  com.qnnect.auth.token.TokenService
 com/qnnect/comments/dtos/CommentResponse.java
@@ -193,8 +200,8 @@ com/qnnect/scrap/repository/ScrapRepository.java
 com/qnnect/notification/domain/FcmToken.java
  com.qnnect.notification.domain.FcmToken
  com.qnnect.notification.domain.FcmToken$FcmTokenBuilder
-com/qnnect/user/dtos/CafeProfileResponse.java
- com.qnnect.user.dtos.CafeProfileResponse
+com/qnnect/likes/UserLikeQuestionServiceImpl.java
+ com.qnnect.likes.UserLikeQuestionServiceImpl
 com/qnnect/auth/ELoginType.java
  com.qnnect.auth.ELoginType
 com/qnnect/questions/apis/QuestionController.java
@@ -207,8 +214,8 @@ com/qnnect/cafe/domain/Cafe.java
 com/qnnect/drink/dtos/DrinkIngredientsFilledResponse.java
  com.qnnect.drink.dtos.DrinkIngredientsFilledResponse
  com.qnnect.drink.dtos.DrinkIngredientsFilledResponse$DrinkIngredientsFilledResponseBuilder
-com/qnnect/drink/service/CafeDrinkServiceImpl.java
- com.qnnect.drink.service.CafeDrinkServiceImpl
+com/qnnect/version/VersionService.java
+ com.qnnect.version.VersionService
 com/qnnect/questions/dto/QuestionMainResponse.java
  com.qnnect.questions.dto.QuestionMainResponse
  com.qnnect.questions.dto.QuestionMainResponse$QuestionMainResponseBuilder
@@ -298,15 +305,15 @@ com/qnnect/cafe/repository/CafeUserRepository.java
  com.qnnect.cafe.repository.CafeUserRepository
 com/qnnect/cafe/dto/CafeRequest.java
  com.qnnect.cafe.dto.CafeRequest
-com/qnnect/questions/service/CafeQuestionServiceImpl.java
- com.qnnect.questions.service.CafeQuestionServiceImpl
+com/qnnect/scrap/service/ScrapServiceImpl.java
+ com.qnnect.scrap.service.ScrapServiceImpl
 com/qnnect/comments/repository/CommentRepository.java
  com.qnnect.comments.repository.CommentRepository
 com/qnnect/likes/UserLikeQuestion.java
  com.qnnect.likes.UserLikeQuestion
  com.qnnect.likes.UserLikeQuestion$UserLikeQuestionBuilder
-com/qnnect/drink/apis/DrinkController.java
- com.qnnect.drink.apis.DrinkController
+com/qnnect/drink/service/DrinkServiceImpl.java
+ com.qnnect.drink.service.DrinkServiceImpl
 com/qnnect/user/api/UserController.java
  com.qnnect.user.api.UserController
 com/qnnect/questions/domain/Question.java
@@ -321,8 +328,8 @@ com/qnnect/drink/service/DrinkService.java
  com.qnnect.drink.service.DrinkService
 com/qnnect/drink/repository/DrinkRecipeRepository.java
  com.qnnect.drink.repository.DrinkRecipeRepository
-com/qnnect/questions/service/Schedule.java
- com.qnnect.questions.service.Schedule
+com/qnnect/common/exception/GlobalExceptionHandler.java
+ com.qnnect.common.exception.GlobalExceptionHandler
 com/qnnect/comments/dtos/ContentDto.java
  com.qnnect.comments.dtos.ContentDto
 com/qnnect/drink/domain/UserDrinkSelected.java
@@ -330,32 +337,25 @@ com/qnnect/drink/domain/UserDrinkSelected.java
  com.qnnect.drink.domain.UserDrinkSelected$UserDrinkSelectedBuilder
 com/qnnect/common/exception/ErrorCode.java
  com.qnnect.common.exception.ErrorCode
-com/qnnect/likes/UserLikeQuestionServiceImpl.java
- com.qnnect.likes.UserLikeQuestionServiceImpl
-com/qnnect/common/exception/CustomException.java
- com.qnnect.common.exception.CustomException
-com/qnnect/drink/service/DrinkServiceImpl.java
- com.qnnect.drink.service.DrinkServiceImpl
-com/qnnect/common/exception/GlobalExceptionHandler.java
- com.qnnect.common.exception.GlobalExceptionHandler
-com/qnnect/notification/FcmMessage.java
- com.qnnect.notification.FcmMessage
- com.qnnect.notification.FcmMessage$Data
- com.qnnect.notification.FcmMessage$Data$DataBuilder
- com.qnnect.notification.FcmMessage$FcmMessageBuilder
- com.qnnect.notification.FcmMessage$Message
- com.qnnect.notification.FcmMessage$Message$MessageBuilder
- com.qnnect.notification.FcmMessage$Notification
- com.qnnect.notification.FcmMessage$Notification$NotificationBuilder
-com/qnnect/scrap/service/ScrapServiceImpl.java
- com.qnnect.scrap.service.ScrapServiceImpl
-com/qnnect/ingredients/service/IngredientServiceImpl.java
- com.qnnect.ingredients.service.IngredientServiceImpl
+com/qnnect/drink/service/CafeDrinkServiceImpl.java
+ com.qnnect.drink.service.CafeDrinkServiceImpl
+com/qnnect/drink/dtos/CafeDrinkResponse.java
+ com.qnnect.drink.dtos.CafeDrinkResponse
+com/qnnect/comments/service/ReplyServiceImpl.java
+ com.qnnect.comments.service.ReplyServiceImpl
+com/qnnect/user/dtos/CafeProfileResponse.java
+ com.qnnect.user.dtos.CafeProfileResponse
+com/qnnect/drink/service/CafeDrinkService.java
+ com.qnnect.drink.service.CafeDrinkService
+com/qnnect/questions/service/CafeQuestionServiceImpl.java
+ com.qnnect.questions.service.CafeQuestionServiceImpl
+com/qnnect/cafe/api/CafeDrinkController.java
+ com.qnnect.cafe.api.CafeDrinkController
+com/qnnect/questions/service/Schedule.java
+ com.qnnect.questions.service.Schedule
+com/qnnect/drink/apis/DrinkController.java
+ com.qnnect.drink.apis.DrinkController
+com/qnnect/comments/service/CommentServiceImpl.java
+ com.qnnect.comments.service.CommentServiceImpl
 com/qnnect/notification/FirebaseCloudMessageService.java
  com.qnnect.notification.FirebaseCloudMessageService
-com/qnnect/version/VersionInfoRepository.java
- com.qnnect.version.VersionInfoRepository
-com/qnnect/version/VersionController.java
- com.qnnect.version.VersionController
-com/qnnect/version/VersionService.java
- com.qnnect.version.VersionService
