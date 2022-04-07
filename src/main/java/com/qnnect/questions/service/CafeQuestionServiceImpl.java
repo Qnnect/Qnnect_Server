@@ -7,10 +7,15 @@ import com.qnnect.cafe.repository.CafeRepository;
 import com.qnnect.cafe.repository.CafeUserRepository;
 import com.qnnect.comments.domain.Comment;
 import com.qnnect.comments.repository.CommentRepository;
+import com.qnnect.common.exception.CustomException;
+import com.qnnect.common.exception.ErrorCode;
 import com.qnnect.likes.UserLikeQuestion;
 import com.qnnect.likes.UserLikeQuestionRepository;
+import com.qnnect.notification.FirebaseCloudMessageService;
 import com.qnnect.notification.domain.ENotificationType;
+import com.qnnect.notification.domain.FcmToken;
 import com.qnnect.notification.domain.Notification;
+import com.qnnect.notification.repository.FcmTokenRepository;
 import com.qnnect.notification.repository.NotificationRepository;
 import com.qnnect.questions.domain.*;
 import com.qnnect.questions.dto.CafeQuestionResponse;
@@ -51,6 +56,8 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
     private final ReportRepository reportRepository;
     private final NotificationRepository notificationRepository;
     private final CafeUserRepository cafeUserRepository;
+    private final FirebaseCloudMessageService firebaseCloudMessageService;
+    private final FcmTokenRepository fcmTokenRepository;
 
     @Override
     public Question findQuestionToday(Cafe cafe) {
@@ -197,6 +204,19 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
                     .user(cafeUserList.get(i).getUser())
                     .groupName(cafeQuestion.getCafe().getTitle())
                     .build());
+
+            if(cafeUserList.get(i).getUser().isPushEnabled()){
+                try{
+                    FcmToken fcmToken = fcmTokenRepository.findByUserId(cafeUserList.get(i).getUser().getId())
+                            .orElseThrow(()-> new CustomException(ErrorCode.INVALID_AUTH_TOKEN));
+                    firebaseCloudMessageService.sendMessageTo(
+                            fcmToken.getToken(),
+                            "📮"+ cafe.getTitle() + "에 질문이 도착했어요! 답변을 달러 가볼까요?",
+                            cafeQuestion.getQuestions().getContent());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
     }

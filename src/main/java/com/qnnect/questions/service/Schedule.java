@@ -34,10 +34,6 @@ public class Schedule {
                 <= Duration.between(cafeQuestionRepository.findTop1ByCafe_IdOrderByIdDesc(cafe.getId())
                 .getCreatedAt(), now).toDays()).collect(Collectors.toList());
 
-//        List<Long> day = cafeQuestionRepository.findAllByCafe_Id(118L).stream().map(question-> Duration.between(question.getCreatedAt(),now).toDays()).collect(Collectors.toList());
-
-//        System.out.println(day.get(0));
-
         System.out.println("+++++++++++++++++++++"+now);
         cafeQuestionService.sendCafeQuestions(filteredCafe);
     }
