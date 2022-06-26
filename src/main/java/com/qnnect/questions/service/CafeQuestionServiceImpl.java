@@ -179,9 +179,9 @@ public class CafeQuestionServiceImpl implements CafeQuestionService {
                     questionType = EQuestionType.valueOf(filteredCafe.get(i).getGroupType().toString());
                 }
                 Question question = questionRepository.findByQuestionTypeRand(questionType.toString());
-                while (cafeQuestionRepository.existsByCafe_IdAndQuestions_Id(filteredCafe.get(i).getId(), question.getId())) {
-                    question = questionRepository.findByQuestionTypeRand(questionType.toString());
-                }
+//                while (cafeQuestionRepository.existsByCafe_IdAndQuestions_Id(filteredCafe.get(i).getId(), question.getId())) {
+//                    question = questionRepository.findByQuestionTypeRand(questionType.toString());
+//                }
 
                 CafeQuestion cafeQuestion = cafeQuestionRepository.save(CafeQuestion.builder().cafe(filteredCafe.get(i)).question(question).build());
                 sendCafeQuestionNotification(cafeQuestion);
